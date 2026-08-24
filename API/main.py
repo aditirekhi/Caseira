@@ -40,7 +40,7 @@ app.include_router(bookmarked_favorites_recipes.router)
 app.include_router(user_calendar_plan_details.router)
 app.include_router(helpful_reviews.router)
 
-origins = ["http://localhost:4200", "https://yourproductionapp.com"]
+origins = ["http://localhost:4200", "https://caseira-ui.onrender.com/"]
 
 app.add_middleware(
     CORSMiddleware,
