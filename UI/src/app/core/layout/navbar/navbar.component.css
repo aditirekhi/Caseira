@@ -1,0 +1,44 @@
+.navbar {
+  padding: 0 0.5rem;
+  margin: 0;
+  background-color: var(--secondary-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo-image {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10%;
+  margin: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .logo-image {
+    width: 70px;
+    margin: 0;
+  }
+
+  .navbar > div {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 700px) {
+  .navbar shared-input {
+    order: 3;
+    width: 100%;
+  }
+}

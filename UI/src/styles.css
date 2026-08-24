@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+:root {
+  --primary-color: #f8f4ec;
+  --secondary-color: #12372a;
+  --muted-secondary-color: #bbc0be;
+  --prompt-color: #d97706;
+  --muted-prompt-color: #ddc3a6;
+
+  --success-message-border-color: #8bc34a;
+  --warning-message-border-color: #e6a82e;
+  --error-message-border-color: #d95c4f;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary-color);
+  background-image: url("/assets/Backgrounds/background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-heading {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 72px;
+}
+
+.section-heading {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 56px;
+}
+.subsection-heading {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 44px;
+}
+
+.card-title-recipe-name {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 34px;
+}
+
+.large-highlight-text {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 30px;
+}
+
+.feature-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 26px;
+}
+
+.body-paragraph {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 28px;
+}
+
+.secondary-text {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.button-text {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.captions-labels {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.small-helper-text {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+}
+
+.pi {
+  margin: 0 0.5rem;
+}

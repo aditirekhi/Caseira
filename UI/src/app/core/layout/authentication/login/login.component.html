@@ -1,0 +1,92 @@
+<main class="login-container">
+  <div class="login-form">
+    <img src="assets/Logos/logo-small.png" class="logo-small" />
+    <label class="card-title-recipe-name">Welcome Back</label>
+    <label class="small-helper-text"
+      >Log in to continue your healthy journey.</label
+    >
+    <form [formGroup]="loginForm" (ngSubmit)="logInSubmission()">
+      <div class="form-container">
+        <span class="input-container">
+          <label class="captions-labels">Email</label>
+          <shared-input
+            placeholderText="Enter email"
+            inputClass="no-bg-font-border-secondary"
+            [leftIcon]="true"
+            [addIcon]="true"
+            iconClass="pi pi-user"
+            formControlName="emailAddress"
+          ></shared-input>
+        </span>
+        <span class="input-container">
+          <label class="captions-labels">Password</label>
+          <shared-input
+            placeholderText="Enter password"
+            inputClass="no-bg-font-border-secondary"
+            [leftIcon]="true"
+            [addIcon]="true"
+            iconClass="pi pi-lock"
+            inputType="password"
+            formControlName="password"
+          ></shared-input>
+        </span>
+        <shared-button
+          buttonType="button"
+          buttonClass="no-bg-prompt-color small-helper-text small"
+          class="forgot-password-button"
+          [routerLink]="[
+            '/auth/forgot-password',
+            { queryParams: { returnUrl: returnUrl } },
+          ]"
+          >Forgot Password?</shared-button
+        >
+      </div>
+      @if (hasErrors) {
+        <span class="error-message small-helper-text">
+          <i class="pi pi-circle-info"></i>{{ errorMessage }}</span
+        >
+      }
+      <shared-button
+        buttonType="submit"
+        buttonClass="secondary-background-primary-color-no-border medium"
+        [addIcon]="true"
+        iconClass="pi pi-arrow-right"
+        buttonWidth="100%"
+        class="signin-button"
+        >Sign In</shared-button
+      >
+    </form>
+    <span class="alternative-methods">
+      <hr />
+      <label class="small-helper-text">Or Continue With</label>
+      <hr />
+    </span>
+    <span>
+      <shared-button
+        buttonClass="white-background-secondary-color-border medium"
+        [leftIcon]="true"
+        [addIcon]="true"
+        iconClass="pi pi-google"
+        >Google</shared-button
+      >
+      <shared-button
+        buttonClass="white-background-secondary-color-border medium"
+        [leftIcon]="true"
+        [addIcon]="true"
+        iconClass="pi pi-apple"
+        >Apple</shared-button
+      >
+    </span>
+    <label class="small-helper-text"
+      >Do not have an account?
+      <shared-button
+        buttonClass="no-bg-prompt-color small-helper-text"
+        [routerLink]="[
+          '/auth/signup',
+          { queryParams: { returnUrl: returnUrl } },
+        ]"
+        >Sign Up</shared-button
+      >
+    </label>
+  </div>
+</main>

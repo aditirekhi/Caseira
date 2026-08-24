@@ -1,0 +1,42 @@
+.explore-by-regions-section {
+  color: var(--secondary-color);
+  padding: 0 2rem;
+  margin: 1rem 0;
+}
+
+.header-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.regions-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 1200px) {
+  .regions-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .regions-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .explore-by-regions-section {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .regions-container {
+    grid-template-columns: 1fr;
+  }
+}

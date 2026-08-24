@@ -1,0 +1,40 @@
+@if (!addedToCartButton()) {
+  <button
+    [attr.type]="buttonType()"
+    class="{{ buttonClass() }} button-text"
+    [style.--buttonWidth]="buttonWidth()"
+    [disabled]="disabled()"
+  >
+    @if (leftIcon() && (addIcon() || iconOnly()) && iconClass()) {
+      <i [attr.class]="iconClass()" class="button-icon"></i>
+    }
+    @if (!iconOnly()) {
+      <ng-content></ng-content>
+    }
+    @if (!leftIcon() && (addIcon() || iconOnly()) && iconClass()) {
+      <i [attr.class]="iconClass()" class="button-icon"></i>
+    }
+  </button>
+} @else {
+  <span [class]="buttonClass() + ' add-to-cart'">
+    <button
+      class="minus-button"
+      [disabled]="addingReducingItemFromCart"
+      (click)="reduceItem()"
+    >
+      <i class="pi pi-minus"></i>
+    </button>
+    @if (addingReducingItemFromCart) {
+      <i class="pi pi-spin pi-spinner"></i>
+    } @else {
+      <label>{{ quantity }}</label>
+    }
+    <button
+      class="plus-button"
+      [disabled]="addingReducingItemFromCart"
+      (click)="addItem()"
+    >
+      <i class="pi pi-plus"></i>
+    </button>
+  </span>
+}

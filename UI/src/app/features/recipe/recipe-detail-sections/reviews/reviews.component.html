@@ -1,0 +1,241 @@
+@if (reviews) {
+  <section class="review-section">
+    <div class="ratings-summary">
+      <label class="hero-heading">{{ reviews.avg_rating }}</label>
+      <span class="average-ratings">
+        @for (rating of getRange(reviews.avg_rating); track $index) {
+          <i class="pi pi-star-fill"></i>
+        }
+        @if (hasHalfStar(reviews.avg_rating)) {
+          <i class="pi pi-star-half-fill"></i>
+        }
+        @for (rating of getRange(5 - reviews.avg_rating); track $index) {
+          <i class="pi pi-star"></i>
+        }
+      </span>
+      <span class="rating-details">
+        <span class="rating-card">
+          <span class="rating-title">
+            <label class="body-paragraph"
+              >5<i class="pi pi-star-fill"></i
+            ></label>
+          </span>
+          <div class="rating-bar">
+            <div
+              [style.width.%]="
+                reviews.total_review_count
+                  ? (reviews.review_count_5 / reviews.total_review_count) * 100
+                  : 0
+              "
+              class="filled-bar"
+            ></div>
+          </div>
+          <label class="secondary-text">{{ reviews.review_count_5 }}</label>
+        </span>
+        <span class="rating-card">
+          <span class="rating-title">
+            <label class="body-paragraph"
+              >4 <i class="pi pi-star-fill"></i
+            ></label>
+          </span>
+          <div class="rating-bar">
+            <div
+              [style.width.%]="
+                reviews.total_review_count
+                  ? (reviews.review_count_4 / reviews.total_review_count) * 100
+                  : 0
+              "
+              class="filled-bar"
+            ></div>
+          </div>
+          <label class="secondary-text">{{ reviews.review_count_4 }}</label>
+        </span>
+        <span class="rating-card">
+          <span class="rating-title">
+            <label class="body-paragraph"
+              >3 <i class="pi pi-star-fill"></i
+            ></label>
+          </span>
+          <div class="rating-bar">
+            <div
+              [style.width.%]="
+                reviews.total_review_count
+                  ? (reviews.review_count_3 / reviews.total_review_count) * 100
+                  : 0
+              "
+              class="filled-bar"
+            ></div>
+          </div>
+          <label class="secondary-text">{{ reviews.review_count_3 }}</label>
+        </span>
+        <span class="rating-card">
+          <span class="rating-title">
+            <label class="body-paragraph"
+              >2 <i class="pi pi-star-fill"></i
+            ></label>
+          </span>
+          <div class="rating-bar">
+            <div
+              [style.width.%]="
+                reviews.total_review_count
+                  ? (reviews.review_count_2 / reviews.total_review_count) * 100
+                  : 0
+              "
+              class="filled-bar"
+            ></div>
+          </div>
+          <label class="secondary-text">{{ reviews.review_count_2 }}</label>
+        </span>
+        <span class="rating-card">
+          <span class="rating-title">
+            <label class="body-paragraph"
+              >1 <i class="pi pi-star-fill"></i
+            ></label>
+          </span>
+          <div class="rating-bar">
+            <div
+              [style.width.%]="
+                reviews.total_review_count
+                  ? (reviews.review_count_1 / reviews.total_review_count) * 100
+                  : 0
+              "
+              class="filled-bar"
+            ></div>
+          </div>
+          <label class="secondary-text">{{ reviews.review_count_1 }}</label>
+        </span>
+      </span>
+    </div>
+    <div>
+      @for (review of reviews.review_details; track $index) {
+        <div class="review-card">
+          <i class="pi pi-user"></i>
+          <div class="review-card-details">
+            <span class="user-rating-details">
+              <span class="body-paragraph username"
+                ><b>{{ review.username }}</b></span
+              >
+              <span class="user-rating">
+                @for (rating of getRange(review.ratings!); track $index) {
+                  <i class="pi pi-star-fill"></i>
+                }
+                @if (hasHalfStar(review.ratings!)) {
+                  <i class="pi pi-star-half-fill"></i>
+                }
+                @for (rating of getRange(5 - review.ratings!); track $index) {
+                  <i class="pi pi-star"></i>
+                }
+              </span>
+            </span>
+            <span class="body-paragraph">{{ review.comment }}</span>
+            <span class="review-date small-helper-text">{{
+              getRelativeTime(review.created_at)
+            }}</span>
+          </div>
+          @if (
+            sendingHelpfulReviewRequest &&
+            review.recipe_review_id === currentReviewId
+          ) {
+            <shared-button
+              buttonClass="no-bg-secondary-color-secondary-border medium"
+              [addIcon]="true"
+              [iconClass]="'pi pi-spinner pi-spin'"
+              [leftIcon]="true"
+              [disabled]="true"
+              >Helpful ({{ review.helpful_review_count }})</shared-button
+            >
+          } @else {
+            <shared-button
+              buttonClass="no-bg-secondary-color-secondary-border medium"
+              [addIcon]="true"
+              [iconClass]="
+                review.helpful_review_given_by_user
+                  ? 'pi pi-thumbs-up-fill'
+                  : 'pi pi-thumbs-up'
+              "
+              [leftIcon]="true"
+              (click)="toggleHelpfulReview(review)"
+              >Helpful ({{ review.helpful_review_count }})</shared-button
+            >
+          }
+        </div>
+      }
+      <div class="new-review-container">
+        @if (showReviewInput) {
+          <div>
+            <shared-button
+              buttonClass="no-bg-prompt-color"
+              [iconOnly]="true"
+              [iconClass]="
+                reviewRatings[1].filled ? 'pi pi-star-fill' : 'pi pi-star'
+              "
+              (click)="addRating(1)"
+            ></shared-button>
+            <shared-button
+              buttonClass="no-bg-prompt-color"
+              [iconOnly]="true"
+              [iconClass]="
+                reviewRatings[2].filled ? 'pi pi-star-fill' : 'pi pi-star'
+              "
+              (click)="addRating(2)"
+            ></shared-button>
+            <shared-button
+              buttonClass="no-bg-prompt-color"
+              [iconOnly]="true"
+              [iconClass]="
+                reviewRatings[3].filled ? 'pi pi-star-fill' : 'pi pi-star'
+              "
+              (click)="addRating(3)"
+            ></shared-button>
+            <shared-button
+              buttonClass="no-bg-prompt-color"
+              [iconOnly]="true"
+              [iconClass]="
+                reviewRatings[4].filled ? 'pi pi-star-fill' : 'pi pi-star'
+              "
+              (click)="addRating(4)"
+            ></shared-button>
+            <shared-button
+              buttonClass="no-bg-prompt-color"
+              [iconOnly]="true"
+              [iconClass]="
+                reviewRatings[5].filled ? 'pi pi-star-fill' : 'pi pi-star'
+              "
+              (click)="addRating(5)"
+            ></shared-button>
+          </div>
+          <div class="new-review-input">
+            <textarea
+              class="review-textarea"
+              [rows]="4"
+              placeholder="Share your experience with us!"
+              [(ngModel)]="reviewInputValue"
+            ></textarea>
+            <span class="review-button-container">
+              <shared-button
+                buttonClass="no-bg-secondary-color-secondary-border small"
+                >Submit</shared-button
+              >
+              <shared-button
+                buttonClass="secondary-background-primary-color-no-border small"
+                (click)="resetReviewInput()"
+                >Reset</shared-button
+              >
+            </span>
+          </div>
+        }
+        <shared-button
+          buttonClass="secondary-background-primary-color-no-border large"
+          (click)="showReviewInputContainer()"
+          >Write a Review</shared-button
+        >
+      </div>
+    </div>
+  </section>
+} @else {
+  <div class="no-reviews-container">
+    <label class="card-title-recipe-name no-reviews"
+      >No reviews available for this recipe.</label
+    >
+  </div>
+}

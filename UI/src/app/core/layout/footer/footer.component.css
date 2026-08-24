@@ -1,0 +1,126 @@
+footer {
+  background-color: var(--secondary-color);
+}
+
+.footer-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 0.5rem;
+}
+
+.footer-image {
+  width: 15%;
+  height: auto;
+}
+
+.footer-text {
+  color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.horizontal-divider {
+  width: 100%;
+  color: var(--primary-color);
+}
+
+.information-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 2fr;
+  color: var(--primary-color);
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.about-caseira {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-image {
+  width: 50%;
+  height: auto;
+  object-fit: center;
+  object-position: center;
+}
+
+.caseira-description {
+  padding: 0.5rem;
+}
+
+.social-media-panel {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.payment-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.payment-image {
+  width: 20%;
+  height: auto;
+}
+
+.copyright-image {
+  width: 5%;
+  height: auto;
+}
+
+.copyright-text {
+  padding: 1rem 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .information-container {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem 1rem;
+  }
+
+  .footer-image {
+    width: 25%;
+  }
+
+  .payment-image {
+    width: 30%;
+  }
+}
+
+@media (max-width: 600px) {
+  .information-container {
+    grid-template-columns: 1fr 1fr;
+    padding: 1rem 0.5rem;
+  }
+
+  .footer-message {
+    flex-direction: column;
+    padding: 1rem 0.5rem;
+  }
+
+  .footer-image {
+    width: 40%;
+  }
+
+  .payment-options {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .payment-image {
+    width: 40%;
+  }
+
+  .copyright-image {
+    width: 10%;
+  }
+}

@@ -1,0 +1,67 @@
+<main class="all-recipes-section">
+  <section class="section-header-container">
+    <label class="section-heading section-header"
+      >All Recipes
+      <img src="assets/header_icon.png" class="header-icon" />
+    </label>
+    <div class="sub-header-container">
+      <label class="secondary-text"
+        >Discover delicious recipe from our collection.</label
+      >
+      <label class="secondary-text">1,045 Recipes Found</label>
+    </div>
+  </section>
+  <section class="recipe-list-container">
+    <span class="grid-cell filter-container">
+      <shared-button
+        buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
+        [addIcon]="true"
+        [leftIcon]="true"
+        iconClass="pi pi-filter"
+      >
+        Filter
+      </shared-button>
+    </span>
+    <span class="grid-cell recipe-filter-container">
+      <shared-button
+        buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
+        [addIcon]="true"
+        iconClass="pi pi-angle-down"
+        >All Categories</shared-button
+      >
+      <shared-button
+        buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
+        [addIcon]="true"
+        iconClass="pi pi-angle-down"
+        >All Cuisines</shared-button
+      >
+      <shared-button
+        buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
+        [addIcon]="true"
+        iconClass="pi pi-angle-down"
+        >All Meal Types</shared-button
+      >
+      <shared-button
+        buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
+        [addIcon]="true"
+        iconClass="pi pi-angle-down"
+        >Sort By: Popular</shared-button
+      >
+      <span class="display-type-container">
+        <button class="small-icon-display-button button-active">
+          <i class="pi pi-th-large"></i>
+        </button>
+        <button class="list-display-button">
+          <i class="pi pi-list"></i>
+        </button>
+      </span>
+    </span>
+    <span class="grid-cell category-filter-container">
+      <div class="category-filter-header">
+        <label class="card-title-recipe-name">Categories</label>
+        <img src="assets/header_icon.png" class="filter-header-icon" />
+      </div>
+    </span>
+  </section>
+</main>
+<app-footer></app-footer>

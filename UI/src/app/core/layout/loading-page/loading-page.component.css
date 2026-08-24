@@ -1,0 +1,231 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+.loading-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 50% 44%,
+      rgba(217, 119, 6, 0.2),
+      transparent 28rem
+    ),
+    var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100dvh;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.loading-section::before,
+.loading-section::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border: 1px solid rgba(248, 244, 236, 0.1);
+  border-radius: 50%;
+}
+
+.loading-section::before {
+  width: min(78vw, 48rem);
+  aspect-ratio: 1;
+}
+
+.loading-section::after {
+  width: min(106vw, 68rem);
+  aspect-ratio: 1;
+}
+
+.loading-content {
+  display: grid;
+  justify-items: center;
+  gap: 2.5rem;
+  text-align: center;
+}
+
+.logo-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 13.5rem;
+  aspect-ratio: 1;
+  background: rgba(18, 55, 42, 0.5);
+  box-shadow: 0 1.25rem 4rem rgba(0, 0, 0, 0.24);
+}
+
+.logo-container::before,
+.logo-container::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.logo-container::before {
+  inset: 0.55rem;
+  border: 1px solid rgba(248, 244, 236, 0.28);
+}
+
+.logo-container::after {
+  inset: 0;
+  border: 2px solid transparent;
+  border-top-color: var(--prompt-color);
+  border-right-color: var(--prompt-color);
+  animation: rotate-clockwise 1.7s linear infinite;
+}
+
+.orbit {
+  position: absolute;
+  inset: -0.7rem;
+  border-radius: 50%;
+  animation: rotate-clockwise 3.2s linear infinite;
+}
+
+.orbit::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff8e8;
+  box-shadow: 0 0 0.75rem 0.15rem rgba(255, 248, 232, 0.75);
+}
+
+.orbit--inner {
+  inset: 1rem;
+  animation-direction: reverse;
+  animation-duration: 2.3s;
+}
+
+.orbit--inner::after {
+  width: 0.3rem;
+  background: var(--prompt-color);
+  box-shadow: 0 0 0.65rem 0.1rem rgba(217, 119, 6, 0.7);
+}
+
+.logo {
+  position: relative;
+  z-index: 1;
+  width: 9.5rem;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2);
+}
+
+.loading-copy {
+  min-width: min(100%, 23rem);
+}
+
+.loading-kicker {
+  margin: 0 0 0.55rem;
+  color: var(--prompt-color);
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.loading-text {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding-inline: 1.2rem;
+  overflow: hidden;
+  color: var(--primary-color);
+}
+
+.loading-text::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -1.4rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 0.75rem 0.25rem rgba(255, 255, 255, 0.85);
+  transform: translateY(-50%);
+  animation: text-sparkle 2.4s ease-in-out infinite;
+}
+
+.loading-progress {
+  width: 100%;
+  height: 0.2rem;
+  margin-top: 1.25rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(248, 244, 236, 0.2);
+}
+
+.loading-progress span {
+  display: block;
+  width: 36%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, var(--prompt-color), #fff8e8);
+  animation: progress-sweep 1.8s ease-in-out infinite;
+}
+
+@keyframes rotate-clockwise {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes text-sparkle {
+  to {
+    left: calc(100% + 1rem);
+  }
+}
+
+@keyframes progress-sweep {
+  from {
+    transform: translateX(-110%);
+  }
+
+  to {
+    transform: translateX(290%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-container::after,
+  .orbit,
+  .loading-text::after,
+  .loading-progress span {
+    animation: none;
+  }
+}
+
+@media (max-width: 30rem) {
+  .loading-section {
+    padding: 1.5rem;
+  }
+
+  .logo-container {
+    width: 11.5rem;
+  }
+
+  .logo {
+    width: 8rem;
+  }
+
+  .loading-text {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}

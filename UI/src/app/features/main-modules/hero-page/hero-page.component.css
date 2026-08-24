@@ -1,0 +1,189 @@
+.main-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-page {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+
+.hero-page section {
+  min-width: 0;
+}
+
+.main-background {
+  display: block;
+  height: 100%;
+  min-height: 32rem;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  mask-image: linear-gradient(to right, transparent 0%, black 30%);
+}
+
+.website-details {
+  margin: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: transparent;
+}
+
+.website-name {
+  display: flex;
+  flex-direction: column;
+  width: min(38rem, 88%);
+  background-color: color-mix(in srgb, var(--primary-color) 80%, transparent);
+  border-radius: 14px;
+  padding: 1.5rem;
+}
+
+.secondary {
+  color: var(--secondary-color);
+  display: inline-flex;
+}
+
+.prompt {
+  color: var(--prompt-color);
+}
+
+.sub-header {
+  padding-top: 1rem;
+  color: var(--secondary-color);
+}
+
+.button-pannel {
+  padding: 1rem 0;
+}
+
+.features-panel {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+}
+
+.feature-card {
+  width: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.vertical-divider {
+  border: 1px solid var(--secondary-color);
+  width: 0;
+}
+
+.feature-label {
+  color: var(--secondary-color);
+  display: block;
+  width: 100%;
+  text-align: center !important;
+}
+
+.feature-image {
+  mix-blend-mode: multiply;
+  width: 10rem;
+  height: auto;
+  object-fit: cover;
+}
+
+.procedure-section {
+  margin-top: 1rem;
+  width: 90%;
+  color: var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f7f7;
+  border-radius: 15px;
+  position: relative;
+  top: -4rem;
+  box-shadow: 2px;
+  padding: 1rem;
+  border: 1px solid var(--secondary-color);
+  box-shadow: 4px 4px 20px 0 var(--muted-secondary-color);
+}
+
+.procedure-panel {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem;
+}
+
+.procedure-card {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.5rem;
+}
+
+.procedure-image {
+  width: 5rem;
+  height: auto;
+}
+
+.procedure-details {
+  display: flex;
+  flex-direction: column;
+  color: var(--secondary-color);
+}
+
+.horizontal-divider {
+  border: none;
+  border-top: 1px solid var(--secondary-color);
+  width: 95%;
+}
+
+@media (max-width: 900px) {
+  .hero-page {
+    grid-template-columns: 1fr;
+  }
+
+  .main-background {
+    min-height: 20rem;
+    mask-image: none;
+  }
+
+  .features-panel {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .procedure-panel {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .procedure-section {
+    width: 95%;
+    top: -2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .website-details {
+    padding: 1rem;
+  }
+
+  .website-name {
+    width: min(30rem, 92%);
+    padding: 1rem;
+  }
+
+  .feature-image {
+    width: 6rem;
+  }
+}

@@ -1,0 +1,129 @@
+<main class="login-container">
+  <div class="login-form">
+    <img src="assets/Logos/logo-small.png" class="logo-small" />
+    <label class="card-title-recipe-name">Create Account</label>
+    <label class="small-helper-text"
+      >Join thousands of people eating healthier every day.</label
+    >
+    <form [formGroup]="signInForm" (ngSubmit)="signInSubmission()">
+      <div class="form-container">
+        <div class="name-container">
+          <span class="input-container">
+            <label class="captions-labels">First Name</label>
+            <shared-input
+              placeholderText="First Name"
+              inputClass="no-bg-font-border-secondary small-helper-text"
+              [leftIcon]="true"
+              [addIcon]="true"
+              iconClass="pi pi-user"
+              formControlName="firstName"
+            ></shared-input>
+          </span>
+          <span class="input-container">
+            <label class="captions-labels">Last Name</label>
+            <shared-input
+              placeholderText="Last Name"
+              inputClass="no-bg-font-border-secondary small-helper-text"
+              [leftIcon]="true"
+              [addIcon]="true"
+              iconClass="pi pi-user"
+              formControlName="lastName"
+            ></shared-input>
+          </span>
+        </div>
+        <span class="input-container">
+          <label class="captions-labels">Email</label>
+          <shared-input
+            placeholderText="Enter your Email"
+            inputClass="no-bg-font-border-secondary small-helper-text"
+            [leftIcon]="true"
+            [addIcon]="true"
+            iconClass="pi pi-envelope"
+            formControlName="emailAddress"
+          ></shared-input>
+        </span>
+        <span class="input-container">
+          <label class="captions-labels">Password</label>
+          <shared-input
+            placeholderText="Create password"
+            inputClass="no-bg-font-border-secondary small-helper-text"
+            [leftIcon]="true"
+            [addIcon]="true"
+            iconClass="pi pi-lock"
+            inputType="password"
+            formControlName="password"
+          ></shared-input>
+        </span>
+        <span class="input-container">
+          <label class="captions-labels">Confirm Password</label>
+          <shared-input
+            placeholderText="Confirm password"
+            inputClass="no-bg-font-border-secondary small-helper-text"
+            [leftIcon]="true"
+            [addIcon]="true"
+            iconClass="pi pi-lock"
+            inputType="password"
+            formControlName="confirmPassword"
+          ></shared-input>
+        </span>
+        <div class="accept-policy-container">
+          <shared-input
+            inputType="checkbox"
+            formControlName="policyAccepted"
+          ></shared-input>
+          <span class="small-helper-text"
+            >I agree to the
+            <label class="highlight-text">Terms of Service</label> and
+            <label class="highlight-text">Privacy Policy.</label></span
+          >
+        </div>
+      </div>
+      @if (formHasErrors) {
+        <span class="error-message small-helper-text">
+          <i class="pi pi-info-circle"></i>{{ errorMessage }}
+        </span>
+      }
+      <shared-button
+        buttonType="submit"
+        buttonClass="secondary-background-primary-color-no-border small"
+        [addIcon]="true"
+        iconClass="pi pi-arrow-right"
+        buttonWidth="100%"
+        class="signin-button"
+        >Sign In</shared-button
+      >
+    </form>
+    <span class="alternative-methods">
+      <hr />
+      <label class="small-helper-text">Or Continue With</label>
+      <hr />
+    </span>
+    <span>
+      <shared-button
+        buttonClass="white-background-secondary-color-border small"
+        [leftIcon]="true"
+        [addIcon]="true"
+        iconClass="pi pi-google"
+        >Google</shared-button
+      >
+      <shared-button
+        buttonClass="white-background-secondary-color-border small"
+        [leftIcon]="true"
+        [addIcon]="true"
+        iconClass="pi pi-apple"
+        >Apple</shared-button
+      >
+    </span>
+    <label class="small-helper-text"
+      >Already have an account?
+      <shared-button
+        buttonClass="no-bg-prompt-color small-helper-text"
+        [routerLink]="[
+          '/auth/login',
+          { queryParams: { returnUrl: returnUrl } },
+        ]"
+        >Sign In</shared-button
+      >
+    </label>
+  </div>
+</main>

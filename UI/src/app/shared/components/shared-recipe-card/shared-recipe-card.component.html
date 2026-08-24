@@ -1,0 +1,127 @@
+@if (cardDirection() === "column") {
+  <div class="recipe-card">
+    <div class="recipe-image-container">
+      <div class="recipe-like">
+        <shared-button
+          [iconClass]="
+            favoriteToggleInProgress
+              ? 'pi pi-spin pi-spinner'
+              : recipeLiked
+                ? 'pi pi-heart-fill'
+                : 'pi pi-heart'
+          "
+          [iconOnly]="true"
+          [disabled]="favoriteToggleInProgress"
+          (click)="toggleRecipeInFavorites()"
+          buttonClass="primary-background-secondary-color-border small"
+        ></shared-button>
+      </div>
+      <img [src]="'assets/' + imageUrl()" class="recipe-image" />
+    </div>
+    <div class="recipe-details">
+      <shared-button
+        buttonClass="no-bg-secondary-color "
+        [routerLink]="['/recipe', recipeId()]"
+      >
+        <span class="card-title-recipe-name">{{ recipeName() }}</span>
+      </shared-button>
+      <div class="recipe-ratings small-helper-text">
+        @for (i of getRange(recipeRating()); track $index) {
+          <i class="pi pi-star-fill"></i>
+        }
+        @if (hasHalfStar(recipeRating())) {
+          <i class="pi pi-star-half"></i>
+        }
+        @for (i of getRange(5 - recipeRating()); track $index) {
+          <i class="pi pi-star"></i>
+        }
+        <label class="number-of-reviews">{{ reviewCount() }}</label>
+      </div>
+      <div class="recipe-specifics small-helper-text">
+        <span class="recipe-time">
+          <i class="pi pi-clock"></i>
+          <label>{{ timeToCook() }}</label>
+        </span>
+        <span class="recipe-serves">
+          <i class="pi pi-users"></i>
+          <label>Serves {{ noOfPeopleServes() }}</label>
+        </span>
+        <span class="recipe-ingredients">
+          <i class="pi pi-list"></i>
+          <label>{{ noOfIngredients() }} Ingredients</label>
+        </span>
+      </div>
+      <div class="recipe-pricing">
+        <span class="recipe-price large-highlight-text"
+          >&#8377; {{ kitPrice() }}</span
+        >
+        @if (recipeInCart) {
+          <shared-button
+            buttonClass="dark small"
+            [addedToCartButton]="true"
+            [recipeId]="recipeId()"
+            (recipeDeleted)="removeRecipeFromCart()"
+          ></shared-button>
+        } @else if (addToCartInProgress) {
+          <shared-button
+            buttonClass="secondary-background-primary-color-no-border small"
+            [addIcon]="true"
+            iconClass="pi pi-spin pi-spinner"
+            [recipeId]="recipeId()"
+            [disabled]="true"
+            >Adding...</shared-button
+          >
+        } @else if (addToCartSuccess) {
+          <shared-button
+            buttonClass="prompt-background-secondary-color-no-border small"
+            [addIcon]="true"
+            iconClass="pi pi-check animated-tick"
+            >Added to Cart</shared-button
+          >
+        } @else {
+          <shared-button
+            buttonClass="secondary-background-primary-color-no-border small"
+            [addIcon]="true"
+            iconClass="pi pi-cart-plus"
+            customPadding="0.5rem"
+            (click)="addToCart($event)"
+            >Add Kit</shared-button
+          >
+        }
+      </div>
+    </div>
+  </div>
+} @else if (cardDirection() === "row") {
+  <div class="recipe-card-row">
+    <img [src]="'assets/' + imageUrl()" class="recipe-image-row" />
+    <span class="recipe-details-row">
+      <shared-button [routerLink]="['/recipe', recipeId()]">
+        <label class="secondary-text">{{ recipeName() }}</label>
+      </shared-button>
+      <span class="recipe-ratings small-helper-text">
+        @for (i of getRange(recipeRating()); track $index) {
+          <i class="pi pi-star-fill"></i>
+        }
+        @for (i of getRange(5 - recipeRating()); track $index) {
+          <i class="pi pi-star"></i>
+        }
+        <label class="number-of-reviews">{{ reviewCount() }}</label>
+      </span>
+      <label class="small-helper-text">{{ timeToCook() }}</label>
+    </span>
+    <shared-button
+      buttonClass="no-background-secondary-color-no-border medium"
+      [iconOnly]="true"
+      [iconClass]="
+        bookmarkToggleInProgress
+          ? 'pi pi-spin pi-spinner'
+          : recipeBookmarked
+            ? 'pi pi-bookmark-fill'
+            : 'pi pi-bookmark'
+      "
+      customPadding="0.5rem"
+      [disabled]="bookmarkToggleInProgress"
+      (click)="toggleBookmark()"
+    ></shared-button>
+  </div>
+}

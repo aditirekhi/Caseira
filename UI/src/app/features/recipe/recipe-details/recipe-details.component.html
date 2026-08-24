@@ -1,0 +1,245 @@
+@if (recipeDetails) {
+  <main class="recipe">
+    <section class="recipe-details-container">
+      <div class="recipe-details">
+        <span class="recipe-name">
+          <label class="section-heading">{{ recipeDetails.recipe_name }}</label>
+          <img src="assets/header_icon.png" class="header-icon" />
+        </span>
+        <label class="body-paragraph">{{
+          recipeDetails.recipe_description
+        }}</label>
+        <span class="category-region-container">
+          <shared-tags
+            [tagName]="recipeDetails.category_name!"
+            tagClass="no-bg-secondary-color-muted-background-color-border"
+            class="small-helper-text"
+          ></shared-tags>
+          <shared-tags
+            [tagName]="recipeDetails.region_name!"
+            tagClass="no-bg-secondary-color-muted-background-color-border"
+            class="small-helper-text"
+          ></shared-tags>
+          @for (feature of recipeDetails.features!; track feature) {
+            <shared-tags
+              [tagName]="feature"
+              tagClass="no-bg-secondary-color-muted-background-color-border"
+              class="small-helper-text"
+            ></shared-tags>
+          }
+        </span>
+        <span class="review-time-serves-container captions-labels">
+          <span class="specification">
+            <span>
+              @for (star of getRange(recipeDetails.ratings!); track star) {
+                <i class="pi pi-star-fill"></i>
+              }
+              @if (hasHalfStar(recipeDetails.ratings)) {
+                <i class="pi pi-star-half"></i>
+              }
+              @for (star of getRange(5 - recipeDetails.ratings!); track star) {
+                <i class="pi pi-star"></i>
+              }
+            </span>
+            <label>({{ recipeDetails.review_count }})</label>
+          </span>
+          <span class="specification">
+            <i class="pi pi-clock"></i>
+            <label>{{ recipeDetails.total_time }}</label>
+          </span>
+          <span class="specification">
+            <i class="pi pi-users"></i>
+            <label>Serves {{ recipeDetails.no_of_people_served }}</label>
+          </span>
+        </span>
+        <span class="buttons-container">
+          @if (recipeDetails.plan_date) {
+            <div class="add-to-plan-container">
+              <shared-button
+                buttonClass="secondary-background-primary-color-no-border large"
+                [addIcon]="true"
+                [iconClass]="
+                  creatingUpdatingPlanDate
+                    ? 'pi pi-spin pi-spinner'
+                    : 'pi pi-pencil'
+                "
+                [leftIcon]="true"
+                [disabled]="creatingUpdatingPlanDate"
+                (click)="showCalendarInput = !showCalendarInput"
+                >Planned for
+                {{
+                  recipeDetails.plan_date | date: "dd/MM/yyyy"
+                }}</shared-button
+              >
+              @if (showCalendarInput) {
+                <div
+                  class="calendar-input"
+                  (focusout)="onCalendarFocusOut($event)"
+                >
+                  <label class="small-helper-text"
+                    ><b>SELECT PREFERRED DAY:</b></label
+                  >
+                  <span class="input-button-container">
+                    <shared-input
+                      inputType="date"
+                      inputClass="no-bg-font-border-secondary"
+                      [defaultValue]="
+                        (recipeDetails.plan_date | date: 'yyyy-MM-dd') ?? ''
+                      "
+                      (onValueChange)="onSelectingPlanDate($event)"
+                    />
+                    <shared-button
+                      buttonClass="secondary-background-primary-color-no-border small"
+                      [iconOnly]="true"
+                      iconClass="pi pi-check"
+                      (click)="onPlanDateChange()"
+                    ></shared-button>
+                  </span>
+                </div>
+              }
+            </div>
+          } @else {
+            <div class="add-to-plan-container">
+              <shared-button
+                buttonClass="secondary-background-primary-color-no-border large"
+                [addIcon]="true"
+                [iconClass]="
+                  creatingUpdatingPlanDate
+                    ? 'pi pi-spin pi-spinner'
+                    : 'pi pi-calendar-plus'
+                "
+                [leftIcon]="true"
+                (click)="showCalendarInput = !showCalendarInput"
+                [disabled]="creatingUpdatingPlanDate"
+                >Add to Plan</shared-button
+              >
+              @if (showCalendarInput) {
+                <div
+                  class="calendar-input"
+                  (focusout)="onCalendarFocusOut($event)"
+                >
+                  <label class="small-helper-text"
+                    ><b>SELECT PREFERRED DAY:</b></label
+                  >
+                  <span class="input-button-container">
+                    <shared-input
+                      inputType="date"
+                      inputClass="no-bg-font-border-secondary"
+                      (onValueChange)="onSelectingPlanDate($event)"
+                    />
+                    <shared-button
+                      buttonClass="secondary-background-primary-color-no-border small"
+                      [iconOnly]="true"
+                      iconClass="pi pi-check"
+                      (click)="onPlanDateChange()"
+                    ></shared-button>
+                  </span>
+                </div>
+              }
+            </div>
+          }
+          <shared-button
+            buttonClass="no-bg-secondary-color-muted-secondary-border large"
+            [addIcon]="true"
+            [iconClass]="
+              addingRemovingBookmark
+                ? 'pi pi-spin pi-spinner'
+                : recipeDetails.is_bookmarked
+                  ? 'pi pi-bookmark-fill'
+                  : 'pi pi-bookmark'
+            "
+            [leftIcon]="true"
+            [disabled]="addingRemovingBookmark"
+            (click)="addRemoveBookmarkForTheRecipe()"
+            >Save Recipe</shared-button
+          >
+        </span>
+      </div>
+      <div>
+        <img [src]="'assets/' + recipeDetails.image_url" class="recipe-image" />
+      </div>
+    </section>
+    <section class="recipe-shorthand-details">
+      <div class="detail-card">
+        <i class="pi pi-clock"></i>
+        <span class="text-card">
+          <label class="captions-labels">Prep Time</label>
+          <label class="small-helper-text">{{ recipeDetails.prep_time }}</label>
+        </span>
+      </div>
+      <div class="vertical-divider"></div>
+      <div class="detail-card">
+        <i class="pi pi-hourglass"></i>
+        <span class="text-card">
+          <label class="captions-labels">Cook Time</label>
+          <label class="small-helper-text">{{ recipeDetails.cook_time }}</label>
+        </span>
+      </div>
+      <div class="vertical-divider"></div>
+      <div class="detail-card">
+        <i class="pi pi-stopwatch"></i>
+        <span class="text-card">
+          <label class="captions-labels">Total Time</label>
+          <label class="small-helper-text">{{
+            recipeDetails.total_time
+          }}</label>
+        </span>
+      </div>
+      <div class="vertical-divider"></div>
+      <div class="detail-card">
+        <i class="pi pi-users"></i>
+        <span class="text-card">
+          <label class="captions-labels">Serves</label>
+          <label class="small-helper-text"
+            >{{ recipeDetails.no_of_people_served }} people</label
+          >
+        </span>
+      </div>
+      <div class="vertical-divider"></div>
+      <div class="detail-card">
+        <i class="pi pi-chart-line"></i>
+        <span class="text-card">
+          <label class="captions-labels">Difficulty Level</label>
+          <label class="small-helper-text">{{
+            recipeDetails.difficulty_level
+          }}</label>
+        </span>
+      </div>
+    </section>
+    <section class="tab-view">
+      <shared-button
+        class="tab-tile"
+        [routerLink]="'/recipe/' + recipeDetails.recipe_id + '/overview'"
+        routerLinkActive="active-tile"
+        >Overview</shared-button
+      >
+      <shared-button
+        class="tab-tile"
+        [routerLink]="'/recipe/' + recipeDetails.recipe_id + '/ingredients'"
+        routerLinkActive="active-tile"
+        >Ingredients</shared-button
+      >
+      <shared-button
+        class="tab-tile"
+        [routerLink]="'/recipe/' + recipeDetails.recipe_id + '/directions'"
+        routerLinkActive="active-tile"
+        >Step by Step</shared-button
+      >
+      <shared-button
+        class="tab-tile"
+        [routerLink]="'/recipe/' + recipeDetails.recipe_id + '/nutrition'"
+        routerLinkActive="active-tile"
+        >Nutrition</shared-button
+      >
+      <shared-button
+        class="tab-tile"
+        [routerLink]="'/recipe/' + recipeDetails.recipe_id + '/reviews'"
+        routerLinkActive="active-tile"
+        >Reviews</shared-button
+      >
+    </section>
+    <section class="detail-view">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+}

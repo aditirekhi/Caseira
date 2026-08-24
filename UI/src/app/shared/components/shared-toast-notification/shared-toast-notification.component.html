@@ -1,0 +1,30 @@
+@for (
+  toastNotification of sharedToastNotificationService.sharedToastNotification$();
+  track toastNotification.id
+) {
+  <div [class]="'toast-notification ' + toastNotification.type">
+    <span class="toast-notification-info">
+      @if (toastNotification.type === "success") {
+        <span class="toast-notification-icon"><i class="pi pi-check"></i></span>
+        <span class="vertical-divider"></span>
+      } @else if (toastNotification.type === "warning") {
+        <span class="toast-notification-icon"
+          ><i class="pi pi-exclamation-triangle"></i
+        ></span>
+        <span class="vertical-divider"></span>
+      } @else if (toastNotification.type === "error") {
+        <span class="toast-notification-icon"
+          ><i class="pi pi-times-circle"></i
+        ></span>
+        <span class="vertical-divider"></span>
+      }
+      <label class="small-helper-text">{{ toastNotification.message }}</label>
+    </span>
+    <shared-button
+      buttonClass="no-bg-primary-color small"
+      [iconOnly]="true"
+      iconClass="pi pi-times"
+      (click)="dismissToastNotification(toastNotification.id)"
+    ></shared-button>
+  </div>
+}

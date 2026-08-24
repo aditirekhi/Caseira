@@ -1,0 +1,221 @@
+.review-section {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+}
+
+.ratings-summary {
+  border: 1px solid var(--muted-secondary-color);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  box-shadow: 0 2px 4px var(--muted-secondary-color);
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.ratings-summary .hero-heading {
+  color: var(--prompt-color);
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.average-ratings {
+  display: block;
+  margin-bottom: 1.5rem;
+  color: var(--prompt-color);
+  letter-spacing: 0.15rem;
+  margin-top: 1rem;
+}
+
+.average-ratings i {
+  font-size: 1.5rem;
+}
+
+.rating-details {
+  margin: 0;
+  width: 100%;
+}
+
+.rating-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.rating-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 2.5rem;
+}
+
+.rating-title label {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.rating-title i {
+  color: var(--prompt-color);
+  font-size: 0.9rem;
+}
+
+.rating-bar {
+  width: 100%;
+  height: 0.6rem;
+  border: none;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: color-mix(
+    in srgb,
+    var(--muted-secondary-color) 30%,
+    var(--secondary-color) 70%
+  );
+}
+
+.filled-bar {
+  height: 100%;
+  border-radius: 0.5rem;
+  background-color: var(--prompt-color);
+  transition: width 0.3s ease;
+}
+
+.rating-card .secondary-text {
+  min-width: 1.5rem;
+  text-align: right;
+  color: var(--muted-secondary-color);
+}
+
+.review-card {
+  border: 1px solid var(--muted-secondary-color);
+  border-radius: 0.5rem;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px var(--muted-secondary-color);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  background-color: color-mix(
+    in srgb,
+    var(--primary-color) 80%,
+    transparent 20%
+  );
+}
+
+.review-card .pi-user {
+  border-radius: 50%;
+  border: 1px solid var(--muted-secondary-color);
+  padding: 1rem;
+  font-size: 2rem;
+  color: var(--prompt-color);
+  width: fit-content;
+}
+
+.review-card-details {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.5rem;
+  color: var(--secondary-color);
+  width: 100%;
+}
+
+.user-rating-details {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+}
+
+.user-rating {
+  color: var(--prompt-color);
+  font-size: 0.9rem;
+}
+
+.review-date {
+  color: color-mix(
+    in srgb,
+    var(--muted-secondary-color) 50%,
+    var(--secondary-color) 50%
+  );
+}
+
+.username {
+  text-transform: capitalize;
+}
+
+.new-review-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  border-radius: 0.75rem;
+}
+
+.new-review-input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  border: 1px solid var(--muted-secondary-color);
+  border-radius: 0.75rem;
+  padding: 1rem 1rem 0.875rem;
+  background-color: var(--primary-color);
+  box-shadow: 0 2px 6px var(--muted-secondary-color);
+}
+
+.review-textarea {
+  border: 1px solid var(--secondary-color);
+  width: 100%;
+  border-radius: 0.5rem;
+  margin: 0;
+  padding: 0.75rem;
+  resize: vertical;
+  min-height: 7rem;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+}
+
+.review-textarea:focus,
+.review-textarea:active {
+  outline: none;
+  border: 1px solid var(--secondary-color);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--muted-prompt-color) 70%, white 30%);
+}
+
+.review-button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.new-review-container > shared-button {
+  align-self: flex-end;
+}
+
+.no-reviews-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.no-reviews {
+  color: var(--secondary-color);
+}

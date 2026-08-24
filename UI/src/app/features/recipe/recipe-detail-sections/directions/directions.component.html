@@ -1,0 +1,30 @@
+<section class="recipe-directions">
+  <span class="section-header">
+    <label class="card-title-recipe-name"><b>Step by Step</b></label>
+    <img src="assets/header_icon.png" class="header-icon" />
+  </span>
+  @for (section of recipeDetails?.recipe_directions | keyvalue; track $index) {
+    <div class="directions-section">
+      <div class="timeline-section">
+        <span class="body-paragraph direction-index">{{ $index + 1 }}.</span>
+        @if (!$last) {
+          <div class="timeline-line"></div>
+        }
+      </div>
+      <div class="item-direction">
+        <span class="body-paragraph"
+          ><b><i class="pi pi-check-circle"></i>{{ section.key }}</b></span
+        >
+        <ul class="directions-list">
+          @for (step of section.value; track $index) {
+            <div class="direction-container">
+              <i class="pi pi-minus"></i>
+              <li class="secondary-text">{{ step }}</li>
+            </div>
+          }
+        </ul>
+        <div class="horizontal-divider"></div>
+      </div>
+    </div>
+  }
+</section>

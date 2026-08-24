@@ -1,0 +1,29 @@
+.section-header {
+  width: 100%;
+  color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+}
+
+.customer-reviews-container {
+  width: 100%;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem 5rem;
+}
+
+@media (max-width: 900px) {
+  .customer-reviews-container {
+    grid-template-columns: 1fr 1fr;
+    padding: 1rem 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .customer-reviews-container {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+}

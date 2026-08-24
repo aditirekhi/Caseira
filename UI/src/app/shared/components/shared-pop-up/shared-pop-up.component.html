@@ -1,0 +1,38 @@
+<section class="shared-pop-up">
+  <div class="pop-up-header">
+    <div class="header-copy">
+      <span class="header">
+        @if (addIcon()) {
+          <i class="{{ iconClass() }} icon-class"></i>
+        }
+        <label class="card-title-recipe-name">{{ popUpHeader() }}</label>
+      </span>
+      <shared-button
+        buttonClass="no-bg-secondary-color-muted-secondary-border small"
+        [iconOnly]="true"
+        iconClass="pi pi-times"
+        (click)="dismissPopUp()"
+      ></shared-button>
+    </div>
+    <div class="horizontal-divider">
+      <hr />
+      <img src="assets/header_icon.png" class="header-icon" alt="" />
+      <hr />
+    </div>
+  </div>
+  <div class="pop-up-body secondary-text">
+    <ng-content></ng-content>
+  </div>
+  <div class="pop-up-actions">
+    <shared-button
+      buttonClass="primary-background-secondary-color-border small"
+      (click)="dismissPopUp()"
+      >Cancel</shared-button
+    >
+    <shared-button
+      buttonClass="secondary-background-primary-color-no-border small"
+      (click)="confirmPopUp()"
+      >Confirm</shared-button
+    >
+  </div>
+</section>

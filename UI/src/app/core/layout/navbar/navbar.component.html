@@ -1,0 +1,51 @@
+<nav class="navbar">
+  <shared-button routerLink="/home" buttonClass="no-bg-primary-color small">
+    <img src="assets/Logos/logo.png" class="logo-image" alt="logo" />
+  </shared-button>
+  <shared-input
+    placeholderText="Search recipes, ingredients..."
+    inputClass="no-bg-font-border-primary shrink-0"
+    [addIcon]="true"
+    iconClass="pi pi-search"
+  ></shared-input>
+  <div>
+    <shared-button
+      buttonClass="no-bg-primary-color medium"
+      routerLink="/recipe/all"
+      >Recipes</shared-button
+    >
+    <shared-button
+      buttonClass="no-bg-primary-color medium"
+      routerLink="/ingredients"
+      >Ingredients</shared-button
+    >
+    <shared-button
+      buttonClass="no-bg-primary-color medium"
+      routerLink="/meal-kits"
+      >Meal Kits</shared-button
+    >
+    <shared-button
+      buttonClass="no-bg-primary-color medium"
+      routerLink="/regions/all"
+      >Regions</shared-button
+    >
+    <shared-button buttonClass="no-bg-primary-color medium"
+      >Offers</shared-button
+    >
+  </div>
+  <div>
+    <shared-button
+      buttonClass="no-bg-primary-color small"
+      [iconOnly]="true"
+      iconClass="pi pi-user"
+      routerLink="/user-profile"
+      class="border-r-2 border-(--primary-color)"
+    ></shared-button>
+    <shared-button
+      buttonClass="no-bg-primary-color small"
+      [iconOnly]="true"
+      iconClass="pi pi-shopping-cart"
+      routerLink="/cart"
+    ></shared-button>
+  </div>
+</nav>

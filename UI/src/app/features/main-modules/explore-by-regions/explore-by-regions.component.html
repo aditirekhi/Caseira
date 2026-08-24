@@ -1,0 +1,22 @@
+<main class="explore-by-regions-section">
+  <div class="header-section">
+    <label class="section-heading">Explore By Regions</label>
+    <shared-button
+      buttonClass="no-bg-secondary-color small"
+      [addIcon]="true"
+      iconClass="pi pi-arrow-right"
+      routerLink="/regions/all"
+      >View All Regions</shared-button
+    >
+  </div>
+  <div class="regions-container">
+    @for (region of regionsDetails | slice: 0 : 4; track region.region_id) {
+      <shared-regions-card
+        [regionId]="region.region_id"
+        [regionName]="region.region_name"
+        [noOfRecipes]="region.recipes_count"
+        [imageUrl]="region.image_url"
+      ></shared-regions-card>
+    }
+  </div>
+</main>

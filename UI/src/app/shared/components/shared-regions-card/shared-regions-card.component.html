@@ -1,0 +1,12 @@
+<div class="category-card">
+  <img [src]="'assets/' + imageUrl()" class="category-image" />
+  <div class="category-details">
+    <shared-button [routerLink]="['/regions', regionId()]">
+      <span class="card-title-recipe-name"> {{ regionName() }} </span>
+    </shared-button>
+    <div class="category-specifications">
+      <label class="recipe-count">{{ noOfRecipes() }} Recipes</label>
+      <i class="pi pi-arrow-right"></i>
+    </div>
+  </div>
+</div>

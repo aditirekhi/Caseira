@@ -1,0 +1,26 @@
+#Check
+
+services:
+  - type: web
+    name: caseira-api
+    runtime: docker
+    rootDir: API
+    dockerfilePath: Dockerfile
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: caseira-db
+          property: connectionString
+
+  - type: web
+    name: caseira-ui
+    runtime: docker
+    rootDir: UI
+    dockerfilePath: Dockerfile
+    plan: free
+
+databases:
+  - name: caseira-db
+    plan: free
+    postgresMajorVersion: 15

@@ -1,0 +1,26 @@
+<main class="most-viewed-recipes-section">
+  <div class="header">
+    <label class="section-heading">Most Viewed Recipes</label>
+    <shared-button
+      buttonClass="no-bg-secondary-color small"
+      [addIcon]="true"
+      iconClass="pi pi-arrow-right"
+      routerLink="/recipe/all"
+      >View All Recipes</shared-button
+    >
+  </div>
+  <div class="recipes-container">
+    @for (recipe of mostViewedRecipes; track recipe.recipe_id) {
+      <shared-recipe-card
+        [recipeId]="recipe.recipe_id"
+        [recipeName]="recipe.recipe_name"
+        [imageUrl]="recipe.image_url"
+        [kitPrice]="recipe.kit_price"
+        [noOfPeopleServes]="recipe.no_of_people_served"
+        [timeToCook]="recipe.total_time"
+        [noOfIngredients]="recipe.ingredients_count"
+        [recipeRating]="recipe.ratings"
+      ></shared-recipe-card>
+    }
+  </div>
+</main>

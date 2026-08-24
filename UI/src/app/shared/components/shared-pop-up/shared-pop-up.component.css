@@ -1,0 +1,109 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: color-mix(in srgb, var(--secondary-color) 0.15, transparent 0.85);
+  backdrop-filter: blur(2px);
+}
+
+.shared-pop-up {
+  width: min(100%, 34rem);
+  max-height: min(44rem, calc(100vh - 2.5rem));
+  overflow: hidden;
+  color: var(--secondary-color);
+  background: var(--primary-color);
+  border: 1px solid var(--muted-secondary-color);
+  border-radius: 0.75rem;
+  box-shadow: 0 1.5rem 4rem var(--secondary-color);
+  animation: pop-up-enter 180ms ease-out both;
+}
+
+.pop-up-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem 1.5rem 1.25rem;
+  background: var(--primary-color);
+}
+
+.icon-class {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 1rem;
+  margin-right: 1rem;
+  display: inline-block;
+  border-right: 1px solid var(--muted-secondary-color);
+}
+
+.header-copy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-icon {
+  width: 1.5rem;
+  margin: 0.25rem 0 0 0.5rem;
+  vertical-align: middle;
+}
+
+.horizontal-divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
+.horizontal-divider hr {
+  flex: 1;
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: var(--muted-prompt-color);
+}
+
+.pop-up-body {
+  max-height: 26rem;
+  overflow-y: auto;
+  padding: 1rem 1.5rem;
+  color: var(--secondary-color);
+}
+
+.pop-up-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem 1.25rem;
+  background: var(--primary-color);
+  border-top: 1px solid var(--muted-secondary-color);
+}
+
+@keyframes pop-up-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  :host {
+    padding: 0.75rem;
+  }
+  .pop-up-header,
+  .pop-up-body {
+    padding: 1.25rem;
+  }
+  .pop-up-actions {
+    padding: 0.85rem 1.25rem 1rem;
+  }
+  .pop-up-actions shared-button {
+    flex: 1;
+  }
+}

@@ -1,0 +1,8 @@
+<shared-toast-notification></shared-toast-notification>
+<app-navbar></app-navbar>
+<div class="main-container">
+  <router-outlet></router-outlet>
+</div>
+@if (constants.primaryLoadingPage()) {
+  <app-loading-page></app-loading-page>
+}

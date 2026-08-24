@@ -1,0 +1,18 @@
+<section class="nutrition-details">
+  @for (
+    nutritionSection of recipeDetails?.nutrition_details | keyvalue;
+    track $index
+  ) {
+    @for (nutrition of nutritionSection.value | keyvalue; track $index) {
+      <div class="nutrition-card">
+        <i [class]="assignIconClass(nutrition.key) + ' nutrition-icon'"></i>
+        <span class="nutrition-content">
+          <label class="secondary-text"
+            ><b>{{ nutrition.key }}</b></label
+          >
+          <label class="subsection-heading">{{ nutrition.value }}</label>
+        </span>
+      </div>
+    }
+  }
+</section>

@@ -1,0 +1,85 @@
+<main class="ingredients-section">
+  <div class="ingredients-list-container">
+    @for (section of ingredients; track $index) {
+      <span class="ingredient-item-list">
+        @for (itemIngredient of section | keyvalue; track itemIngredient.key) {
+          <span class="item-ingredients-list">
+            <label class="card-title-recipe-name ingredient-key">
+              <b>{{ itemIngredient.key }}</b></label
+            >
+          </span>
+          <ul class="ingredient-list">
+            @for (ingredient of itemIngredient.value; track $index) {
+              <li class="body-paragraph ingredient-value">
+                <shared-input
+                  inputType="checkbox"
+                  [inputChecked]="ingredient.added_to_cart"
+                  (onValueChange)="addRemoveIngredient($event, ingredient)"
+                ></shared-input>
+                {{ ingredient.ingredient_name }}
+              </li>
+            }
+          </ul>
+        }
+      </span>
+      @if (!$last) {
+        <div class="vertical-divider"></div>
+      }
+    }
+  </div>
+  @if (quantity == 0) {
+    @if (ingredientsAddedToCart) {
+      <div class="update-ingredients-in-cart-container">
+        <shared-button
+          buttonClass="no-bg-secondary-color-muted-secondary-border larger"
+          [addIcon]="true"
+          [iconClass]="updatingIngredientsInCart ? 'pi pi-spinner pi-spin' : 'pi pi-shopping-cart'"
+          [leftIcon]="true"
+          class="add-to-cart-button"
+          [disabled]="updatingIngredientsInCart || removingAllIngredientsFromCart"
+          (click)="updateIngredientInCart()"
+          >{{ updatingIngredientsInCart ? 'Updating ingredients...' : 'Update ingredients in cart' }}</shared-button
+        >
+        <shared-button
+          buttonClass="no-bg-secondary-color-muted-secondary-border larger"
+          [addIcon]="true"
+          [iconClass]="removingAllIngredientsFromCart ? 'pi pi-spinner pi-spin' : 'pi pi-trash'"
+          [leftIcon]="true"
+          class="add-to-cart-button"
+          [disabled]="updatingIngredientsInCart || removingAllIngredientsFromCart"
+          (click)="removeAllIngredientsFromCart()"
+          >{{ removingAllIngredientsFromCart ? 'Removing ingredients...' : 'Remove all ingredients from cart' }}</shared-button
+        >
+      </div>
+    } @else if (addingIngredientsToCart) {
+      <div class="update-ingredients-in-cart-container">
+        <shared-button
+          buttonClass="no-bg-secondary-color-muted-secondary-border larger"
+          [addIcon]="true"
+          iconClass="pi pi-spinner pi-spin"
+          [leftIcon]="true"
+          class="add-to-cart-button"
+          [disabled]="true"
+          >Adding ingredients to cart...</shared-button
+        >
+      </div>
+    } @else {
+      <shared-button
+        buttonClass="no-bg-secondary-color-muted-secondary-border larger"
+        [addIcon]="true"
+        iconClass="pi pi-shopping-cart"
+        [leftIcon]="true"
+        class="add-to-cart-button"
+        (click)="updateIngredientInCart()"
+        >Add ingredients to cart</shared-button
+      >
+    }
+  } @else {
+    <shared-button
+      buttonClass="light larger"
+      [addedToCartButton]="true"
+      [recipeId]="recipeId"
+      (recipeDeleted)="removeRecipeFromCart()"
+    ></shared-button>
+  }
+</main>
