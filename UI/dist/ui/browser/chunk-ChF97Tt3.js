@@ -1,0 +1,1 @@
+import {e as ev,$ as $a,a as hI,U as Ua}from'./main-NCL4AXPD.js';var s=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=ev({type:t,selectors:[["app-payment-details"]],decls:2,vars:0,template:function(e,p){e&1&&($a(0,"p"),hI(1,"payment-details works!"),Ua());},encapsulation:2})};export{s as PaymentDetailsComponent};
