@@ -159,7 +159,7 @@ class IngredientDetails(SQLModel, table=True):
         sa_column=Column(
             postgresql.VARCHAR(15),
             CheckConstraint(
-                f"ingredient_quantity_metric IN ({', '.join(f"'{m.value}'" for m in MetricDetails)})"
+                f"ingredient_quantity_metric IN ({', '.join(repr(m.value) for m in MetricDetails)})"
             ),
             nullable=False,
         )
@@ -362,7 +362,7 @@ class RecipeDetails(SQLModel, table=True):
         sa_column=Column(
             postgresql.VARCHAR(10),
             CheckConstraint(
-                f"difficulty_level IN ({', '.join(f"'{d.value}'" for d in DifficultyLevelDetails)})"
+                f"difficulty_level IN ({', '.join(repr(d.value) for d in DifficultyLevelDetails)})"
             ),
             nullable=False,
             server_default=text("'Easy'"),
