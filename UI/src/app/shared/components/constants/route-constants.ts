@@ -1,10 +1,11 @@
 import { Service } from "@angular/core";
+import { environment } from "../../../../environments/environment";
 
 @Service()
 
 export class RouteConstants {
 
-    public readonly baseURL: string = 'http://127.0.0.1:8000';
+    public readonly baseURL: string = environment.apiUrl;
 
     public readonly userRoute: string = '/user';
     public readonly securityRoute: string = '/security';
