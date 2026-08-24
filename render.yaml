@@ -1,5 +1,3 @@
-#Check
-
 services:
   - type: web
     name: caseira-api
