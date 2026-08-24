@@ -255,7 +255,7 @@ class UserDetails(SQLModel, table=True):
             postgresql.UUID(as_uuid=True),
             ForeignKey("user_type_details.user_type_id", ondelete="CASCADE"),
             nullable=False,
-            server_default=text("ab97c7b4-4823-4510-bdca-c3743b22fa77"),
+            server_default=text("'ab97c7b4-4823-4510-bdca-c3743b22fa77'"),
         ),
     )
     created_at: datetime | None = Field(
