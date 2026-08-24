@@ -9,23 +9,18 @@ import { cookieReducer } from './core/store/cookie.reducer';
 import { CartService } from './core/services/cart.service';
 import { SharedToastNotificationService } from './shared/components/shared-toast-notification/shared-toast-notification.service';
 import { Constants } from './shared/components/constants/constants';
-import { of } from 'rxjs';
+import { catchError, of } from 'rxjs';
 
 function initializeApp() {
-  const cartService: CartService = inject(CartService);
-  const sharedToastNotificationService = inject(SharedToastNotificationService);
-  const constants: Constants = inject(Constants);
+  const cartService = inject(CartService);
 
-  cartService.fetchCartDetailsByUserId().subscribe({
-    next: (response) => {
+  return cartService.fetchCartDetailsByUserId().pipe(
+    catchError((error) => {
+      console.error('Cart initialization failed:', error);
+
       return of(null);
-    },
-    error: (error) => {
-      return of(null);
-    }
-  });
-
-
+    })
+  );
 }
 
 export const appConfig: ApplicationConfig = {
