@@ -21,4 +21,4 @@ services:
 databases:
   - name: caseira-db
     plan: free
-    postgresMajorVersion: 15
+    postgresMajorVersion: 18
