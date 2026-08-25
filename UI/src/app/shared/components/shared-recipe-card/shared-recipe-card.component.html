@@ -94,34 +94,36 @@
 } @else if (cardDirection() === "row") {
   <div class="recipe-card-row">
     <img [src]="'assets/' + imageUrl()" class="recipe-image-row" />
-    <span class="recipe-details-row">
-      <shared-button [routerLink]="['/recipe', recipeId()]">
-        <label class="secondary-text">{{ recipeName() }}</label>
-      </shared-button>
-      <span class="recipe-ratings small-helper-text">
-        @for (i of getRange(recipeRating()); track $index) {
-          <i class="pi pi-star-fill"></i>
-        }
-        @for (i of getRange(5 - recipeRating()); track $index) {
-          <i class="pi pi-star"></i>
-        }
-        <label class="number-of-reviews">{{ reviewCount() }}</label>
+    <span class="recipe-card-details-container">
+      <span class="recipe-details-row">
+        <shared-button [routerLink]="['/recipe', recipeId()]">
+          <label class="secondary-text">{{ recipeName() }}</label>
+        </shared-button>
+        <span class="recipe-ratings small-helper-text">
+          @for (i of getRange(recipeRating()); track $index) {
+            <i class="pi pi-star-fill"></i>
+          }
+          @for (i of getRange(5 - recipeRating()); track $index) {
+            <i class="pi pi-star"></i>
+          }
+          <label class="number-of-reviews">{{ reviewCount() }}</label>
+        </span>
+        <label class="small-helper-text">{{ timeToCook() }}</label>
       </span>
-      <label class="small-helper-text">{{ timeToCook() }}</label>
+      <shared-button
+        buttonClass="no-background-secondary-color-no-border medium"
+        [iconOnly]="true"
+        [iconClass]="
+          bookmarkToggleInProgress
+            ? 'pi pi-spin pi-spinner'
+            : recipeBookmarked
+              ? 'pi pi-bookmark-fill'
+              : 'pi pi-bookmark'
+        "
+        customPadding="0.5rem"
+        [disabled]="bookmarkToggleInProgress"
+        (click)="toggleBookmark()"
+      ></shared-button>
     </span>
-    <shared-button
-      buttonClass="no-background-secondary-color-no-border medium"
-      [iconOnly]="true"
-      [iconClass]="
-        bookmarkToggleInProgress
-          ? 'pi pi-spin pi-spinner'
-          : recipeBookmarked
-            ? 'pi pi-bookmark-fill'
-            : 'pi pi-bookmark'
-      "
-      customPadding="0.5rem"
-      [disabled]="bookmarkToggleInProgress"
-      (click)="toggleBookmark()"
-    ></shared-button>
   </div>
 }

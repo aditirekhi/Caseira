@@ -88,6 +88,13 @@
   border-radius: 8px;
 }
 
+.recipe-card-details-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: start;
+}
+
 .recipe-details-row {
   display: flex;
   flex-direction: column;

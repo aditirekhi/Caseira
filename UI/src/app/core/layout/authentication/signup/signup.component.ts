@@ -47,6 +47,7 @@ export class SignupComponent {
 
   toastNotificationMessage: string = '';
   toastNotificationType: string = '';
+  signinInProgress: boolean = false;
 
   returnUrl: string = '/home';
 
@@ -104,6 +105,7 @@ export class SignupComponent {
 
   signInSubmission(): void {
     this.formSubmitted = true;
+    this.signinInProgress = true;
     this.checkFormErrors();
     if (!this.formHasErrors) {
       const userSignInPayload: UserSignInRequest = {
@@ -118,13 +120,16 @@ export class SignupComponent {
           this.toastNotificationType = this.constants.TOAST_NOTIFICATION_TYPES['SUCCESS'];
           this.sharedToastNotificationService.showNotification(this.toastNotificationMessage, this.toastNotificationType);
           this.authService.setWorkflowComplete(true);
+          this.signinInProgress = false;
           this.router.navigate(['/home']);
         } else {
+          this.signinInProgress = false;
           this.formHasErrors = true;
           this.errorMessage = signInResponseMessage;
         }
       });
     } else {
+      this.signinInProgress = false;
       this.setFormErrorMessage();
     }
   }

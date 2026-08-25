@@ -34,6 +34,7 @@ export class TodaysSpecialComponent {
   }
 
   fetchTodaysSpecialRecipe(): void {
+    this.constants.primaryLoadingPage.set(true);
     this.recipeService.fetchTodaysSpecialRecipe().subscribe({
       next: (response: RecipeCardInterface | string) => {
         if (typeof response === 'string') {
@@ -43,10 +44,14 @@ export class TodaysSpecialComponent {
           this.changeDetection.detectChanges();
           this.checkIfRecipeInCart();
         }
+        this.constants.primaryLoadingPage.set(false);
+        this.changeDetection.detectChanges();
       },
       error: (error) => {
         const errorMessage = typeof error === 'string' ? error : this.constants.GENERIC_ERROR_MESSAGE;
         this.sharedToastNotificationService.showNotification(errorMessage, this.constants.TOAST_NOTIFICATION_TYPES['ERROR']);
+        this.constants.primaryLoadingPage.set(false);
+        this.changeDetection.detectChanges();
       }
     })
   }

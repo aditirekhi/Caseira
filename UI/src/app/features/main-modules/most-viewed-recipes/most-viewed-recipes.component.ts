@@ -24,6 +24,7 @@ export class MostViewedRecipesComponent {
   }
 
   fetchMostViewedRecipes() {
+    this.constants.primaryLoadingPage.set(true);
     const queryParams: RecipeAllRequestQueryParams = {
       order_by_field: this.constants.recipesConstants.RECIPE_FIELDS.NUMBER_OF_TOTAL_VISITS,
       order_by_direction: this.constants.SORTING_OPTIONS.DESCENDING,
@@ -32,12 +33,15 @@ export class MostViewedRecipesComponent {
     this.recipesService.fetchAllRecipes(queryParams).subscribe({
       next: (recipes) => {
         this.mostViewedRecipes = Array.isArray(recipes) ? recipes : [];
+        this.constants.primaryLoadingPage.set(false);
         this.changeDetection.detectChanges();
       },
       error: (error) => {
         this.sharedToastNotificationService.showNotification(
           error || this.constants.recipesConstants.UNABLE_TO_FETCH_RECIPES_ERROR_MESSAGE,
           this.constants.TOAST_NOTIFICATION_TYPES['ERROR']);
+        this.constants.primaryLoadingPage.set(false);
+        this.changeDetection.detectChanges();
       }
     });
   }

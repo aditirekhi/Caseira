@@ -38,6 +38,8 @@ export class ForgottenPasswordComponent {
   errorMessage: string = '';
   returnUrl: string = '/home';
 
+  forgotPasswordInProgress: boolean = false;
+
   ngOnInit() {
     this.paramSubscription = this.route.queryParams.subscribe(params => {
       this.returnUrl = params['returnUrl'] || '/home';
@@ -79,6 +81,7 @@ export class ForgottenPasswordComponent {
   }
 
   forgottenPasswordSubmission() {
+    this.forgotPasswordInProgress = true;
     this.hasErrors = false;
     this.errorMessage = '';
     this.checkFormErrors();
@@ -99,13 +102,16 @@ export class ForgottenPasswordComponent {
               } else {
                 this.setErrorState(forgotPasswordMessage);
               }
+              this.forgotPasswordInProgress = false;
             },
             error: (error) => {
               this.setErrorState(error.error?.detail ?? this.constants.signInLoginConstants.PASSWORD_RESET_FAILURE_MESSAGE);
+              this.forgotPasswordInProgress = false;
             }
           });
       } else {
         this.setErrorState(this.constants.signInLoginConstants.PASSWORD_RESET_FAILURE_MESSAGE);
+        this.forgotPasswordInProgress = false;
       }
     } else {
       this.setErrorMessage();

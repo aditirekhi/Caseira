@@ -83,15 +83,28 @@
           <i class="pi pi-info-circle"></i>{{ errorMessage }}
         </span>
       }
-      <shared-button
-        buttonType="submit"
-        buttonClass="secondary-background-primary-color-no-border small"
-        [addIcon]="true"
-        iconClass="pi pi-arrow-right"
-        buttonWidth="100%"
-        class="signin-button"
-        >Sign In</shared-button
-      >
+      @if (signinInProgress) {
+        <shared-button
+          buttonType="submit"
+          buttonClass="secondary-background-primary-color-no-border small"
+          [addIcon]="true"
+          iconClass="pi pi-spin pi-spinner"
+          buttonWidth="100%"
+          class="signin-button"
+          [disabled]="true"
+          >Signing In...</shared-button
+        >
+      } @else {
+        <shared-button
+          buttonType="submit"
+          buttonClass="secondary-background-primary-color-no-border small"
+          [addIcon]="true"
+          iconClass="pi pi-arrow-right"
+          buttonWidth="100%"
+          class="signin-button"
+          >Sign In</shared-button
+        >
+      }
     </form>
     <span class="alternative-methods">
       <hr />

@@ -24,13 +24,17 @@ export class ExploreByRegionsComponent {
   }
 
   fetchAllRegions() {
+    this.constants.primaryLoadingPage.set(true);
     this.regionsService.getAllRegions().subscribe({
       next: (response: FetchAllRegionsResponse[] | string) => {
         this.regionsDetails = response as FetchAllRegionsResponse[];
+        this.constants.primaryLoadingPage.set(false);
         this.changeDetection.detectChanges();
       },
       error: (error: any) => {
         this.sharedToastNotificationService.showNotification(this.constants.regionsConstants.UNABLE_TO_FETCH_REGIONS_ERROR_MESSAGE, 'error', 5000);
+        this.constants.primaryLoadingPage.set(false);
+        this.changeDetection.detectChanges();
       }
     });
   }

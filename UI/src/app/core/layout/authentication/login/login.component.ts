@@ -34,6 +34,8 @@ export class LoginComponent {
   toastNotificationType: string = '';
   returnUrl: string = '/home';
 
+  loginInProgress: boolean = false;
+
   ngOnInit() {
     this.paramSubscription = this.route.queryParams.subscribe(params => {
       this.returnUrl = params['returnUrl'] || '/home';
@@ -67,6 +69,7 @@ export class LoginComponent {
   }
 
   logInSubmission() {
+    this.loginInProgress = true;
     this.checkFormErrors();
     if (!this.hasErrors) {
       const loginPayload: UserLogInRequest = {
@@ -80,16 +83,19 @@ export class LoginComponent {
             this.toastNotificationType = this.constants.TOAST_NOTIFICATION_TYPES['SUCCESS'];
             this.sharedToastNotificationService.showNotification(this.toastNotificationMessage, this.toastNotificationType);
             this.authService.setWorkflowComplete(true);
+            this.loginInProgress = false;
             this.router.navigate([this.returnUrl]);
             if (this.authService.hasPendingRequests()) {
               this.authService.processPendingRequests();
             }
           } else {
+            this.loginInProgress = false;
             this.hasErrors = true;
             this.errorMessage = loginResponseMessage;
           }
         });
     } else {
+      this.loginInProgress = false;
       this.setErrorMessage();
     }
   }
