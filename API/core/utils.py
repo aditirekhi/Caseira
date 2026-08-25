@@ -10,7 +10,7 @@ from schemas.base import JWTTokenInfo
 
 def generate_access_token(user_payload: dict, count: int = 1, expiry=timedelta(days=1)):
     print("-------------------------------- Entering generate_access_token")
-    return jwt.encode(
+    token = jwt.encode(
         payload=JWTTokenInfo(
             **user_payload,
             exp=datetime.now(timezone.utc) + expiry,
@@ -20,6 +20,8 @@ def generate_access_token(user_payload: dict, count: int = 1, expiry=timedelta(d
         algorithm=jwt_settings.JWT_ALGORITHM,
         key=jwt_settings.JWT_SECRET_KEY,
     )
+    print(f"Generated token: {token}")
+    return token
 
 
 def decode_access_token(token: str) -> dict:

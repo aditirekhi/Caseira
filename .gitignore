@@ -1,0 +1,53 @@
+# Environment files and local secrets
+.env
+.env.*
+!.env.example
+
+# Python cache, virtual environments, and test tooling
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Python packaging output
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Local databases and logs
+*.db
+*.sqlite
+*.sqlite3
+*.log
+
+# Node and Angular dependencies/build output
+node_modules/
+.angular/cache/
+dist/
+coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.tmp
+*.temp
+
+# Project-specific files
+Caseira_Overview.pptx
+UI Layout
