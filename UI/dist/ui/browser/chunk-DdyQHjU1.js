@@ -1,1 +1,0 @@
-import {e as ev,$ as $a,a as hI,U as Ua}from'./main-NCL4AXPD.js';var a=class n{static \u0275fac=function(e){return new(e||n)};static \u0275cmp=ev({type:n,selectors:[["app-all-ingredients"]],decls:2,vars:0,template:function(e,r){e&1&&($a(0,"p"),hI(1,"all-ingredients works!"),Ua());},encapsulation:2})};export{a as AllIngredientsComponent};

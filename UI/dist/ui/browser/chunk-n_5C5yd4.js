@@ -1,1 +1,0 @@
-var o=a=>{let s=a.get("password"),r=a.get("confirmPassword");return !s||!s.value||!r||!r.value?null:s.value!==r.value?(r.setErrors({passwordMismatch:true}),{passwordMismatch:true}):null};export{o};
