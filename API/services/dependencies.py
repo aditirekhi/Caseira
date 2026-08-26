@@ -5,9 +5,8 @@ from fastapi import Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.security import oauth2_scheme_optional_user, oauth2_scheme_user
-from core.utils import decode_access_token
+from core.utils import decode_access_token, is_token_blacklisted
 from database.models import UserDetails
-from database.redis import is_token_blacklisted
 from database.session import get_session
 
 if TYPE_CHECKING:
@@ -23,12 +22,13 @@ if TYPE_CHECKING:
     from services.security import SecurityClass
     from services.user import UserService
     from services.user_calendar_plan_details import UserCalendarPlanDetailsService
+    from services.utils import UtilsService
 
 
 databaseSessionDep = Annotated[AsyncSession, Depends(get_session)]
 
 
-async def get_access_token(token: str) -> dict:
+async def get_access_token(token: str, databaseSession: databaseSessionDep) -> dict:
     data = decode_access_token(token)
     if data is None:
         raise HTTPException(
@@ -42,11 +42,13 @@ async def get_access_token(token: str) -> dict:
         )
 
     try:
-        blacklisted = await is_token_blacklisted(str(token_id))
-    except RuntimeError:
+        blacklisted = await is_token_blacklisted(
+            token_id, get_utils_service(databaseSession)
+        )
+    except (RuntimeError, ValueError):
         blacklisted = False
 
-    if data is None or blacklisted:
+    if blacklisted:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid access token"
         )
@@ -54,23 +56,28 @@ async def get_access_token(token: str) -> dict:
     return data
 
 
-async def check_valid_request(token: Annotated[str, Depends(oauth2_scheme_user)]):
-    await get_access_token(token)
+async def check_valid_request(
+    token: Annotated[str, Depends(oauth2_scheme_user)],
+    databaseSession: databaseSessionDep,
+):
+    await get_access_token(token, databaseSession)
     return True
 
 
 async def get_user_access_token(
     token: Annotated[str, Depends(oauth2_scheme_user)],
+    databaseSession: databaseSessionDep,
 ) -> dict:
-    return await get_access_token(token)
+    return await get_access_token(token, databaseSession)
 
 
 async def get_optional_user_access_token(
     token: Annotated[str | None, Depends(oauth2_scheme_optional_user)],
+    databaseSession: databaseSessionDep,
 ) -> dict | None:
     if token is None:
         return None
-    return await get_access_token(token)
+    return await get_access_token(token, databaseSession)
 
 
 async def get_current_user(
@@ -114,6 +121,12 @@ async def get_optional_current_user(
         )
 
     return user
+
+
+def get_utils_service(databaseSession: databaseSessionDep):
+    from services.utils import UtilsService
+
+    return UtilsService(databaseSession)
 
 
 def get_user_service(databaseSession: databaseSessionDep):
@@ -198,6 +211,7 @@ def get_helpful_reviews_service(databaseSession: databaseSessionDep):
     return HelpfulReviewsService(databaseSession)
 
 
+UtilsServiceDependency = Annotated["UtilsService", Depends(get_utils_service)]
 AddressServiceDependency = Annotated["AddressService", Depends(get_address_service)]
 UserServiceDependency = Annotated["UserService", Depends(get_user_service)]
 CurrentUserDependency = Annotated[UserDetails, Depends(get_current_user)]

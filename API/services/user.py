@@ -4,11 +4,11 @@ from passlib.context import CryptContext
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
 
-from core.utils import generate_access_token
+from core.utils import add_token_to_blacklist, generate_access_token
 from database.models import UserDetails
-from database.redis import add_token_to_blacklist
 from schemas.user import UserClassChangePassword, UserClassCreate
 from services.base import BaseService
+from services.utils import UtilsService
 
 password_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
@@ -23,8 +23,8 @@ class UserService(BaseService[UserDetails]):
         username = f"{first_name.strip().lower()}_{last_name.strip().lower()}"
 
         while await self.check_username_exists(username):
-            randomSuffix = random.randint(1, 999)
-            username = f"{first_name.strip().lower()}_{last_name.strip().lower()}_{str(randomSuffix)}"
+            random_suffix = random.randint(1, 999)
+            username = f"{first_name.strip().lower()}_{last_name.strip().lower()}_{random_suffix}"
 
         return username
 
@@ -40,9 +40,6 @@ class UserService(BaseService[UserDetails]):
 
     async def add_user(self, payload: UserClassCreate):
         print("-------------------------------- Entering UserService.add_user")
-        from services.cart import CartService
-
-        cart_service = CartService(self.session, None, None)
 
         userExists = await self.get_user_by_email(payload.email_address)
 
@@ -83,7 +80,7 @@ class UserService(BaseService[UserDetails]):
 
         try:
             valid_password = password_context.verify(password, user.password_hash)
-        except Exception:
+        except (TypeError, ValueError):
             return None
 
         if not valid_password:
@@ -97,14 +94,15 @@ class UserService(BaseService[UserDetails]):
             count=1,
         )
 
-    async def logout(self, token_id: str):
+    async def logout(self, token_data: dict):
         print("-------------------------------- Entering UserService.logout")
 
-        if token_id is None:
+        if token_data is None:
             return None
-        else:
-            await add_token_to_blacklist(token_id)
-            return True
+
+        utils_service = UtilsService(self.session)
+        await add_token_to_blacklist(token_data, utils_service)
+        return True
 
     async def change_password(self, payload: UserClassChangePassword):
 

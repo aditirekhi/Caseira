@@ -1,5 +1,10 @@
-from core.utils import decode_access_token, generate_access_token
-from database.redis import add_token_to_blacklist, is_token_blacklisted
+from core.utils import (
+    add_token_to_blacklist,
+    decode_access_token,
+    generate_access_token,
+    is_token_blacklisted,
+)
+from services.utils import UtilsService
 
 
 class SecurityClass:
@@ -15,24 +20,26 @@ class SecurityClass:
 
         if token_data is None:
             return None
-        else:
-            token_id = token_data.get("jti")
-            if token_id is None:
-                return None
-            is_blacklisted = await is_token_blacklisted(token_id)
-            if not is_blacklisted:
-                await add_token_to_blacklist(token_id)
 
-            count = token_data.get("count", 1)
+        token_id = token_data.get("jti")
+        if token_id is None:
+            return None
 
-            if count > 10:
-                return None
+        utils_service = UtilsService(self.session)
+        is_blacklisted = await is_token_blacklisted(token_id, utils_service)
+        if not is_blacklisted:
+            await add_token_to_blacklist(token_data, utils_service)
 
-            user_payload = {
-                "user_id": token_data.get("user_id"),
-                "email_address": token_data.get("email_address"),
-            }
+        count = token_data.get("count", 1)
 
-            return generate_access_token(
-                user_payload=user_payload, count=token_data.get("count", 1) + 1
-            )
+        if count > 10:
+            return None
+
+        user_payload = {
+            "user_id": token_data.get("user_id"),
+            "email_address": token_data.get("email_address"),
+        }
+
+        return generate_access_token(
+            user_payload=user_payload, count=token_data.get("count", 1) + 1
+        )

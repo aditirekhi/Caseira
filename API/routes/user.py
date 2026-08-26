@@ -94,15 +94,16 @@ async def logout(
     user_service: UserServiceDependency,
     constants: ConstantsDependency,
     token_data: Annotated[HTTPAuthorizationCredentials, Depends(HTTPBearer())],
+    databaseSession,
 ):
     try:
-        await check_valid_request(token_data.credentials)
+        await check_valid_request(token_data.credentials, databaseSession)
     except HTTPException:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=constants.invalid_access_token,
         )
-    logout_result = await user_service.logout(token["jti"])
+    logout_result = await user_service.logout(token)
     if logout_result is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

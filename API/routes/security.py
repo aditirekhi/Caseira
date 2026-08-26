@@ -8,6 +8,7 @@ from schemas.user import UserLoginResponse
 from services.dependencies import (
     SecurityServiceDependency,
     check_valid_request,
+    databaseSessionDep,
 )
 from shared.dependencies import ConstantsDependency
 
@@ -17,10 +18,11 @@ router = APIRouter(prefix="/security", tags=["Security"])
 @router.get("/checkTokenExpiration", response_model=ApiResponse[bool])
 async def check_token_expiration(
     constants: ConstantsDependency,
+    databaseSessionDependency: databaseSessionDep,
     token: Annotated[HTTPAuthorizationCredentials, Depends(HTTPBearer())],
 ):
     try:
-        await check_valid_request(token.credentials)
+        await check_valid_request(token.credentials, databaseSessionDependency)
     except HTTPException:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

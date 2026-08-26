@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from typing import Protocol
 from uuid import uuid4
 
 import jwt
@@ -8,9 +9,14 @@ from config import jwt_settings
 from schemas.base import JWTTokenInfo
 
 
+class UtilsServiceProtocol(Protocol):
+    async def add_token_to_blacklist(self, token: dict) -> object: ...
+    async def is_token_blacklisted(self, token: str) -> bool: ...
+
+
 def generate_access_token(user_payload: dict, count: int = 1, expiry=timedelta(days=1)):
     print("-------------------------------- Entering generate_access_token")
-    token = jwt.encode(
+    return jwt.encode(
         payload=JWTTokenInfo(
             **user_payload,
             exp=datetime.now(timezone.utc) + expiry,
@@ -20,8 +26,6 @@ def generate_access_token(user_payload: dict, count: int = 1, expiry=timedelta(d
         algorithm=jwt_settings.JWT_ALGORITHM,
         key=jwt_settings.JWT_SECRET_KEY,
     )
-    print(f"Generated token: {token}")
-    return token
 
 
 def decode_access_token(token: str) -> dict:
@@ -67,3 +71,44 @@ def decode_access_token(token: str) -> dict:
         )
 
     return decoded_token
+
+
+async def add_token_to_blacklist(
+    token: dict, utils_service: UtilsServiceProtocol | None = None
+):
+    print("-------------------------------- Entering add_token_to_blacklist")
+
+    if not isinstance(token, dict):
+        raise TypeError("JWT payload must be a dictionary.")
+
+    jti = token.get("jti")
+    exp_value = token.get("exp")
+
+    if jti is None:
+        raise ValueError("JWT token is missing the 'jti' claim.")
+    if exp_value is None:
+        raise ValueError("JWT token is missing the 'exp' claim.")
+
+    if utils_service is None:
+        raise ValueError("Utils service is required to blacklist a token.")
+
+    await utils_service.add_token_to_blacklist(
+        {
+            "jti": str(jti),
+            "exp": datetime.fromtimestamp(float(exp_value), tz=timezone.utc),
+        }
+    )
+
+
+async def is_token_blacklisted(
+    token_id: str, utils_service: UtilsServiceProtocol | None = None
+) -> bool:
+    print("-------------------------------- Entering is_token_blacklisted")
+
+    if token_id is None:
+        return False
+
+    if utils_service is None:
+        raise ValueError("Utils service is required to check blacklisted tokens.")
+
+    return await utils_service.is_token_blacklisted(str(token_id))

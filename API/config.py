@@ -28,13 +28,6 @@ class DataBaseSettings(BaseSettings):
             return f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
 
 
-class RedisSettings(BaseSettings):
-    REDIS_HOST: str = ""
-    REDIS_PORT: int = 0
-
-    model_config = _base_config
-
-
 class SecuritySettings(BaseSettings):
     JWT_ALGORITHM: str = ""
     JWT_SECRET_KEY: str = ""
@@ -44,4 +37,3 @@ class SecuritySettings(BaseSettings):
 
 db_settings = DataBaseSettings()
 jwt_settings = SecuritySettings()
-redis_settings = RedisSettings()

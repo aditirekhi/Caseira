@@ -27,6 +27,35 @@ class DifficultyLevelDetails(Enum):
     hard = "Hard"
 
 
+class BacklistedJWTTokens(SQLModel, table=True):
+    __tablename__: str = "blacklisted_jwt_tokens"
+
+    blacklisted_token_id: UUID | None = Field(
+        default=None,
+        sa_column=Column(
+            postgresql.UUID(as_uuid=True),
+            server_default=text("gen_random_uuid()"),
+            primary_key=True,
+        ),
+    )
+    token_jti: str = Field(sa_column=Column(postgresql.VARCHAR(255), nullable=False))
+    expired_at: datetime | None = Field(
+        default=None,
+        sa_column=Column(postgresql.TIMESTAMP(timezone=True), nullable=False),
+    )
+    created_at: datetime | None = Field(
+        default=None,
+        sa_column=Column(
+            postgresql.TIMESTAMP(timezone=True),
+            nullable=False,
+            server_default=text("NOW()"),
+        ),
+    )
+    created_by: str | None = Field(
+        default=None, sa_column=Column(postgresql.VARCHAR(255), nullable=False)
+    )
+
+
 class AddressDetails(SQLModel, table=True):
     __tablename__: str = "address_details"
 
