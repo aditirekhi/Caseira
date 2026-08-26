@@ -1,1 +1,0 @@
-import {e as ev,$ as $a,a as hI,U as Ua}from'./main-NCL4AXPD.js';var i=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=ev({type:t,selectors:[["app-order-history"]],decls:2,vars:0,template:function(e,m){e&1&&($a(0,"p"),hI(1,"order-history works!"),Ua());},encapsulation:2})};export{i as OrderHistoryComponent};
