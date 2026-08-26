@@ -26,7 +26,6 @@ export class TodaysSpecialComponent {
 
   todaysSpecialRecipe: RecipeCardInterface | null = null;
   addToCartInProgress: boolean = false;
-  addToCartSuccess: boolean = false;
   recipeAddedToCart: boolean = false;
 
   ngOnInit(): void {
@@ -98,7 +97,6 @@ export class TodaysSpecialComponent {
             this.sharedToastNotificationService.showNotification(response, this.constants.TOAST_NOTIFICATION_TYPES['ERROR']);
           } else {
             this.addToCartInProgress = false;
-            this.addToCartSuccess = true;
             this.changeDetection.detectChanges();
             this.recipeAddedToCart = true;
           }

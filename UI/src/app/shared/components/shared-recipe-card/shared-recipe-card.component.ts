@@ -39,7 +39,6 @@ export class SharedRecipeCardComponent {
   recipeAddedToFavorites = input<boolean>(false);
 
   addToCartInProgress: boolean = false;
-  addToCartSuccess: boolean = false;
   recipeInCart: boolean = false;
   cartId: string = '';
   recipeLiked: boolean = false;
@@ -155,9 +154,8 @@ export class SharedRecipeCardComponent {
           this.showToastNotificationService.showNotification(response, this.constants.TOAST_NOTIFICATION_TYPES['ERROR']);
         } else {
           this.addToCartInProgress = false;
-          this.addToCartSuccess = true;
-          this.changeDetection.detectChanges();
           this.recipeInCart = true;
+          this.changeDetection.detectChanges();
         }
         this.changeDetection.detectChanges();
       },

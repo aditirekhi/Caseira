@@ -26,17 +26,17 @@ export class CartService {
                 map((response: ApiResponse<CartDetails>): CartDetails | string => {
                     if (response.success) {
                         this.storeCartDetailsInCookie(response.data);
+                        this.constants.primaryLoadingPage.set(false);
                         return response.data;
                     } else {
+                        this.constants.primaryLoadingPage.set(false);
                         return this.constants.GENERIC_ERROR_MESSAGE;
                     }
                 }),
                 catchError((error): Observable<string> => {
                     const errorMessage = error.error?.detail || this.constants.GENERIC_ERROR_MESSAGE;
-                    return of(errorMessage);
-                }),
-                finalize(() => {
                     this.constants.primaryLoadingPage.set(false);
+                    return of(errorMessage);
                 })
             );
     }
