@@ -4,6 +4,9 @@ from fastapi import APIRouter, HTTPException, status
 
 from schemas.base import ApiResponse
 from schemas.recipes import (
+    OrderByField,
+    OrderDirection,
+    RecipeFilterClass,
     RecipesClassCardRead,
     RecipesClassCreate,
     RecipesClassDetailRead,
@@ -23,15 +26,29 @@ router = APIRouter(prefix="/recipes", tags=["Recipes"])
 async def get_recipes(
     recipes_service: RecipesServiceDependency,
     constants: ConstantsDependency,
-    order_by_field: str = "recipe_name",
-    direction: str = "asc",
+    order_by_field: OrderByField = OrderByField.RECIPE_NAME,
+    order_by_direction: OrderDirection = OrderDirection.ASC,
     page_size: int = 20,
+    vegetarian: bool | None = None,
+    non_vegetarian: bool | None = None,
+    category_id: str | None = None,
+    region_id: str | None = None,
 ):
     print("-------------------------------- Entering get_recipes")
 
-    print(direction)
+    filter_values = RecipeFilterClass(
+        vegetarian=vegetarian,
+        non_vegetarian=non_vegetarian,
+        category_id=[UUID(item) for item in category_id.split(",")]
+        if category_id
+        else None,
+        region_id=[UUID(item) for item in region_id.split(",")] if region_id else None,
+    )
     recipes = await recipes_service.fetch_all_recipe_cards(
-        order_by_field, direction, page_size
+        order_by_field=order_by_field,
+        direction=order_by_direction.value,
+        page_size=page_size,
+        filter_values=filter_values,
     )
 
     return ApiResponse(

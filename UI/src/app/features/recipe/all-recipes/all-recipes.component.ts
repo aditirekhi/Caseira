@@ -32,12 +32,20 @@ export class AllRecipesComponent {
 
   showOnlyVegetarian: boolean = false;
   showOnlyNonVegetarian: boolean = false;
+  recipeFilterPayload: RecipeAllRequestQueryParams = {
+    order_by_field: this.constants.recipesConstants.RECIPE_FIELDS.NUMBER_OF_TOTAL_VISITS,
+    order_by_direction: this.constants.SORTING_OPTIONS.ASCENDING,
+    page_size: this.constants.recipesConstants.ALL_RECIPES_PAGE_SIZE
+  };
 
   recipeDetails: RecipeCardInterface[] = [];
   regionsDetails: FetchAllRegionsResponse[] = [];
   categoriesDetails: AllCategoryDetailsInterface[] = [];
   sortingOptions = this.constants.allRecipesConstants.SORTING_OPTIONS;
   selectedSortingOption: string = this.sortingOptions.MOST_POPULAR.label;
+  selectedCategoryIds: string[] = [];
+  selectedRegionIds: string[] = [];
+  selectedVegetarian: boolean | null = null;
 
   isGridView: boolean = true;
   isRecipesLoading: boolean = true;
@@ -118,17 +126,16 @@ export class AllRecipesComponent {
   }
 
   fetchAllRecipes() {
-    const payload: RecipeAllRequestQueryParams = {
-      order_by_field: this.constants.recipesConstants.RECIPE_FIELDS.NUMBER_OF_TOTAL_VISITS,
-      order_by_direction: this.constants.SORTING_OPTIONS.ASCENDING,
-      page_size: this.constants.recipesConstants.ALL_RECIPES_PAGE_SIZE
-    };
-    this.recipeService.fetchAllRecipes(payload).subscribe({
+    this.isRecipesLoading = true;
+    this.recipeDetails = [];
+    this.changeDetection.markForCheck();
+
+    this.recipeService.fetchAllRecipes(this.recipeFilterPayload).subscribe({
       next: (response: RecipeCardInterface[] | string) => {
         if (response && typeof response === 'string') {
           this.sharedToastNotificationService.showNotification(response, this.constants.TOAST_NOTIFICATION_TYPES['ERROR']);
         } else if (response && Array.isArray(response)) {
-          this.recipeDetails.push(...(response));
+          this.recipeDetails = response;
         }
         this.isRecipesLoading = false;
         this.changeDetection.markForCheck();
@@ -140,12 +147,37 @@ export class AllRecipesComponent {
     })
   }
 
+  checkIfAnyFilterApplied(): boolean {
+    if (this.recipeFilterPayload.vegetarian || this.recipeFilterPayload.non_vegetarian || (this.recipeFilterPayload.category_id && this.recipeFilterPayload.category_id.length > 0) || (this.recipeFilterPayload.region_id && this.recipeFilterPayload.region_id.length > 0)) {
+      return true;
+    }
+    return false;
+  }
+
+  clearAllFilters() {
+    this.recipeFilterPayload.vegetarian = undefined;
+    this.recipeFilterPayload.non_vegetarian = undefined;
+    this.recipeFilterPayload.category_id = [];
+    this.recipeFilterPayload.region_id = [];
+    this.showOnlyVegetarian = false;
+    this.showOnlyNonVegetarian = false;
+    this.fetchAllRecipes();
+  }
+
   toggleVegetarianFilter() {
     this.showOnlyVegetarian = !this.showOnlyVegetarian;
+    this.recipeFilterPayload.vegetarian = this.showOnlyVegetarian ? true : undefined;
+    this.isRecipesLoading = true;
+    this.changeDetection.markForCheck();
+    this.fetchAllRecipes();
   }
 
   toggleNonVegetarianFilter() {
     this.showOnlyNonVegetarian = !this.showOnlyNonVegetarian;
+    this.recipeFilterPayload.non_vegetarian = this.showOnlyNonVegetarian ? true : undefined;
+    this.isRecipesLoading = true;
+    this.changeDetection.markForCheck();
+    this.fetchAllRecipes();
   }
 
   togglePageView() {
@@ -156,17 +188,61 @@ export class AllRecipesComponent {
     this.showSortingOptions = !this.showSortingOptions;
   }
 
-  selectSortingOption(option: { label: string }) {
-    this.selectedSortingOption = option.label;
-    this.showSortingOptions = false;
+  selectSortingOption(field: string, direction: string, label: string) {
+    this.recipeFilterPayload.order_by_field = field;
+    this.recipeFilterPayload.order_by_direction = direction;
+    this.selectedSortingOption = label;
+    this.isRecipesLoading = true;
+    this.changeDetection.markForCheck();
+    this.fetchAllRecipes();
   }
 
   closeSortingOptionsOnFocusOut(event: FocusEvent) {
     const wrapper = event.currentTarget as HTMLElement;
     const nextFocusedElement = event.relatedTarget as Node | null;
-
     if (!nextFocusedElement || !wrapper.contains(nextFocusedElement)) {
       this.showSortingOptions = false;
     }
   }
+
+  toggleCategoryFilter(categoryId: string) {
+    console.log('Toggling category filter for categoryId:', categoryId);
+    this.isRecipesLoading = true;
+    if (this.recipeFilterPayload.category_id) {
+      const categoryExists = this.recipeFilterPayload.category_id.includes(categoryId);
+      if (categoryExists) {
+        this.recipeFilterPayload.category_id = this.recipeFilterPayload.category_id.filter(id => id !== categoryId);
+      } else {
+        this.recipeFilterPayload.category_id.push(categoryId);
+      }
+    } else {
+      this.recipeFilterPayload.category_id = [categoryId];
+    }
+    this.fetchAllRecipes();
+  }
+
+  checkCategoryFilterApplied(categoryId: string): boolean {
+    return this.recipeFilterPayload.category_id ? this.recipeFilterPayload.category_id.includes(categoryId) : false;
+  }
+
+  toggleRegionFilter(regionsId: string) {
+    console.log('Toggling region filter for regionId:', regionsId);
+    this.isRecipesLoading = true;
+    if (this.recipeFilterPayload.region_id) {
+      const regionExists = this.recipeFilterPayload.region_id.includes(regionsId);
+      if (regionExists) {
+        this.recipeFilterPayload.region_id = this.recipeFilterPayload.region_id.filter(id => id !== regionsId);
+      } else {
+        this.recipeFilterPayload.region_id.push(regionsId);
+      }
+    } else {
+      this.recipeFilterPayload.region_id = [regionsId];
+    }
+    this.fetchAllRecipes();
+  }
+
+  checkRegionFilterApplied(regionId: string): boolean {
+    return this.recipeFilterPayload.region_id ? this.recipeFilterPayload.region_id.includes(regionId) : false;
+  }
+
 }

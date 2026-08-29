@@ -31,10 +31,30 @@ export class RecipesService {
 
 
     fetchAllRecipes(queryParams: RecipeAllRequestQueryParams): Observable<RecipeCardInterface[] | string> {
-        const httpParams: HttpParams = new HttpParams()
-            .set('order_by_field', queryParams.order_by_field ?? '')
-            .set('order_by_direction', queryParams.order_by_direction ?? '')
-            .set('page_size', queryParams.page_size?.toString() ?? '');
+        let httpParams = new HttpParams();
+
+        if (queryParams.order_by_field) {
+            httpParams = httpParams.set('order_by_field', queryParams.order_by_field);
+        }
+        if (queryParams.order_by_direction) {
+            httpParams = httpParams.set('order_by_direction', queryParams.order_by_direction);
+        }
+        if (queryParams.page_size) {
+            httpParams = httpParams.set('page_size', queryParams.page_size.toString());
+        }
+
+        if (queryParams.vegetarian === true || queryParams.vegetarian === false) {
+            httpParams = httpParams.set('vegetarian', queryParams.vegetarian.toString());
+        }
+        if (queryParams.non_vegetarian === true || queryParams.non_vegetarian === false) {
+            httpParams = httpParams.set('non_vegetarian', queryParams.non_vegetarian.toString());
+        }
+        if (queryParams.category_id && queryParams.category_id.length > 0) {
+            httpParams = httpParams.set('category_id', queryParams.category_id.join(','));
+        }
+        if (queryParams.region_id && queryParams.region_id.length > 0) {
+            httpParams = httpParams.set('region_id', queryParams.region_id.join(','));
+        }
 
         return this.http.get<ApiResponse<RecipeCardInterface[]>>(this.routeConstants.completeFetchAllRecipesCardURL,
             { params: httpParams, context: withTokenExpirationCheck(false) })

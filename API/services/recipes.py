@@ -12,7 +12,10 @@ from schemas.ingredients import IngredientClassCreate
 from schemas.recipe_directions import RecipeDirectionsCreate
 from schemas.recipe_items import RecipeItemsCreate
 from schemas.recipes import (
+    OrderByField,
+    OrderDirection,
     RecipeCartReadClass,
+    RecipeFilterClass,
     RecipesClassCardRead,
     RecipesClassCreate,
     RecipesClassDetailRead,
@@ -52,9 +55,10 @@ class RecipesService(BaseService[RecipeDetails]):
 
     async def fetch_all_recipe_cards(
         self,
-        order_by_field: str = "recipe_name",
-        direction: str = "asc",
+        order_by_field: OrderByField = OrderByField.RECIPE_NAME,
+        direction: OrderDirection = OrderDirection.ASC,
         page_size: int = 20,
+        filter_values: RecipeFilterClass | None = None,
     ) -> list[RecipesClassCardRead]:
         print(
             "-------------------------------- Entering RecipesService.fetch_all_recipe_cards"
@@ -62,17 +66,39 @@ class RecipesService(BaseService[RecipeDetails]):
 
         model = cast(Any, self.model)
 
-        if direction == "asc":
-            statement = (
-                select(model).order_by(getattr(model, order_by_field)).limit(page_size)
-            )
+        if order_by_field is not OrderByField.RATING:
+            if direction == OrderDirection.ASC:
+                statement = (
+                    select(model)
+                    .order_by(getattr(model, order_by_field))
+                    .limit(page_size)
+                )
+            elif direction == OrderDirection.DESC:
+                statement = (
+                    select(model)
+                    .order_by(getattr(model, order_by_field).desc())
+                    .limit(page_size)
+                )
         else:
-            print("Hello")
-            statement = (
-                select(model)
-                .order_by(getattr(model, order_by_field).desc())
-                .limit(page_size)
-            )
+            statement = select(model).limit(page_size)
+
+        if filter_values:
+            if filter_values.category_id:
+                statement = statement.where(
+                    model.category_id.in_(filter_values.category_id)
+                )
+            if filter_values.region_id:
+                statement = statement.where(
+                    model.region_id.in_(filter_values.region_id)
+                )
+            if filter_values.vegetarian is not None:
+                statement = statement.where(
+                    model.vegetarian == filter_values.vegetarian
+                )
+            if filter_values.non_vegetarian is not None:
+                statement = statement.where(
+                    model.vegetarian == (not filter_values.non_vegetarian)
+                )
 
         recipes = await self.session.execute(statement)
 
@@ -80,7 +106,7 @@ class RecipesService(BaseService[RecipeDetails]):
         if rows is None:
             return []
         else:
-            return [
+            result = [
                 RecipesClassCardRead(
                     recipe_id=recipe.recipe_id,
                     recipe_name=recipe.recipe_name,
@@ -99,6 +125,13 @@ class RecipesService(BaseService[RecipeDetails]):
                 )
                 for recipe in rows
             ]
+            if order_by_field == OrderByField.RATING:
+                if direction == OrderDirection.ASC:
+                    result.sort(key=lambda x: float(x.ratings))
+                elif direction == OrderDirection.DESC:
+                    result.sort(key=lambda x: float(x.ratings), reverse=True)
+
+            return result
 
     async def fetch_recipe_by_id(
         self, recipe_id: UUID, user_id: UUID | None = None

@@ -1,3 +1,4 @@
+from enum import Enum
 from uuid import UUID
 
 from pydantic import BaseModel, field_validator
@@ -143,3 +144,44 @@ class RecipeCartReadClass(BaseModel):
     vegetarian: bool
     category_id: UUID
     region_id: UUID
+
+
+class RecipeFilterClass(BaseModel):
+    category_id: list[UUID] | None = None
+    region_id: list[UUID] | None = None
+    vegetarian: bool | None = None
+    non_vegetarian: bool | None = None
+
+    @field_validator("category_id", "region_id", mode="before")
+    @classmethod
+    def parse_optional_uuid_lists(cls, value):
+        if value is None or value == "":
+            return None
+
+        values = value if isinstance(value, list) else [value]
+        parsed_values = []
+        for item in values:
+            if isinstance(item, str):
+                parsed_values.extend(filter(None, item.split(",")))
+            elif item is not None:
+                parsed_values.append(item)
+
+        return parsed_values or None
+
+    @field_validator("vegetarian", "non_vegetarian", mode="before")
+    @classmethod
+    def parse_optional_booleans(cls, value):
+        return None if value == "" else value
+
+
+class OrderByField(str, Enum):
+    RECIPE_NAME = "recipe_name"
+    RATING = "rating"
+    KIT_PRICE = "kit_price"
+    NUMBER_OF_TOTAL_VISITS = "number_of_total_visits"
+    CREATED_AT = "created_at"
+
+
+class OrderDirection(str, Enum):
+    ASC = "asc"
+    DESC = "desc"

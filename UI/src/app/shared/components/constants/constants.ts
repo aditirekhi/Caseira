@@ -63,11 +63,11 @@ export class Constants {
 
     public readonly allRecipesConstants = {
         SORTING_OPTIONS: {
-            'LOW_TO_HIGH': { value: 'low_to_high', label: 'Low To High' },
-            'HIGH_TO_LOW': { value: 'high_to_low', label: 'High To Low' },
-            'MOST_POPULAR': { value: 'most_popular', label: 'Most Popular' },
-            'NEWEST': { value: 'newest', label: 'Newest' },
-            'CUSTOMER_REVIEWS': { value: 'customer_reviews', label: 'Customer Reviews' }
+            'LOW_TO_HIGH': { field: 'kit_price', direction: this.SORTING_OPTIONS.ASCENDING, label: 'Low To High' },
+            'HIGH_TO_LOW': { field: 'kit_price', direction: this.SORTING_OPTIONS.DESCENDING, label: 'High To Low' },
+            'MOST_POPULAR': { field: 'number_of_total_visits', direction: this.SORTING_OPTIONS.DESCENDING, label: 'Most Popular' },
+            'NEWEST': { field: 'created_at', direction: this.SORTING_OPTIONS.DESCENDING, label: 'Newest' },
+            'CUSTOMER_REVIEWS': { field: 'rating', direction: this.SORTING_OPTIONS.DESCENDING, label: 'Customer Reviews' }
         }
     }
 

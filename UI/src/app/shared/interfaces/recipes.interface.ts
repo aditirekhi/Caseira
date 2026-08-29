@@ -4,6 +4,10 @@ export interface RecipeAllRequestQueryParams {
     order_by_field?: string;
     order_by_direction?: string;
     page_size?: number;
+    category_id?: string[];
+    region_id?: string[];
+    vegetarian?: boolean;
+    non_vegetarian?: boolean;
 }
 
 export interface RecipeCardInterface {
@@ -71,4 +75,10 @@ export interface ToogleRecipeFavoriteBookmarkStatus {
     user_id: string;
     bookmarked: boolean;
     favorite: boolean;
+}
+
+export interface SortingOptions {
+    field: string;
+    direction: string;
+    label: string;
 }

@@ -10,6 +10,10 @@
   box-shadow: 1px 1px 0 var(--muted-secondary-color);
 }
 
+.tag:hover {
+  cursor: pointer;
+}
+
 .no-bg-secondary-color-muted-background-color-border {
   color: var(--secondary-color);
   border: 1px solid var(--muted-secondary-color);
