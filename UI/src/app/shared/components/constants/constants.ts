@@ -71,7 +71,7 @@ export class Constants {
         }
     }
 
-    private readonly skeletonTypes: string[] = ['recipe-card', 'recipe-row', 'image'];
+    private readonly skeletonTypes: string[] = ['recipe-card', 'recipe-row', 'image', 'todays-special'];
 
     public readonly skeletonComponentConstants = {
         SKELETON_TYPE: this.skeletonTypes

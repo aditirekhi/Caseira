@@ -33,8 +33,9 @@ dist/
 # Node and Angular dependencies/build output
 node_modules/
 .angular/cache/
-dist/
-coverage/
+UI/.angular/cache/
+UI/dist/
+UI/coverage/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

@@ -11,21 +11,9 @@ import { SharedToastNotificationService } from './shared/components/shared-toast
 import { Constants } from './shared/components/constants/constants';
 import { catchError, of } from 'rxjs';
 
-function initializeApp() {
-  const cartService = inject(CartService);
-
-  return cartService.fetchCartDetailsByUserId().pipe(
-    catchError((error) => {
-      console.error('Cart initialization failed:', error);
-
-      return of(null);
-    })
-  );
-}
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideAppInitializer(initializeApp),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideStore({ cookie: cookieReducer }),

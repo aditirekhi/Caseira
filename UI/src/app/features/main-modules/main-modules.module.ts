@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedTagsComponent } from '../../shared/components/shared-tags/shared-tags.component';
+import { SharedSkeletonComponent } from '../../shared/components/shared-skeleton/shared-skeleton.component';
 import { MainModulesRoutingModule } from './main-modules-routing.module';
 import { CustomerReviewsComponent } from './customer-reviews/customer-reviews.component';
 import { ExploreByRegionsComponent } from './explore-by-regions/explore-by-regions.component';
@@ -26,7 +27,8 @@ import { SharedRegionsCardComponent } from '../../shared/components/shared-regio
     SharedRecipeCardComponent,
     SharedRegionsCardComponent,
     SharedCustomerCardComponent,
-    SharedTagsComponent
+    SharedTagsComponent,
+    SharedSkeletonComponent
   ],
   exports: [
     CustomerReviewsComponent, ExploreByRegionsComponent, HeroPageComponent, MostViewedRecipesComponent, TodaysSpecialComponent, WhyCaseiraComponent

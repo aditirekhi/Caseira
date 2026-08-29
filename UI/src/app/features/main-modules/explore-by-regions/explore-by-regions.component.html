@@ -10,13 +10,19 @@
     >
   </div>
   <div class="regions-container">
-    @for (region of regionsDetails | slice: 0 : 4; track region.region_id) {
-      <shared-regions-card
-        [regionId]="region.region_id"
-        [regionName]="region.region_name"
-        [noOfRecipes]="region.recipes_count"
-        [imageUrl]="region.image_url"
-      ></shared-regions-card>
+    @if (loadingRegions) {
+      @for (regionSkeleton of getRegionsLength(); track $index) {
+        <shared-skeleton skeletonType="recipe-card"></shared-skeleton>
+      }
+    } @else {
+      @for (region of regionsDetails | slice: 0 : 4; track region.region_id) {
+        <shared-regions-card
+          [regionId]="region.region_id"
+          [regionName]="region.region_name"
+          [noOfRecipes]="region.recipes_count"
+          [imageUrl]="region.image_url"
+        ></shared-regions-card>
+      }
     }
   </div>
 </main>

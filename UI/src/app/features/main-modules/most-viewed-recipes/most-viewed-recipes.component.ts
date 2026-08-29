@@ -18,6 +18,7 @@ export class MostViewedRecipesComponent {
   private sharedToastNotificationService: SharedToastNotificationService = inject(SharedToastNotificationService);
 
   mostViewedRecipes: RecipeCardInterface[] = [];
+  loadingMostViewedRecipes: boolean = true;
 
   ngOnInit() {
     this.fetchMostViewedRecipes();
@@ -34,6 +35,7 @@ export class MostViewedRecipesComponent {
       next: (recipes) => {
         this.mostViewedRecipes = Array.isArray(recipes) ? recipes : [];
         this.constants.primaryLoadingPage.set(false);
+        this.loadingMostViewedRecipes = false;
         this.changeDetection.detectChanges();
       },
       error: (error) => {
@@ -41,10 +43,13 @@ export class MostViewedRecipesComponent {
           error || this.constants.recipesConstants.UNABLE_TO_FETCH_RECIPES_ERROR_MESSAGE,
           this.constants.TOAST_NOTIFICATION_TYPES['ERROR']);
         this.constants.primaryLoadingPage.set(false);
+        this.loadingMostViewedRecipes = false;
         this.changeDetection.detectChanges();
       }
     });
   }
 
-
+  getMostViewedLength(): number[] {
+    return Array(4);
+  }
 }

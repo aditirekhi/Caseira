@@ -18,6 +18,7 @@ export class ExploreByRegionsComponent {
   private regionsService: RegionsService = inject(RegionsService);
 
   regionsDetails: FetchAllRegionsResponse[] = [];
+  loadingRegions: boolean = true;
 
   ngOnInit() {
     this.fetchAllRegions();
@@ -28,14 +29,20 @@ export class ExploreByRegionsComponent {
     this.regionsService.getAllRegions().subscribe({
       next: (response: FetchAllRegionsResponse[] | string) => {
         this.regionsDetails = response as FetchAllRegionsResponse[];
+        this.loadingRegions = false;
         this.constants.primaryLoadingPage.set(false);
         this.changeDetection.detectChanges();
       },
       error: (error: any) => {
         this.sharedToastNotificationService.showNotification(this.constants.regionsConstants.UNABLE_TO_FETCH_REGIONS_ERROR_MESSAGE, 'error', 5000);
+        this.loadingRegions = false;
         this.constants.primaryLoadingPage.set(false);
         this.changeDetection.detectChanges();
       }
     });
+  }
+
+  getRegionsLength() {
+    return Array(4);
   }
 }

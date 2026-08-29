@@ -1,95 +1,104 @@
-<main class="todays-special-section">
-  <div class="todays-special-details">
-    <label class="section-header feature-title"> TODAY'S FEATURED KIT </label>
-    <label class="recipe-name section-heading">{{
-      todaysSpecialRecipe?.recipe_name
-    }}</label>
-    <span class="recipe-ratings">
-      @for (i of getRange(todaysSpecialRecipe?.ratings!); track $index) {
-        <i class="fa-solid fa-star filled"></i>
-      }
-      @if (hasHalfStar(todaysSpecialRecipe?.ratings!)) {
-        <i class="fa-solid fa-star-half-stroke filled"></i>
-      }
-      @for (i of getRange(5 - todaysSpecialRecipe?.ratings!); track $index) {
-        <i class="fa-solid fa-star unfilled"></i>
-      }
-      <label class="number-of-reviews font-inter">980</label>
-    </span>
-    <div class="recipe-specifications">
-      <span class="recipe-time captions-labels">
-        <i class="fa-solid fa-clock"></i>
-        <label>{{ todaysSpecialRecipe?.total_time }}</label>
+@if (!todaysSpecialRecipe) {
+  <shared-skeleton skeletonType="todays-special"></shared-skeleton>
+} @else {
+  <main class="todays-special-section">
+    <div class="todays-special-details">
+      <label class="section-header feature-title"> TODAY'S FEATURED KIT </label>
+      <label class="recipe-name section-heading">{{
+        todaysSpecialRecipe.recipe_name
+      }}</label>
+      <span class="recipe-ratings">
+        @for (i of getRange(todaysSpecialRecipe.ratings); track $index) {
+          <i class="fa-solid fa-star filled"></i>
+        }
+        @if (hasHalfStar(todaysSpecialRecipe.ratings)) {
+          <i class="fa-solid fa-star-half-stroke filled"></i>
+        }
+        @for (i of getRange(5 - todaysSpecialRecipe.ratings); track $index) {
+          <i class="fa-solid fa-star unfilled"></i>
+        }
+        <label class="number-of-reviews small-helper-text">{{
+          todaysSpecialRecipe.ratings
+        }}</label>
+        <label class="number-of-reviews small-helper-text"
+          >({{ todaysSpecialRecipe.review_count }})</label
+        >
       </span>
-      <span class="recipe-serves captions-labels">
-        <i class="fa-solid fa-users"></i>
-        <label>Serves {{ todaysSpecialRecipe?.no_of_people_served }}</label>
+      <div class="recipe-specifications">
+        <span class="recipe-time captions-labels">
+          <i class="fa-solid fa-clock"></i>
+          <label>{{ todaysSpecialRecipe.total_time }}</label>
+        </span>
+        <span class="recipe-serves captions-labels">
+          <i class="fa-solid fa-users"></i>
+          <label>Serves {{ todaysSpecialRecipe.no_of_people_served }}</label>
+        </span>
+      </div>
+      <label class="recipe-description body-paragraph">
+        {{ todaysSpecialRecipe.recipe_description }}
+      </label>
+      <label class="pricing large-highlight-text">
+        &#8377; {{ todaysSpecialRecipe.kit_price }}
+      </label>
+      <span class="button-container">
+        @if (recipeAddedToCart) {
+          <shared-button
+            buttonClass="prompt medium"
+            [addedToCartButton]="true"
+            [recipeId]="todaysSpecialRecipe.recipe_id"
+            (recipeDeleted)="removeRecipeFromCart()"
+          ></shared-button>
+        } @else if (addToCartInProgress) {
+          <shared-button
+            buttonClass="prompt-background-secondary-color-no-border medium"
+            [addIcon]="true"
+            iconClass="fa-solid fa-spinner fa-spin"
+            [recipeId]="todaysSpecialRecipe.recipe_id"
+            [disabled]="true"
+            >Adding to Cart...</shared-button
+          >
+        } @else {
+          <shared-button
+            buttonClass="prompt-background-secondary-color-no-border medium"
+            [addIcon]="true"
+            iconClass="fa-solid fa-cart-plus"
+            (click)="addToCart(todaysSpecialRecipe.recipe_id)"
+            >Add Ingredient Kit</shared-button
+          >
+        }
+        <shared-button
+          buttonClass="no-bg-primary-color-prompt-border medium"
+          [routerLink]="['/recipe', todaysSpecialRecipe.recipe_id]"
+          >View Recipe</shared-button
+        >
+      </span>
+      <span class="feature-panel small-helper-text">
+        <span class="feature-span">
+          <img
+            src="assets/TodaysSpecial/FreshAndHighQuality.png"
+            class="feature-image"
+          />
+          <label>Fresh Ingredients</label></span
+        >
+        <span class="feature-span">
+          <img
+            src="assets/TodaysSpecial/ExactQualityForEachRecipe.png"
+            class="feature-image"
+          />
+          <label>Perfect Quantities</label></span
+        >
+        <span class="feature-span">
+          <img
+            src="assets/TodaysSpecial/DeliveredInTime.png"
+            class="feature-image"
+          />
+          <label>2-4 hrs Delivery</label></span
+        >
       </span>
     </div>
-    <label class="recipe-description body-paragraph">
-      {{ todaysSpecialRecipe?.recipe_description }}
-    </label>
-    <label class="pricing large-highlight-text">
-      &#8377; {{ todaysSpecialRecipe?.kit_price }}
-    </label>
-    <span class="button-container">
-      @if (recipeAddedToCart) {
-        <shared-button
-          buttonClass="prompt medium"
-          [addedToCartButton]="true"
-          [recipeId]="todaysSpecialRecipe?.recipe_id"
-          (recipeDeleted)="removeRecipeFromCart()"
-        ></shared-button>
-      } @else if (addToCartInProgress) {
-        <shared-button
-          buttonClass="prompt-background-secondary-color-no-border medium"
-          [addIcon]="true"
-          iconClass="fa-solid fa-spinner fa-spin"
-          [recipeId]="todaysSpecialRecipe?.recipe_id"
-          [disabled]="true"
-          >Adding to Cart...</shared-button
-        >
-      } @else {
-        <shared-button
-          buttonClass="prompt-background-secondary-color-no-border medium"
-          [addIcon]="true"
-          iconClass="fa-solid fa-cart-plus"
-          (click)="addToCart(todaysSpecialRecipe?.recipe_id)"
-          >Add Ingredient Kit</shared-button
-        >
-      }
-      <shared-button
-        buttonClass="no-bg-primary-color-prompt-border medium"
-        [routerLink]="['/recipe', todaysSpecialRecipe?.recipe_id]"
-        >View Recipe</shared-button
-      >
-    </span>
-    <span class="feature-panel small-helper-text">
-      <span class="feature-span">
-        <img
-          src="assets/TodaysSpecial/FreshAndHighQuality.png"
-          class="feature-image"
-        />
-        <label>Fresh Ingredients</label></span
-      >
-      <span class="feature-span">
-        <img
-          src="assets/TodaysSpecial/ExactQualityForEachRecipe.png"
-          class="feature-image"
-        />
-        <label>Perfect Quantities</label></span
-      >
-      <span class="feature-span">
-        <img
-          src="assets/TodaysSpecial/DeliveredInTime.png"
-          class="feature-image"
-        />
-        <label>2-4 hrs Delivery</label></span
-      >
-    </span>
-  </div>
-  <img
-    [src]="'assets/' + todaysSpecialRecipe?.image_url"
-    class="todays-special-image"
-  />
-</main>
+    <img
+      [src]="'assets/' + todaysSpecialRecipe.image_url"
+      class="todays-special-image"
+    />
+  </main>
+}

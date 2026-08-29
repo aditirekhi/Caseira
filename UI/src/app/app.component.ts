@@ -19,7 +19,21 @@ import { NavbarComponent } from "./core/layout/navbar/navbar.component";
 export class AppComponent {
   title = 'Caseira';
   private cookieService = inject(CookieService);
+  private cartService = inject(CartService);
   constants: Constants = inject(Constants);
+
+  ngOnInit(): void {
+    this.constants.primaryLoadingPage.set(true);
+    this.cartService.fetchCartDetailsByUserId().subscribe({
+      next: () => {
+        this.constants.primaryLoadingPage.set(false);
+      },
+      error: (error) => {
+        console.error('Cart initialization failed:', error);
+        this.constants.primaryLoadingPage.set(false);
+      }
+    });
+  }
 
   ngOnDestroy(): void {
     this.cookieService.clearCookieState();
