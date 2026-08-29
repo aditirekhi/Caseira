@@ -103,6 +103,20 @@ body {
   line-height: 17px;
 }
 
+.fa-star {
+  font-size: 12px;
+  line-height: 17px;
+  margin: 0.25rem !important;
+
+  &.filled {
+    color: var(--prompt-color);
+  }
+
+  &.unfilled {
+    color: var(--muted-secondary-color);
+  }
+}
+
 .fa-solid,
 .fa-regular,
 .fa-brands {

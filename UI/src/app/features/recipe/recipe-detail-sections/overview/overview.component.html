@@ -133,13 +133,13 @@
         >
         <span class="body-paragraph">
           @for (review of getRange(recipeDetails.ratings); track review) {
-            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star filled"></i>
           }
           @if (hasHalfStar(recipeDetails.ratings)) {
-            <i class="fa-solid fa-star-half-stroke"></i>
+            <i class="fa-solid fa-star-half-stroke filled"></i>
           }
           @for (review of getRange(5 - recipeDetails.ratings); track review) {
-            <i class="fa-regular fa-star"></i>
+            <i class="fa-solid fa-star unfilled"></i>
           }
           <label class="body-paragraph review-count"
             >({{ recipeDetails.review_count }} reviews)</label
@@ -203,7 +203,9 @@
           <shared-button
             [iconOnly]="true"
             [iconClass]="
-              rating.filled ? 'fa-solid fa-star' : 'fa-regular fa-star'
+              rating.filled
+                ? 'fa-solid fa-star filled'
+                : 'fa-solid fa-star unfilled'
             "
             (click)="addRating(rating.index)"
           ></shared-button>

@@ -52,11 +52,6 @@
   gap: 0.5rem;
 }
 
-.fa-star,
-.fa-star-half-stroke {
-  color: var(--prompt-color);
-}
-
 .buttons-container {
   width: 100%;
   display: flex;

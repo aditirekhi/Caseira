@@ -4,20 +4,20 @@
       <label class="hero-heading">{{ reviews.avg_rating }}</label>
       <span class="average-ratings">
         @for (rating of getRange(reviews.avg_rating); track $index) {
-          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star filled"></i>
         }
         @if (hasHalfStar(reviews.avg_rating)) {
-          <i class="fa-solid fa-star-half-stroke"></i>
+          <i class="fa-solid fa-star-half-stroke filled"></i>
         }
         @for (rating of getRange(5 - reviews.avg_rating); track $index) {
-          <i class="fa-regular fa-star"></i>
+          <i class="fa-solid fa-star unfilled"></i>
         }
       </span>
       <span class="rating-details">
         <span class="rating-card">
           <span class="rating-title">
             <label class="body-paragraph"
-              >5<i class="fa-solid fa-star"></i
+              >5<i class="fa-solid fa-star filled"></i
             ></label>
           </span>
           <div class="rating-bar">
@@ -35,7 +35,7 @@
         <span class="rating-card">
           <span class="rating-title">
             <label class="body-paragraph"
-              >4 <i class="fa-solid fa-star"></i
+              >4 <i class="fa-solid fa-star filled"></i
             ></label>
           </span>
           <div class="rating-bar">
@@ -53,7 +53,7 @@
         <span class="rating-card">
           <span class="rating-title">
             <label class="body-paragraph"
-              >3 <i class="fa-solid fa-star"></i
+              >3 <i class="fa-solid fa-star filled"></i
             ></label>
           </span>
           <div class="rating-bar">
@@ -71,7 +71,7 @@
         <span class="rating-card">
           <span class="rating-title">
             <label class="body-paragraph"
-              >2 <i class="fa-solid fa-star"></i
+              >2 <i class="fa-solid fa-star filled"></i
             ></label>
           </span>
           <div class="rating-bar">
@@ -89,7 +89,7 @@
         <span class="rating-card">
           <span class="rating-title">
             <label class="body-paragraph"
-              >1 <i class="fa-solid fa-star"></i
+              >1 <i class="fa-solid fa-star filled"></i
             ></label>
           </span>
           <div class="rating-bar">
@@ -117,13 +117,13 @@
               >
               <span class="user-rating">
                 @for (rating of getRange(review.ratings!); track $index) {
-                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star filled"></i>
                 }
                 @if (hasHalfStar(review.ratings!)) {
-                  <i class="fa-solid fa-star-half-stroke"></i>
+                  <i class="fa-solid fa-star-half-stroke filled"></i>
                 }
                 @for (rating of getRange(5 - review.ratings!); track $index) {
-                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-solid fa-star unfilled"></i>
                 }
               </span>
             </span>
@@ -168,8 +168,8 @@
               [iconOnly]="true"
               [iconClass]="
                 reviewRatings[1].filled
-                  ? 'fa-solid fa-star'
-                  : 'fa-regular fa-star'
+                  ? 'fa-solid fa-star filled'
+                  : 'fa-solid fa-star unfilled'
               "
               (click)="addRating(1)"
             ></shared-button>
@@ -178,8 +178,8 @@
               [iconOnly]="true"
               [iconClass]="
                 reviewRatings[2].filled
-                  ? 'fa-solid fa-star'
-                  : 'fa-regular fa-star'
+                  ? 'fa-solid fa-star filled'
+                  : 'fa-solid fa-star unfilled'
               "
               (click)="addRating(2)"
             ></shared-button>
@@ -188,8 +188,8 @@
               [iconOnly]="true"
               [iconClass]="
                 reviewRatings[3].filled
-                  ? 'fa-solid fa-star'
-                  : 'fa-regular fa-star'
+                  ? 'fa-solid fa-star filled'
+                  : 'fa-solid fa-star unfilled'
               "
               (click)="addRating(3)"
             ></shared-button>
@@ -198,8 +198,8 @@
               [iconOnly]="true"
               [iconClass]="
                 reviewRatings[4].filled
-                  ? 'fa-solid fa-star'
-                  : 'fa-regular fa-star'
+                  ? 'fa-solid fa-star filled'
+                  : 'fa-solid fa-star unfilled'
               "
               (click)="addRating(4)"
             ></shared-button>
@@ -208,8 +208,8 @@
               [iconOnly]="true"
               [iconClass]="
                 reviewRatings[5].filled
-                  ? 'fa-solid fa-star'
-                  : 'fa-regular fa-star'
+                  ? 'fa-solid fa-star filled'
+                  : 'fa-solid fa-star unfilled'
               "
               (click)="addRating(5)"
             ></shared-button>

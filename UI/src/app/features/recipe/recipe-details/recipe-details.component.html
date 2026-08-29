@@ -32,13 +32,13 @@
           <span class="specification">
             <span>
               @for (star of getRange(recipeDetails.ratings!); track star) {
-                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star filled"></i>
               }
               @if (hasHalfStar(recipeDetails.ratings)) {
-                <i class="fa-solid fa-star-half-stroke"></i>
+                <i class="fa-solid fa-star-half-stroke filled"></i>
               }
               @for (star of getRange(5 - recipeDetails.ratings!); track star) {
-                <i class="fa-regular fa-star"></i>
+                <i class="fa-solid fa-star unfilled"></i>
               }
             </span>
             <label>({{ recipeDetails.review_count }})</label>
