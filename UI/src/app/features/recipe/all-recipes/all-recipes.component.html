@@ -13,54 +13,159 @@
   </section>
   <section class="recipe-list-container">
     <span class="grid-cell filter-container">
-      <shared-button
-        buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
+      <shared-tags
+        tagClass="primage-bg-secondary-color-muted-background-color-border"
+        tagName="Filter"
         [addIcon]="true"
         [leftIcon]="true"
-        iconClass="pi pi-filter"
-      >
-        Filter
-      </shared-button>
+        iconClass="fa-solid fa-filter"
+      ></shared-tags>
     </span>
-    <span class="grid-cell recipe-filter-container">
-      <shared-button
-        buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
-        [addIcon]="true"
-        iconClass="pi pi-angle-down"
-        >All Categories</shared-button
-      >
-      <shared-button
-        buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
-        [addIcon]="true"
-        iconClass="pi pi-angle-down"
-        >All Cuisines</shared-button
-      >
-      <shared-button
-        buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
-        [addIcon]="true"
-        iconClass="pi pi-angle-down"
-        >All Meal Types</shared-button
-      >
-      <shared-button
-        buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
-        [addIcon]="true"
-        iconClass="pi pi-angle-down"
-        >Sort By: Popular</shared-button
-      >
+    <span class="grid-cell recipe-filters-container">
+      <div class="filter-container">
+        <div
+          class="sorting-options-wrapper"
+          (focusout)="closeSortingOptionsOnFocusOut($event)"
+        >
+          <shared-button
+            buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
+            [addIcon]="true"
+            iconClass="fa-solid fa-chevron-down"
+            (click)="toggleSortingOptions()"
+            >Sort By: {{ selectedSortingOption }}</shared-button
+          >
+          @if (showSortingOptions) {
+            <div class="sorting-options-container">
+              @for (option of sortingOptions | keyvalue; track option.key) {
+                <shared-button
+                  buttonClass="sorting-option-button"
+                  buttonWidth="100%"
+                  (click)="selectSortingOption(option.value)"
+                  >{{ option.value.label }}</shared-button
+                >
+              }
+            </div>
+          }
+        </div>
+        <div class="veg-filter-container">
+          <input
+            type="checkbox"
+            class="slider-checkbox"
+            [(ngModel)]="showOnlyVegetarian"
+          />
+          <span class="slider-container" (click)="toggleVegetarianFilter()"
+            ><span class="slider"></span
+          ></span>
+          <label>Vegetarian</label>
+        </div>
+        <div class="non-veg-filter-container">
+          <input
+            type="checkbox"
+            class="slider-checkbox"
+            [(ngModel)]="showOnlyNonVegetarian"
+          />
+          <span class="slider-container" (click)="toggleNonVegetarianFilter()"
+            ><span class="slider"></span
+          ></span>
+          <label>Non Vegetarian</label>
+        </div>
+      </div>
       <span class="display-type-container">
-        <button class="small-icon-display-button button-active">
-          <i class="pi pi-th-large"></i>
-        </button>
-        <button class="list-display-button">
-          <i class="pi pi-list"></i>
-        </button>
+        <shared-button
+          class="small-icon-display-button"
+          [ngClass]="isGridView ? 'button-active' : ''"
+          (click)="togglePageView()"
+          ><i class="fa-solid fa-table-cells-large"></i
+        ></shared-button>
+        <shared-button
+          class="list-display-button"
+          [ngClass]="!isGridView ? 'button-active' : ''"
+          (click)="togglePageView()"
+          ><i class="fa-solid fa-list"></i
+        ></shared-button>
       </span>
     </span>
     <span class="grid-cell category-filter-container">
-      <div class="category-filter-header">
+      <div class="category-cuisine-filter-header">
         <label class="card-title-recipe-name">Categories</label>
         <img src="assets/header_icon.png" class="filter-header-icon" />
       </div>
+      <ul class="category-cuisine-list-container">
+        @if (isCategoryLoading) {
+          <li class="skeleton-list-container">
+            <shared-skeleton
+              skeletonType="row-skeleton"
+              [skeletonRowCount]="10"
+            ></shared-skeleton>
+          </li>
+        } @else {
+          @for (category of categoriesDetails; track category.category_name) {
+            <li class="secondary-text">
+              <span class="category-cuisine-name-container"
+                ><span class="category-cuisine-index-container"
+                  ><i
+                    [class]="getCategoryIcon(category.category_name)"
+                  ></i></span
+                >{{ category.category_name }}</span
+              ><label>{{ category.recipes_count }}</label>
+            </li>
+          }
+        }
+      </ul>
+      <div class="category-cuisine-filter-header">
+        <label class="card-title-recipe-name">Cuisines</label>
+        <img src="assets/header_icon.png" class="filter-header-icon" />
+      </div>
+      <ul class="category-cuisine-list-container">
+        @if (isRegionsLoading) {
+          <li class="skeleton-list-container">
+            <shared-skeleton
+              skeletonType="row-skeleton"
+              [skeletonRowCount]="10"
+            ></shared-skeleton>
+          </li>
+        } @else {
+          @for (region of regionsDetails; track region.region_id) {
+            <li class="secondary-text">
+              <span class="category-cuisine-name-container"
+                ><span class="category-cuisine-index-container">{{
+                  $index + 1
+                }}</span
+                >{{ region.region_name }}</span
+              ><label>{{ region.recipes_count }}</label>
+            </li>
+          }
+        }
+      </ul>
+    </span>
+    <span
+      class="grid-cell recipes-container"
+      [ngClass]="isGridView ? 'grid-view' : 'list-view'"
+    >
+      @if (isRecipesLoading) {
+        <shared-skeleton
+          [skeletonType]="isGridView ? 'recipe-card' : 'row-skeleton'"
+          [skeletonRowCount]="isGridView ? 9 : 3"
+        ></shared-skeleton>
+      } @else {
+        @for (recipe of recipeDetails; track recipe.recipe_id) {
+          <shared-recipe-card
+            [cardDirection]="isGridView ? 'column' : 'row'"
+            [recipeId]="recipe.recipe_id"
+            [imageUrl]="recipe.image_url"
+            [recipeName]="recipe.recipe_name"
+            [reviewCount]="recipe.review_count"
+            [recipeOnly]="true"
+            [recipeRating]="recipe.ratings"
+            [timeToCook]="recipe.total_time"
+            [noOfPeopleServes]="recipe.no_of_people_served"
+            [isVegetarian]="recipe.vegetarian"
+          ></shared-recipe-card>
+          @if (!$last && !isGridView) {
+            <div class="horizontal-divider"></div>
+          }
+        }
+      }
     </span>
   </section>
 </main>

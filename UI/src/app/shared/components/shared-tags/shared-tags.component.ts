@@ -10,4 +10,7 @@ import { FirstLetterCapitalPipe } from '../../pipes/first-letter-capital.pipe';
 export class SharedTagsComponent {
   tagName = input<string>('');
   tagClass = input<string>('');
+  addIcon = input<boolean>(false);
+  iconClass = input<string>('');
+  leftIcon = input<boolean>(false);
 }

@@ -22,10 +22,10 @@
       [disabled]="addingReducingItemFromCart"
       (click)="reduceItem()"
     >
-      <i class="pi pi-minus"></i>
+      <i class="fa-solid fa-minus"></i>
     </button>
     @if (addingReducingItemFromCart) {
-      <i class="pi pi-spin pi-spinner"></i>
+      <i class="fa-solid fa-spin fa-spinner"></i>
     } @else {
       <label>{{ quantity }}</label>
     }
@@ -34,7 +34,7 @@
       [disabled]="addingReducingItemFromCart"
       (click)="addItem()"
     >
-      <i class="pi pi-plus"></i>
+      <i class="fa-solid fa-plus"></i>
     </button>
   </span>
 }

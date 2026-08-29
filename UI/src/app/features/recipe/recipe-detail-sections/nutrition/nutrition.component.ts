@@ -48,27 +48,27 @@ export class NutritionComponent {
 
     switch (true) {
       case lowerCaseNutritionName.includes('calories'):
-        return 'pi pi-bolt';
+        return 'fa-solid fa-bolt';
       case lowerCaseNutritionName.includes('protein'):
-        return 'pi pi-wave-pulse';
+        return 'fa-solid fa-wave-square';
       case lowerCaseNutritionName.includes('carbohydrates'):
-        return 'pi pi-chart-bar';
+        return 'fa-solid fa-chart-bar';
       case lowerCaseNutritionName.includes('fat'):
-        return 'pi pi-circle';
+        return 'fa-solid fa-circle';
       case lowerCaseNutritionName.includes('fiber'):
-        return 'pi pi-leaf';
+        return 'fa-solid fa-leaf';
       case lowerCaseNutritionName.includes('sugar'):
-        return 'pi pi-box';
+        return 'fa-solid fa-cube';
       case lowerCaseNutritionName.includes('cholesterol'):
-        return 'pi pi-heart';
+        return 'fa-solid fa-heart';
       case lowerCaseNutritionName.includes('sodium'):
-        return 'pi pi-filter';
+        return 'fa-solid fa-filter';
       case lowerCaseNutritionName.includes('calcium'):
-        return 'pi pi-circle';
+        return 'fa-solid fa-circle';
       case lowerCaseNutritionName.includes('iron'):
-        return 'pi pi-bolt';
+        return 'fa-solid fa-bolt';
       default:
-        return 'pi pi-info-circle';
+        return 'fa-solid fa-circle-info';
     }
   }
 }

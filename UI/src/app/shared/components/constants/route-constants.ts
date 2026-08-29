@@ -5,46 +5,46 @@ import { environment } from "../../../../environments/environment";
 
 export class RouteConstants {
 
-    public readonly baseURL: string = environment.apiUrl;
+    private readonly baseURL: string = environment.apiUrl;
 
-    public readonly userRoute: string = '/user';
-    public readonly securityRoute: string = '/security';
-    public readonly regionsRoute: string = '/regions';
-    public readonly categoryRoute: string = '/category';
-    public readonly recipeRoute: string = '/recipes';
-    public readonly reviewsRoute: string = '/reviews';
-    public readonly cartRoute: string = '/cart';
-    public readonly bookmarkedFavoriteRecipe: string = '/bookmarked_favorites_recipes';
-    public readonly calendarPlanDetailsRoute: string = '/user-calendar-plan-details';
-    public readonly helpfulReviewRoute: string = '/helpful-reviews';
+    private readonly userRoute: string = '/user';
+    private readonly securityRoute: string = '/security';
+    private readonly regionsRoute: string = '/regions';
+    private readonly categoryRoute: string = '/category';
+    private readonly recipeRoute: string = '/recipes';
+    private readonly reviewsRoute: string = '/reviews';
+    private readonly cartRoute: string = '/cart';
+    private readonly bookmarkedFavoriteRecipe: string = '/bookmarked_favorites_recipes';
+    private readonly calendarPlanDetailsRoute: string = '/user-calendar-plan-details';
+    private readonly helpfulReviewRoute: string = '/helpful-reviews';
 
-    public readonly userLogin: string = '/login';
-    public readonly userSignin: string = '/signin';
-    public readonly userLogout: string = '/logout'
-    public readonly userForgotPassword: string = '/forgotPassword';
-    public readonly checkTokenExpiration: string = '/checkTokenExpiration';
-    public readonly userRefreshToken: string = '/refreshToken';
-    public readonly fetchAll: string = '/all';
-    public readonly todaysSpecialRecipe: string = '/todays-recipe';
-    public readonly fetchDetailsById: string = '/id';
-    public readonly fetchByRecipeIdUserId: string = '/byRecipeIdUserId';
-    public readonly fetchByCartId: string = '/cartId';
-    public readonly updateReview: string = '/update';
-    public readonly fetchByUserId: string = '/userId';
-    public readonly updateCartItems: string = '/update';
-    public readonly deleteItemsFromCart: string = '/delete';
-    public readonly favoriteRecipes: string = '/favorites';
-    public readonly isFavorite: string = '/is_favorited';
-    public readonly addToFavorites: string = '/addFavorite';
-    public readonly deleteFromFavorites: string = '/removeFavorite';
-    public readonly bookmarkedRecipes: string = '/bookmarked';
-    public readonly isBookmarked: string = '/is_bookmarked';
-    public readonly addToBookmarked: string = '/addBookmark';
-    public readonly deleteFromBookmarked: string = '/removeBookmark';
-    public readonly createPlannedDate: string = '/create';
-    public readonly updatePlannedDate: string = '/update';
-    public readonly createHelpfulReview: string = '/create';
-    public readonly deleteHelpfulReview: string = '/delete';
+    private readonly userLogin: string = '/login';
+    private readonly userSignin: string = '/signin';
+    private readonly userLogout: string = '/logout'
+    private readonly userForgotPassword: string = '/forgotPassword';
+    private readonly checkTokenExpiration: string = '/checkTokenExpiration';
+    private readonly userRefreshToken: string = '/refreshToken';
+    private readonly fetchAll: string = '/all';
+    private readonly todaysSpecialRecipe: string = '/todays-recipe';
+    private readonly fetchDetailsById: string = '/id';
+    private readonly fetchByRecipeIdUserId: string = '/byRecipeIdUserId';
+    private readonly fetchByCartId: string = '/cartId';
+    private readonly updateReview: string = '/update';
+    private readonly fetchByUserId: string = '/userId';
+    private readonly updateCartItems: string = '/update';
+    private readonly deleteItemsFromCart: string = '/delete';
+    private readonly favoriteRecipes: string = '/favorites';
+    private readonly isFavorite: string = '/is_favorited';
+    private readonly addToFavorites: string = '/addFavorite';
+    private readonly deleteFromFavorites: string = '/removeFavorite';
+    private readonly bookmarkedRecipes: string = '/bookmarked';
+    private readonly isBookmarked: string = '/is_bookmarked';
+    private readonly addToBookmarked: string = '/addBookmark';
+    private readonly deleteFromBookmarked: string = '/removeBookmark';
+    private readonly createPlannedDate: string = '/create';
+    private readonly updatePlannedDate: string = '/update';
+    private readonly createHelpfulReview: string = '/create';
+    private readonly deleteHelpfulReview: string = '/delete';
 
 
     public readonly completeUserLoginURL: string = this.baseURL + this.userRoute + this.userLogin;

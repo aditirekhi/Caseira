@@ -4,20 +4,20 @@
       <label class="hero-heading">{{ reviews.avg_rating }}</label>
       <span class="average-ratings">
         @for (rating of getRange(reviews.avg_rating); track $index) {
-          <i class="pi pi-star-fill"></i>
+          <i class="fa-solid fa-star"></i>
         }
         @if (hasHalfStar(reviews.avg_rating)) {
-          <i class="pi pi-star-half-fill"></i>
+          <i class="fa-solid fa-star-half-stroke"></i>
         }
         @for (rating of getRange(5 - reviews.avg_rating); track $index) {
-          <i class="pi pi-star"></i>
+          <i class="fa-regular fa-star"></i>
         }
       </span>
       <span class="rating-details">
         <span class="rating-card">
           <span class="rating-title">
             <label class="body-paragraph"
-              >5<i class="pi pi-star-fill"></i
+              >5<i class="fa-solid fa-star"></i
             ></label>
           </span>
           <div class="rating-bar">
@@ -35,7 +35,7 @@
         <span class="rating-card">
           <span class="rating-title">
             <label class="body-paragraph"
-              >4 <i class="pi pi-star-fill"></i
+              >4 <i class="fa-solid fa-star"></i
             ></label>
           </span>
           <div class="rating-bar">
@@ -53,7 +53,7 @@
         <span class="rating-card">
           <span class="rating-title">
             <label class="body-paragraph"
-              >3 <i class="pi pi-star-fill"></i
+              >3 <i class="fa-solid fa-star"></i
             ></label>
           </span>
           <div class="rating-bar">
@@ -71,7 +71,7 @@
         <span class="rating-card">
           <span class="rating-title">
             <label class="body-paragraph"
-              >2 <i class="pi pi-star-fill"></i
+              >2 <i class="fa-solid fa-star"></i
             ></label>
           </span>
           <div class="rating-bar">
@@ -89,7 +89,7 @@
         <span class="rating-card">
           <span class="rating-title">
             <label class="body-paragraph"
-              >1 <i class="pi pi-star-fill"></i
+              >1 <i class="fa-solid fa-star"></i
             ></label>
           </span>
           <div class="rating-bar">
@@ -109,7 +109,7 @@
     <div>
       @for (review of reviews.review_details; track $index) {
         <div class="review-card">
-          <i class="pi pi-user"></i>
+          <i class="fa-solid fa-user"></i>
           <div class="review-card-details">
             <span class="user-rating-details">
               <span class="body-paragraph username"
@@ -117,13 +117,13 @@
               >
               <span class="user-rating">
                 @for (rating of getRange(review.ratings!); track $index) {
-                  <i class="pi pi-star-fill"></i>
+                  <i class="fa-solid fa-star"></i>
                 }
                 @if (hasHalfStar(review.ratings!)) {
-                  <i class="pi pi-star-half-fill"></i>
+                  <i class="fa-solid fa-star-half-stroke"></i>
                 }
                 @for (rating of getRange(5 - review.ratings!); track $index) {
-                  <i class="pi pi-star"></i>
+                  <i class="fa-regular fa-star"></i>
                 }
               </span>
             </span>
@@ -139,7 +139,7 @@
             <shared-button
               buttonClass="no-bg-secondary-color-secondary-border medium"
               [addIcon]="true"
-              [iconClass]="'pi pi-spinner pi-spin'"
+              [iconClass]="'fa-solid fa-spinner fa-spin'"
               [leftIcon]="true"
               [disabled]="true"
               >Helpful ({{ review.helpful_review_count }})</shared-button
@@ -150,8 +150,8 @@
               [addIcon]="true"
               [iconClass]="
                 review.helpful_review_given_by_user
-                  ? 'pi pi-thumbs-up-fill'
-                  : 'pi pi-thumbs-up'
+                  ? 'fa-solid fa-thumbs-up'
+                  : 'fa-regular fa-thumbs-up'
               "
               [leftIcon]="true"
               (click)="toggleHelpfulReview(review)"
@@ -167,7 +167,9 @@
               buttonClass="no-bg-prompt-color"
               [iconOnly]="true"
               [iconClass]="
-                reviewRatings[1].filled ? 'pi pi-star-fill' : 'pi pi-star'
+                reviewRatings[1].filled
+                  ? 'fa-solid fa-star'
+                  : 'fa-regular fa-star'
               "
               (click)="addRating(1)"
             ></shared-button>
@@ -175,7 +177,9 @@
               buttonClass="no-bg-prompt-color"
               [iconOnly]="true"
               [iconClass]="
-                reviewRatings[2].filled ? 'pi pi-star-fill' : 'pi pi-star'
+                reviewRatings[2].filled
+                  ? 'fa-solid fa-star'
+                  : 'fa-regular fa-star'
               "
               (click)="addRating(2)"
             ></shared-button>
@@ -183,7 +187,9 @@
               buttonClass="no-bg-prompt-color"
               [iconOnly]="true"
               [iconClass]="
-                reviewRatings[3].filled ? 'pi pi-star-fill' : 'pi pi-star'
+                reviewRatings[3].filled
+                  ? 'fa-solid fa-star'
+                  : 'fa-regular fa-star'
               "
               (click)="addRating(3)"
             ></shared-button>
@@ -191,7 +197,9 @@
               buttonClass="no-bg-prompt-color"
               [iconOnly]="true"
               [iconClass]="
-                reviewRatings[4].filled ? 'pi pi-star-fill' : 'pi pi-star'
+                reviewRatings[4].filled
+                  ? 'fa-solid fa-star'
+                  : 'fa-regular fa-star'
               "
               (click)="addRating(4)"
             ></shared-button>
@@ -199,7 +207,9 @@
               buttonClass="no-bg-prompt-color"
               [iconOnly]="true"
               [iconClass]="
-                reviewRatings[5].filled ? 'pi pi-star-fill' : 'pi pi-star'
+                reviewRatings[5].filled
+                  ? 'fa-solid fa-star'
+                  : 'fa-regular fa-star'
               "
               (click)="addRating(5)"
             ></shared-button>

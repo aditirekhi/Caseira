@@ -6,23 +6,23 @@
     }}</label>
     <span class="recipe-ratings">
       @for (i of getRange(todaysSpecialRecipe?.ratings!); track $index) {
-        <i class="pi pi-star-fill"></i>
+        <i class="fa-solid fa-star"></i>
       }
       @if (hasHalfStar(todaysSpecialRecipe?.ratings!)) {
-        <i class="pi pi-star-half"></i>
+        <i class="fa-solid fa-star-half-stroke"></i>
       }
       @for (i of getRange(5 - todaysSpecialRecipe?.ratings!); track $index) {
-        <i class="pi pi-star"></i>
+        <i class="fa-regular fa-star"></i>
       }
       <label class="number-of-reviews font-inter">980</label>
     </span>
     <div class="recipe-specifications">
       <span class="recipe-time captions-labels">
-        <i class="pi pi-clock"></i>
+        <i class="fa-solid fa-clock"></i>
         <label>{{ todaysSpecialRecipe?.total_time }}</label>
       </span>
       <span class="recipe-serves captions-labels">
-        <i class="pi pi-users"></i>
+        <i class="fa-solid fa-users"></i>
         <label>Serves {{ todaysSpecialRecipe?.no_of_people_served }}</label>
       </span>
     </div>
@@ -44,7 +44,7 @@
         <shared-button
           buttonClass="prompt-background-secondary-color-no-border medium"
           [addIcon]="true"
-          iconClass="pi pi-spin pi-spinner"
+          iconClass="fa-solid fa-spinner fa-spin"
           [recipeId]="todaysSpecialRecipe?.recipe_id"
           [disabled]="true"
           >Adding to Cart...</shared-button
@@ -53,7 +53,7 @@
         <shared-button
           buttonClass="prompt-background-secondary-color-no-border medium"
           [addIcon]="true"
-          iconClass="pi pi-cart-plus"
+          iconClass="fa-solid fa-cart-plus"
           (click)="addToCart(todaysSpecialRecipe?.recipe_id)"
           >Add Ingredient Kit</shared-button
         >

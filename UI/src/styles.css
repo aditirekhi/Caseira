@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
-@import "primeicons/primeicons.css";
 
 :root {
   --primary-color: #f8f4ec;
@@ -13,6 +12,9 @@
   --success-message-border-color: #8bc34a;
   --warning-message-border-color: #e6a82e;
   --error-message-border-color: #d95c4f;
+
+  --vegetarian-color: #4d7e4e;
+  --non-vegetarian-color: #ba5046;
 }
 
 body {
@@ -101,6 +103,8 @@ body {
   line-height: 17px;
 }
 
-.pi {
+.fa-solid,
+.fa-regular,
+.fa-brands {
   margin: 0 0.5rem;
 }

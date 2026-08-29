@@ -110,7 +110,7 @@
   );
 }
 
-.review-card .pi-user {
+.review-card .fa-user {
   border-radius: 50%;
   border: 1px solid var(--muted-secondary-color);
   padding: 1rem;

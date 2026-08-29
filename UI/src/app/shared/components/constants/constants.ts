@@ -6,6 +6,7 @@ export class Constants {
 
     primaryLoadingPage: WritableSignal<boolean> = signal(false);
 
+
     public readonly NONE_STRING: string = 'None';
 
     // SignIn/Login/Forgot Password Component
@@ -29,21 +30,21 @@ export class Constants {
     };
 
     public readonly TOAST_NOTIFICATION_TYPES: Record<string, string> = {
-        SUCCESS: 'success',
-        WARNING: 'warning',
-        ERROR: 'error'
+        'SUCCESS': 'success',
+        'WARNING': 'warning',
+        'ERROR': 'error'
     };
 
-    public regionsConstants = {
+    public readonly regionsConstants = {
         UNABLE_TO_FETCH_REGIONS_ERROR_MESSAGE: 'Unable to fetch regions. Please try again later.'
     };
 
-    public SORTING_OPTIONS = {
+    public readonly SORTING_OPTIONS = {
         'ASCENDING': 'asc',
         'DESCENDING': 'desc'
     };
 
-    public recipesConstants = {
+    public readonly recipesConstants = {
         UNABLE_TO_FETCH_RECIPES_ERROR_MESSAGE: 'Unable to fetch recipes. Please try again later.',
         RECIPE_FIELDS: {
             CATEGORY_ID: 'category_id',
@@ -56,6 +57,23 @@ export class Constants {
             REGION_ID: 'region_id',
             VEGETARIAN: 'vegetarian'
         },
-        MOST_VIEWED_RECIPES_PAGE_SIZE: 4
+        MOST_VIEWED_RECIPES_PAGE_SIZE: 4,
+        ALL_RECIPES_PAGE_SIZE: 12
+    };
+
+    public readonly allRecipesConstants = {
+        SORTING_OPTIONS: {
+            'LOW_TO_HIGH': { value: 'low_to_high', label: 'Low To High' },
+            'HIGH_TO_LOW': { value: 'high_to_low', label: 'High To Low' },
+            'MOST_POPULAR': { value: 'most_popular', label: 'Most Popular' },
+            'NEWEST': { value: 'newest', label: 'Newest' },
+            'CUSTOMER_REVIEWS': { value: 'customer_reviews', label: 'Customer Reviews' }
+        }
     }
+
+    private readonly skeletonTypes: string[] = ['recipe-card', 'recipe-row', 'image'];
+
+    public readonly skeletonComponentConstants = {
+        SKELETON_TYPE: this.skeletonTypes
+    };
 }

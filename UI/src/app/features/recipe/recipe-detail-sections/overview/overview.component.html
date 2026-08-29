@@ -44,7 +44,7 @@
         <shared-button
           buttonClass="no-bg-secondary-color-muted-secondary-border larger"
           [addIcon]="true"
-          iconClass="pi pi-spin pi-spinner"
+          iconClass="fa-solid fa-spinner fa-spin"
           [leftIcon]="true"
           buttonWidth="100%"
           [disabled]="true"
@@ -54,7 +54,7 @@
         <shared-button
           buttonClass="no-bg-secondary-color-muted-secondary-border larger"
           [addIcon]="true"
-          iconClass="pi pi-shopping-cart"
+          iconClass="fa-solid fa-cart-shopping"
           [leftIcon]="true"
           class="add-to-cart-button"
           buttonWidth="100%"
@@ -87,7 +87,7 @@
         <shared-button
           buttonClass="no-bg-secondary-color-muted-secondary-border larger"
           [addIcon]="true"
-          iconClass="pi pi-arrow-right"
+          iconClass="fa-solid fa-arrow-right"
           buttonWidth="100%"
           [routerLink]="['/recipe', recipeDetails.recipe_id, 'nutrition']"
           >Full Nutrition Info</shared-button
@@ -115,7 +115,7 @@
         <shared-button
           buttonClass="no-bg-secondary-color-muted-secondary-border larger"
           [addIcon]="true"
-          iconClass="pi pi-arrow-right"
+          iconClass="fa-solid fa-arrow-right"
           routerLink="/recipe/all"
           >View All Recipes</shared-button
         >
@@ -133,13 +133,13 @@
         >
         <span class="body-paragraph">
           @for (review of getRange(recipeDetails.ratings); track review) {
-            <i class="pi pi-star-fill"></i>
+            <i class="fa-solid fa-star"></i>
           }
           @if (hasHalfStar(recipeDetails.ratings)) {
-            <i class="pi pi-star-half"></i>
+            <i class="fa-solid fa-star-half-stroke"></i>
           }
           @for (review of getRange(5 - recipeDetails.ratings); track review) {
-            <i class="pi pi-star"></i>
+            <i class="fa-regular fa-star"></i>
           }
           <label class="body-paragraph review-count"
             >({{ recipeDetails.review_count }} reviews)</label
@@ -181,7 +181,7 @@
         <shared-button
           buttonClass="no-bg-secondary-color-muted-secondary-border larger"
           [addIcon]="true"
-          iconClass="pi pi-arrow-right"
+          iconClass="fa-solid fa-arrow-right"
           buttonWidth="100%"
           [routerLink]="['/recipe', recipeDetails.recipe_id, 'directions']"
           >View Details</shared-button
@@ -194,7 +194,7 @@
     <shared-pop-up
       popUpHeader="Review"
       [addIcon]="true"
-      iconClass="pi pi-comment"
+      iconClass="fa-solid fa-comment"
       (confirmPopUpEvent)="confirmReviewPopUp()"
       (dismissPopUpEvent)="closeReviewPopUp()"
     >
@@ -202,7 +202,9 @@
         @for (rating of ratings; track rating.index) {
           <shared-button
             [iconOnly]="true"
-            [iconClass]="rating.filled ? 'pi pi-star-fill' : 'pi pi-star'"
+            [iconClass]="
+              rating.filled ? 'fa-solid fa-star' : 'fa-regular fa-star'
+            "
             (click)="addRating(rating.index)"
           ></shared-button>
         }

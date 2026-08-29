@@ -14,7 +14,7 @@
             inputClass="no-bg-font-border-secondary"
             [leftIcon]="true"
             [addIcon]="true"
-            iconClass="pi pi-user"
+            iconClass="fa-solid fa-user"
             formControlName="emailAddress"
           ></shared-input>
         </span>
@@ -25,7 +25,7 @@
             inputClass="no-bg-font-border-secondary"
             [leftIcon]="true"
             [addIcon]="true"
-            iconClass="pi pi-lock"
+            iconClass="fa-solid fa-lock"
             inputType="password"
             formControlName="password"
           ></shared-input>
@@ -43,7 +43,7 @@
       </div>
       @if (hasErrors) {
         <span class="error-message small-helper-text">
-          <i class="pi pi-circle-info"></i>{{ errorMessage }}</span
+          <i class="fa-solid fa-circle-info"></i>{{ errorMessage }}</span
         >
       }
       @if (loginInProgress) {
@@ -51,7 +51,7 @@
           buttonType="submit"
           buttonClass="secondary-background-primary-color-no-border medium"
           [addIcon]="true"
-          iconClass="pi pi-spinner pi-spin"
+          iconClass="fa-solid fa-spinner fa-spin"
           buttonWidth="100%"
           class="signin-button"
           >Signing In...</shared-button
@@ -61,7 +61,7 @@
           buttonType="submit"
           buttonClass="secondary-background-primary-color-no-border medium"
           [addIcon]="true"
-          iconClass="pi pi-arrow-right"
+          iconClass="fa-solid fa-arrow-right"
           buttonWidth="100%"
           class="signin-button"
           >Sign In</shared-button
@@ -78,14 +78,14 @@
         buttonClass="white-background-secondary-color-border medium"
         [leftIcon]="true"
         [addIcon]="true"
-        iconClass="pi pi-google"
+        iconClass="fa-brands fa-google"
         >Google</shared-button
       >
       <shared-button
         buttonClass="white-background-secondary-color-border medium"
         [leftIcon]="true"
         [addIcon]="true"
-        iconClass="pi pi-apple"
+        iconClass="fa-brands fa-apple"
         >Apple</shared-button
       >
     </span>

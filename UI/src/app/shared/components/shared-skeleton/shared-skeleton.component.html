@@ -1,0 +1,25 @@
+@switch (skeletonType()) {
+  @case ("recipe-card") {
+    @for (placeholder of placeholders; track $index) {
+      <article class="recipe-card-skeleton-container">
+        <div class="image-skeleton"></div>
+        <div>
+          <div class="row-skeleton"></div>
+          <div class="row-skeleton" [style.width.%]="30"></div>
+          <div class="row-skeleton" [style.width.%]="60"></div>
+        </div>
+      </article>
+    }
+  }
+  @case ("row-skeleton") {
+    @for (placeholder of placeholders; track $index) {
+      <div class="row-skeleton"></div>
+    }
+  }
+  @case ("image") {
+    @for (placeholder of placeholders; track $index) {
+      <div class="image-skeleton"></div>
+    }
+  }
+  @default {}
+}

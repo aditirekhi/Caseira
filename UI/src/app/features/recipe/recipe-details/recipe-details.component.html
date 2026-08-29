@@ -32,23 +32,23 @@
           <span class="specification">
             <span>
               @for (star of getRange(recipeDetails.ratings!); track star) {
-                <i class="pi pi-star-fill"></i>
+                <i class="fa-solid fa-star"></i>
               }
               @if (hasHalfStar(recipeDetails.ratings)) {
-                <i class="pi pi-star-half"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
               }
               @for (star of getRange(5 - recipeDetails.ratings!); track star) {
-                <i class="pi pi-star"></i>
+                <i class="fa-regular fa-star"></i>
               }
             </span>
             <label>({{ recipeDetails.review_count }})</label>
           </span>
           <span class="specification">
-            <i class="pi pi-clock"></i>
+            <i class="fa-solid fa-clock"></i>
             <label>{{ recipeDetails.total_time }}</label>
           </span>
           <span class="specification">
-            <i class="pi pi-users"></i>
+            <i class="fa-solid fa-users"></i>
             <label>Serves {{ recipeDetails.no_of_people_served }}</label>
           </span>
         </span>
@@ -60,8 +60,8 @@
                 [addIcon]="true"
                 [iconClass]="
                   creatingUpdatingPlanDate
-                    ? 'pi pi-spin pi-spinner'
-                    : 'pi pi-pencil'
+                    ? 'fa-solid fa-spinner fa-spin'
+                    : 'fa-solid fa-pencil'
                 "
                 [leftIcon]="true"
                 [disabled]="creatingUpdatingPlanDate"
@@ -91,7 +91,7 @@
                     <shared-button
                       buttonClass="secondary-background-primary-color-no-border small"
                       [iconOnly]="true"
-                      iconClass="pi pi-check"
+                      iconClass="fa-solid fa-check"
                       (click)="onPlanDateChange()"
                     ></shared-button>
                   </span>
@@ -105,8 +105,8 @@
                 [addIcon]="true"
                 [iconClass]="
                   creatingUpdatingPlanDate
-                    ? 'pi pi-spin pi-spinner'
-                    : 'pi pi-calendar-plus'
+                    ? 'fa-solid fa-spinner fa-spin'
+                    : 'fa-solid fa-calendar-plus'
                 "
                 [leftIcon]="true"
                 (click)="showCalendarInput = !showCalendarInput"
@@ -130,7 +130,7 @@
                     <shared-button
                       buttonClass="secondary-background-primary-color-no-border small"
                       [iconOnly]="true"
-                      iconClass="pi pi-check"
+                      iconClass="fa-solid fa-check"
                       (click)="onPlanDateChange()"
                     ></shared-button>
                   </span>
@@ -143,10 +143,10 @@
             [addIcon]="true"
             [iconClass]="
               addingRemovingBookmark
-                ? 'pi pi-spin pi-spinner'
+                ? 'fa-solid fa-spinner fa-spin'
                 : recipeDetails.is_bookmarked
-                  ? 'pi pi-bookmark-fill'
-                  : 'pi pi-bookmark'
+                  ? 'fa-solid fa-bookmark'
+                  : 'fa-regular fa-bookmark'
             "
             [leftIcon]="true"
             [disabled]="addingRemovingBookmark"
@@ -161,7 +161,7 @@
     </section>
     <section class="recipe-shorthand-details">
       <div class="detail-card">
-        <i class="pi pi-clock"></i>
+        <i class="fa-solid fa-clock"></i>
         <span class="text-card">
           <label class="captions-labels">Prep Time</label>
           <label class="small-helper-text">{{ recipeDetails.prep_time }}</label>
@@ -169,7 +169,7 @@
       </div>
       <div class="vertical-divider"></div>
       <div class="detail-card">
-        <i class="pi pi-hourglass"></i>
+        <i class="fa-solid fa-hourglass-half"></i>
         <span class="text-card">
           <label class="captions-labels">Cook Time</label>
           <label class="small-helper-text">{{ recipeDetails.cook_time }}</label>
@@ -177,7 +177,7 @@
       </div>
       <div class="vertical-divider"></div>
       <div class="detail-card">
-        <i class="pi pi-stopwatch"></i>
+        <i class="fa-solid fa-stopwatch"></i>
         <span class="text-card">
           <label class="captions-labels">Total Time</label>
           <label class="small-helper-text">{{
@@ -187,7 +187,7 @@
       </div>
       <div class="vertical-divider"></div>
       <div class="detail-card">
-        <i class="pi pi-users"></i>
+        <i class="fa-solid fa-users"></i>
         <span class="text-card">
           <label class="captions-labels">Serves</label>
           <label class="small-helper-text"
@@ -197,7 +197,7 @@
       </div>
       <div class="vertical-divider"></div>
       <div class="detail-card">
-        <i class="pi pi-chart-line"></i>
+        <i class="fa-solid fa-chart-line"></i>
         <span class="text-card">
           <label class="captions-labels">Difficulty Level</label>
           <label class="small-helper-text">{{

@@ -15,7 +15,7 @@
               inputClass="no-bg-font-border-secondary small-helper-text"
               [leftIcon]="true"
               [addIcon]="true"
-              iconClass="pi pi-user"
+              iconClass="fa-solid fa-user"
               formControlName="firstName"
             ></shared-input>
           </span>
@@ -26,7 +26,7 @@
               inputClass="no-bg-font-border-secondary small-helper-text"
               [leftIcon]="true"
               [addIcon]="true"
-              iconClass="pi pi-user"
+              iconClass="fa-solid fa-user"
               formControlName="lastName"
             ></shared-input>
           </span>
@@ -38,7 +38,7 @@
             inputClass="no-bg-font-border-secondary small-helper-text"
             [leftIcon]="true"
             [addIcon]="true"
-            iconClass="pi pi-envelope"
+            iconClass="fa-solid fa-envelope"
             formControlName="emailAddress"
           ></shared-input>
         </span>
@@ -49,7 +49,7 @@
             inputClass="no-bg-font-border-secondary small-helper-text"
             [leftIcon]="true"
             [addIcon]="true"
-            iconClass="pi pi-lock"
+            iconClass="fa-solid fa-lock"
             inputType="password"
             formControlName="password"
           ></shared-input>
@@ -61,7 +61,7 @@
             inputClass="no-bg-font-border-secondary small-helper-text"
             [leftIcon]="true"
             [addIcon]="true"
-            iconClass="pi pi-lock"
+            iconClass="fa-solid fa-lock"
             inputType="password"
             formControlName="confirmPassword"
           ></shared-input>
@@ -80,7 +80,7 @@
       </div>
       @if (formHasErrors) {
         <span class="error-message small-helper-text">
-          <i class="pi pi-info-circle"></i>{{ errorMessage }}
+          <i class="fa-solid fa-circle-info"></i>{{ errorMessage }}
         </span>
       }
       @if (signinInProgress) {
@@ -88,7 +88,7 @@
           buttonType="submit"
           buttonClass="secondary-background-primary-color-no-border small"
           [addIcon]="true"
-          iconClass="pi pi-spin pi-spinner"
+          iconClass="fa-solid fa-spinner fa-spin"
           buttonWidth="100%"
           class="signin-button"
           [disabled]="true"
@@ -99,7 +99,7 @@
           buttonType="submit"
           buttonClass="secondary-background-primary-color-no-border small"
           [addIcon]="true"
-          iconClass="pi pi-arrow-right"
+          iconClass="fa-solid fa-arrow-right"
           buttonWidth="100%"
           class="signin-button"
           >Sign In</shared-button
@@ -116,14 +116,14 @@
         buttonClass="white-background-secondary-color-border small"
         [leftIcon]="true"
         [addIcon]="true"
-        iconClass="pi pi-google"
+        iconClass="fa-brands fa-google"
         >Google</shared-button
       >
       <shared-button
         buttonClass="white-background-secondary-color-border small"
         [leftIcon]="true"
         [addIcon]="true"
-        iconClass="pi pi-apple"
+        iconClass="fa-brands fa-apple"
         >Apple</shared-button
       >
     </span>

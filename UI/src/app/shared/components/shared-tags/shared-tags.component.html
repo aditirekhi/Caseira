@@ -1,3 +1,9 @@
 <section [class]="'tag ' + tagClass()">
+  @if (leftIcon() && addIcon()) {
+    <i [class]="iconClass()"></i>
+  }
   <b>{{ tagName() | firstLetterCapital }}</b>
+  @if (!leftIcon() && addIcon()) {
+    <i [class]="iconClass()"></i>
+  }
 </section>

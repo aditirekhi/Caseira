@@ -33,22 +33,42 @@
         <shared-button
           buttonClass="no-bg-secondary-color-muted-secondary-border larger"
           [addIcon]="true"
-          [iconClass]="updatingIngredientsInCart ? 'pi pi-spinner pi-spin' : 'pi pi-shopping-cart'"
+          [iconClass]="
+            updatingIngredientsInCart
+              ? 'fa-solid fa-spinner fa-spin'
+              : 'fa-solid fa-cart-shopping'
+          "
           [leftIcon]="true"
           class="add-to-cart-button"
-          [disabled]="updatingIngredientsInCart || removingAllIngredientsFromCart"
+          [disabled]="
+            updatingIngredientsInCart || removingAllIngredientsFromCart
+          "
           (click)="updateIngredientInCart()"
-          >{{ updatingIngredientsInCart ? 'Updating ingredients...' : 'Update ingredients in cart' }}</shared-button
+          >{{
+            updatingIngredientsInCart
+              ? "Updating ingredients..."
+              : "Update ingredients in cart"
+          }}</shared-button
         >
         <shared-button
           buttonClass="no-bg-secondary-color-muted-secondary-border larger"
           [addIcon]="true"
-          [iconClass]="removingAllIngredientsFromCart ? 'pi pi-spinner pi-spin' : 'pi pi-trash'"
+          [iconClass]="
+            removingAllIngredientsFromCart
+              ? 'fa-solid fa-spinner fa-spin'
+              : 'fa-solid fa-trash'
+          "
           [leftIcon]="true"
           class="add-to-cart-button"
-          [disabled]="updatingIngredientsInCart || removingAllIngredientsFromCart"
+          [disabled]="
+            updatingIngredientsInCart || removingAllIngredientsFromCart
+          "
           (click)="removeAllIngredientsFromCart()"
-          >{{ removingAllIngredientsFromCart ? 'Removing ingredients...' : 'Remove all ingredients from cart' }}</shared-button
+          >{{
+            removingAllIngredientsFromCart
+              ? "Removing ingredients..."
+              : "Remove all ingredients from cart"
+          }}</shared-button
         >
       </div>
     } @else if (addingIngredientsToCart) {
@@ -56,7 +76,7 @@
         <shared-button
           buttonClass="no-bg-secondary-color-muted-secondary-border larger"
           [addIcon]="true"
-          iconClass="pi pi-spinner pi-spin"
+          iconClass="fa-solid fa-spinner fa-spin"
           [leftIcon]="true"
           class="add-to-cart-button"
           [disabled]="true"
@@ -67,7 +87,7 @@
       <shared-button
         buttonClass="no-bg-secondary-color-muted-secondary-border larger"
         [addIcon]="true"
-        iconClass="pi pi-shopping-cart"
+        iconClass="fa-solid fa-cart-shopping"
         [leftIcon]="true"
         class="add-to-cart-button"
         (click)="updateIngredientInCart()"

@@ -29,7 +29,7 @@
   border-radius: 10px;
 }
 
-.pi-heart {
+.fa-heart {
   background-color: var(--primary-color);
   color: var(--secondary-color);
   padding: 0.2rem;
@@ -102,9 +102,88 @@
   margin: 0 0.5rem;
 }
 
-.pi {
-  margin: 0 !important;
-  padding: 0 !important;
+.recipe-only-card {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  height: 100%;
+  gap: 0.5rem;
+  border-radius: 10px;
+  box-shadow: 4px 4px 20px 0 var(--muted-secondary-color);
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+.recipe-only-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+}
+
+.recipe-only-row-image {
+  width: 15rem;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.recipe-only-image-container {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+}
+
+.recipe-only-image-container shared-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 5;
+}
+
+.recipe-only-details-container {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.recipe-only-card .recipe-only-details-container shared-tags {
+  margin-top: auto;
+}
+
+.ratings-container {
+  display: flex;
+  width: 100%;
+  align-items: start;
+  gap: 0.5rem;
+}
+
+.recipe-only-details {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 2rem;
+}
+
+.recipe-only-row-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bookmark-container {
+  border: 1px solid var(--muted-secondary-color);
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 50%;
 }
 
 /* Laptops: the overview sidebar (~1fr column) is too narrow for the row layout */

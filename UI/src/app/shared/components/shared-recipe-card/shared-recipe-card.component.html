@@ -1,14 +1,14 @@
-@if (cardDirection() === "column") {
+@if (cardDirection() === "column" && !recipeOnly()) {
   <div class="recipe-card">
     <div class="recipe-image-container">
       <div class="recipe-like">
         <shared-button
           [iconClass]="
             favoriteToggleInProgress
-              ? 'pi pi-spin pi-spinner'
+              ? 'fa-solid fa-spin fa-spinner'
               : recipeLiked
-                ? 'pi pi-heart-fill'
-                : 'pi pi-heart'
+                ? 'fa-solid fa-heart'
+                : 'fa-regular fa-heart'
           "
           [iconOnly]="true"
           [disabled]="favoriteToggleInProgress"
@@ -27,27 +27,27 @@
       </shared-button>
       <div class="recipe-ratings small-helper-text">
         @for (i of getRange(recipeRating()); track $index) {
-          <i class="pi pi-star-fill"></i>
+          <i class="fa-solid fa-star filled"></i>
         }
         @if (hasHalfStar(recipeRating())) {
-          <i class="pi pi-star-half"></i>
+          <i class="fa-solid fa-star-half-stroke filled"></i>
         }
         @for (i of getRange(5 - recipeRating()); track $index) {
-          <i class="pi pi-star"></i>
+          <i class="fa-solid fa-star unfilled"></i>
         }
         <label class="number-of-reviews">{{ reviewCount() }}</label>
       </div>
       <div class="recipe-specifics small-helper-text">
         <span class="recipe-time">
-          <i class="pi pi-clock"></i>
+          <i class="fa-solid fa-clock"></i>
           <label>{{ timeToCook() }}</label>
         </span>
         <span class="recipe-serves">
-          <i class="pi pi-users"></i>
+          <i class="fa-solid fa-users"></i>
           <label>Serves {{ noOfPeopleServes() }}</label>
         </span>
         <span class="recipe-ingredients">
-          <i class="pi pi-list"></i>
+          <i class="fa-solid fa-list"></i>
           <label>{{ noOfIngredients() }} Ingredients</label>
         </span>
       </div>
@@ -66,7 +66,7 @@
           <shared-button
             buttonClass="secondary-background-primary-color-no-border small"
             [addIcon]="true"
-            iconClass="pi pi-spin pi-spinner"
+            iconClass="fa-solid fa-spin fa-spinner"
             [recipeId]="recipeId()"
             [disabled]="true"
             >Adding...</shared-button
@@ -75,7 +75,7 @@
           <shared-button
             buttonClass="secondary-background-primary-color-no-border small"
             [addIcon]="true"
-            iconClass="pi pi-cart-plus"
+            iconClass="fa-solid fa-cart-plus"
             customPadding="0.5rem"
             (click)="addToCart($event)"
             >Add Kit</shared-button
@@ -84,7 +84,7 @@
       </div>
     </div>
   </div>
-} @else if (cardDirection() === "row") {
+} @else if (cardDirection() === "row" && !recipeOnly()) {
   <div class="recipe-card-row">
     <img [src]="'assets/' + imageUrl()" class="recipe-image-row" />
     <span class="recipe-card-details-container">
@@ -94,10 +94,10 @@
         </shared-button>
         <span class="recipe-ratings small-helper-text">
           @for (i of getRange(recipeRating()); track $index) {
-            <i class="pi pi-star-fill"></i>
+            <i class="fa-solid fa-star filled"></i>
           }
           @for (i of getRange(5 - recipeRating()); track $index) {
-            <i class="pi pi-star"></i>
+            <i class="fa-solid fa-star unfilled"></i>
           }
           <label class="number-of-reviews">{{ reviewCount() }}</label>
         </span>
@@ -108,13 +108,139 @@
         [iconOnly]="true"
         [iconClass]="
           bookmarkToggleInProgress
-            ? 'pi pi-spin pi-spinner'
+            ? 'fa-solid fa-spin fa-spinner'
             : recipeBookmarked
-              ? 'pi pi-bookmark-fill'
-              : 'pi pi-bookmark'
+              ? 'fa-solid fa-bookmark'
+              : 'fa-regular fa-bookmark'
         "
         customPadding="0.5rem"
         [disabled]="bookmarkToggleInProgress"
+        (click)="toggleBookmark()"
+      ></shared-button>
+    </span>
+  </div>
+} @else if (recipeOnly() && cardDirection() === "column") {
+  <div class="recipe-only-card">
+    <span class="recipe-only-image-container">
+      <img [src]="'assets/' + imageUrl()" class="recipe-only-image" />
+      <shared-button
+        buttonClass="primary-background-secondary-color-border small"
+        [iconOnly]="true"
+        [iconClass]="
+          bookmarkToggleInProgress
+            ? 'fa-solid fa-spin fa-spinner'
+            : recipeBookmarked
+              ? 'fa-solid fa-bookmark'
+              : 'fa-regular fa-bookmark'
+        "
+        [disabled]="bookmarkToggleInProgress"
+        (click)="toggleBookmark()"
+      ></shared-button>
+    </span>
+    <span class="recipe-only-details-container">
+      <shared-button
+        buttonClass="no-bg-secondary-color "
+        [routerLink]="['/recipe', recipeId()]"
+      >
+        <span class="card-title-recipe-name">{{ recipeName() }}</span>
+      </shared-button>
+      <span class="ratings-container">
+        <span>
+          @for (star of getRange(recipeRating()); track $index) {
+            <i class="fa-solid fa-star filled"></i>
+          }
+          @if (hasHalfStar(recipeRating())) {
+            <i class="fa-solid fa-star-half-stroke filled"></i>
+          }
+          @for (star of getRange(5 - recipeRating()); track $index) {
+            <i class="fa-solid fa-star unfilled"></i>
+          }
+        </span>
+        <label>{{ recipeRating() }}</label>
+        <label>({{ reviewCount() }})</label>
+      </span>
+      <span class="recipe-only-details">
+        <label class="small-helper-text"
+          ><i class="fa-solid fa-clock"></i> {{ timeToCook() }}</label
+        >
+        <label class="small-helper-text"
+          ><i class="fa-solid fa-users"></i> Serves
+          {{ noOfPeopleServes() }}</label
+        >
+      </span>
+      @if (isVegetarian()) {
+        <shared-tags
+          tagName="Vegetarian"
+          class="small-helper-text"
+          tagClass="veg-tag"
+        ></shared-tags>
+      } @else {
+        <shared-tags
+          tagName="Non-Vegetarian"
+          class="small-helper-text"
+          tagClass="non-veg-tag"
+        ></shared-tags>
+      }
+    </span>
+  </div>
+} @else if (recipeOnly() && cardDirection() == "row") {
+  <div class="recipe-only-row-container">
+    <img [src]="'assets/' + imageUrl()" class="recipe-only-row-image" />
+    <span class="recipe-only-details-container">
+      <shared-button
+        buttonClass="no-bg-secondary-color "
+        [routerLink]="['/recipe', recipeId()]"
+      >
+        <span class="card-title-recipe-name">{{ recipeName() }}</span>
+      </shared-button>
+      <span class="ratings-container">
+        <span>
+          @for (star of getRange(recipeRating()); track $index) {
+            <i class="fa-solid fa-star filled"></i>
+          }
+          @if (hasHalfStar(recipeRating())) {
+            <i class="fa-solid fa-star-half-stroke filled"></i>
+          }
+          @for (star of getRange(5 - recipeRating()); track $index) {
+            <i class="fa-solid fa-star unfilled"></i>
+          }
+        </span>
+        <label>{{ recipeRating() }}</label>
+        <label>({{ reviewCount() }})</label>
+      </span>
+      <span class="recipe-only-details">
+        <label class="small-helper-text"
+          ><i class="fa-solid fa-clock"></i> {{ timeToCook() }}</label
+        >
+        <label class="small-helper-text"
+          ><i class="fa-solid fa-users"></i> Serves
+          {{ noOfPeopleServes() }}</label
+        >
+      </span>
+      @if (isVegetarian()) {
+        <shared-tags
+          tagName="Vegetarian"
+          class="small-helper-text"
+          tagClass="veg-tag"
+        ></shared-tags>
+      } @else {
+        <shared-tags
+          tagName="Non-Vegetarian"
+          class="small-helper-text"
+          tagClass="non-veg-tag"
+        ></shared-tags>
+      }
+    </span>
+    <span class="bookmark-container">
+      <shared-button
+        [iconOnly]="true"
+        [iconClass]="
+          bookmarkToggleInProgress
+            ? 'fa-solid fa-spin fa-spinner'
+            : recipeBookmarked
+              ? 'fa-solid fa-bookmark'
+              : 'fa-regular fa-bookmark'
+        "
         (click)="toggleBookmark()"
       ></shared-button>
     </span>

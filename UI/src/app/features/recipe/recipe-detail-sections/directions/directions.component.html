@@ -13,12 +13,14 @@
       </div>
       <div class="item-direction">
         <span class="body-paragraph"
-          ><b><i class="pi pi-check-circle"></i>{{ section.key }}</b></span
+          ><b
+            ><i class="fa-solid fa-circle-check"></i>{{ section.key }}</b
+          ></span
         >
         <ul class="directions-list">
           @for (step of section.value; track $index) {
             <div class="direction-container">
-              <i class="pi pi-minus"></i>
+              <i class="fa-solid fa-minus"></i>
               <li class="secondary-text">{{ step }}</li>
             </div>
           }

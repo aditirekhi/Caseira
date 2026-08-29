@@ -16,7 +16,9 @@
   height: auto;
 }
 
-.pi {
+.fa-solid,
+.fa-regular,
+.fa-brands {
   border: 2px solid var(--secondary-color);
   padding: 1rem;
   border-radius: 50%;

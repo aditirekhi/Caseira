@@ -25,7 +25,7 @@
               },
               "src/assets"
             ],
-            "styles": ["src/styles.css", "primeicons/primeicons.css"],
+            "styles": ["src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -81,7 +81,7 @@
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "css",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.css", "primeicons/primeicons.css"],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         }
