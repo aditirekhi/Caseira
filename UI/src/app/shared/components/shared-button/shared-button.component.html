@@ -1,18 +1,29 @@
 @if (!addedToCartButton()) {
   <button
     [attr.type]="buttonType()"
-    class="{{ buttonClass() }} button-text"
+    class="{{ buttonClass() }} button-text {{
+      addLeftRightIcons() ? 'both-icons' : ''
+    }}"
     [style.--buttonWidth]="buttonWidth()"
     [disabled]="disabled()"
   >
-    @if (leftIcon() && (addIcon() || iconOnly()) && iconClass()) {
+    @if (
+      (addLeftRightIcons() && iconClass()) ||
+      (leftIcon() && (addIcon() || iconOnly()) && iconClass())
+    ) {
       <i [attr.class]="iconClass()" class="button-icon"></i>
     }
     @if (!iconOnly()) {
       <ng-content></ng-content>
     }
-    @if (!leftIcon() && (addIcon() || iconOnly()) && iconClass()) {
-      <i [attr.class]="iconClass()" class="button-icon"></i>
+    @if (
+      (addLeftRightIcons() && rightIconClass()) ||
+      (!leftIcon() && (addIcon() || iconOnly()) && iconClass())
+    ) {
+      <i
+        [attr.class]="addLeftRightIcons() ? rightIconClass() : iconClass()"
+        class="button-icon"
+      ></i>
     }
   </button>
 } @else {

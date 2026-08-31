@@ -103,6 +103,86 @@ body {
   line-height: 17px;
 }
 
+@media (max-width: 1024px) {
+  .hero-heading {
+    font-size: 52px;
+    line-height: 60px;
+  }
+
+  .section-heading {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  .subsection-heading {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .card-title-recipe-name {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .large-highlight-text {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .body-paragraph {
+    font-size: 16px;
+    line-height: 26px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-heading {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  .section-heading {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .subsection-heading {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .card-title-recipe-name {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .large-highlight-text {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .feature-title {
+    font-size: 17px;
+    line-height: 24px;
+  }
+
+  .body-paragraph {
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  .secondary-text,
+  .button-text {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .captions-labels {
+    font-size: 12px;
+    line-height: 17px;
+  }
+}
+
 .fa-star {
   font-size: 12px;
   line-height: 17px;

@@ -148,42 +148,83 @@
 }
 
 @media (max-width: 900px) {
-  .hero-page {
-    grid-template-columns: 1fr;
+  .main-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
-  .main-background {
-    min-height: 20rem;
-    mask-image: none;
-  }
-
-  .features-panel {
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .procedure-panel {
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .procedure-section {
-    width: 95%;
-    top: -2rem;
-  }
-}
-
-@media (max-width: 600px) {
   .website-details {
-    padding: 1rem;
+    padding: 0;
+    min-width: 0;
   }
 
   .website-name {
-    width: min(30rem, 92%);
-    padding: 1rem;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  .button-pannel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-background {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .features-panel {
+    width: 100%;
+    margin: 1rem 0;
+    min-width: 0;
+  }
+
+  .feature-card {
+    min-width: 0;
   }
 
   .feature-image {
-    width: 6rem;
+    width: 100%;
+    max-width: 5rem;
+  }
+
+  .feature-label {
+    overflow-wrap: anywhere;
+  }
+
+  .procedure-section {
+    top: 0;
+  }
+
+  .procedure-panel {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    gap: 1rem;
+    margin: 0;
+  }
+
+  .procedure-card {
+    flex-direction: column;
+    margin: 1rem 0;
+    min-width: 0;
+    width: 5rem;
+  }
+
+  .procedure-details {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .procedure-details .captions-labels {
+    overflow-wrap: anywhere;
+  }
+
+  .horizontal-divider {
+    margin-top: 1rem;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, input, ChangeDetectionStrategy, ChangeDetectorRef, HostListener } from '@angular/core';
 import { SharedButtonComponent } from "../shared-button/shared-button.component";
 import { RouterModule } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
@@ -41,6 +41,8 @@ export class SharedRecipeCardComponent {
   isVegetarian = input<boolean>(false);
   recipeOnly = input<boolean>(false);
 
+  screenWidth: number = 0;
+
   addToCartInProgress: boolean = false;
   recipeInCart: boolean = false;
   cartId: string = '';
@@ -54,6 +56,12 @@ export class SharedRecipeCardComponent {
     this.checkIfRecipeIsLiked();
     this.checkIfRecipeIsBookmarked();
     this.cartId = this.cartService.fetchCartDetailsFromCookie()?.cart_id || '';
+    this.screenWidth = window.innerWidth;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.screenWidth = window.innerWidth;
   }
 
   getRange(num: number): number[] {

@@ -23,6 +23,13 @@
   margin: 0.5rem 0;
 }
 
+.recipe-details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 .recipe-ratings {
   color: var(--prompt-color);
 }
@@ -89,27 +96,37 @@ i {
 }
 
 @media (max-width: 900px) {
-  .todays-special-section {
+  .todays-special-details {
+    margin: 0rem;
+    display: flex;
     flex-direction: column;
   }
 
-  .todays-special-details {
-    margin: 2rem;
+  .recipe-details-container,
+  .recipe-name,
+  .pricing,
+  .feature-title {
+    margin: 0 1rem;
   }
 
-  .todays-special-image {
-    width: 100%;
-    mask-image: none;
+  .feature-title {
+    margin-top: 1rem;
   }
 
-  .feature-panel {
-    flex-wrap: wrap;
-    gap: 0.5rem 1.5rem;
+  .pricing {
+    padding: 0;
   }
-}
 
-@media (max-width: 600px) {
-  .todays-special-details {
-    margin: 1.5rem;
+  .responsive-button-image-container {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .button-container {
+    margin: 1rem;
+  }
+
+  .feature-image {
+    border-radius: 70%;
   }
 }

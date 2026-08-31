@@ -1,39 +1,61 @@
 <nav class="navbar">
-  <shared-button routerLink="/home" buttonClass="no-bg-primary-color small">
-    <img src="assets/Logos/logo.png" class="logo-image" alt="logo" />
-  </shared-button>
-  <shared-input
-    placeholderText="Search recipes, ingredients..."
-    inputClass="no-bg-font-border-primary shrink-0"
-    [addIcon]="true"
-    iconClass="fa-solid fa-magnifying-glass"
-  ></shared-input>
+  @if (screenWidth < 900) {
+    <shared-button
+      buttonClass="no-bg-primary-color medium"
+      [iconOnly]="true"
+      iconClass="fa-solid fa-bars"
+      (click)="toggleNavMenu()"
+    ></shared-button>
+  }
+  @if (!showNavMenu) {
+    <shared-button routerLink="/home" buttonClass="no-bg-primary-color small">
+      <img src="assets/Logos/logo.png" class="logo-image" alt="logo" />
+    </shared-button>
+  }
+  @if (screenWidth >= 900) {
+    <shared-input
+      placeholderText="Search recipes, ingredients..."
+      inputClass="no-bg-font-border-primary shrink-0"
+      [addIcon]="true"
+      iconClass="fa-solid fa-magnifying-glass"
+    ></shared-input>
+  }
+  @if (screenWidth > 900) {
+    <div>
+      <shared-button
+        buttonClass="no-bg-primary-color medium"
+        routerLink="/recipe/all"
+        >Recipes</shared-button
+      >
+      <shared-button
+        buttonClass="no-bg-primary-color medium"
+        routerLink="/ingredients"
+        >Ingredients</shared-button
+      >
+      <shared-button
+        buttonClass="no-bg-primary-color medium"
+        routerLink="/meal-kits"
+        >Meal Kits</shared-button
+      >
+      <shared-button
+        buttonClass="no-bg-primary-color medium"
+        routerLink="/regions/all"
+        >Regions</shared-button
+      >
+      <shared-button buttonClass="no-bg-primary-color medium"
+        >Offers</shared-button
+      >
+    </div>
+  }
   <div>
-    <shared-button
-      buttonClass="no-bg-primary-color medium"
-      routerLink="/recipe/all"
-      >Recipes</shared-button
-    >
-    <shared-button
-      buttonClass="no-bg-primary-color medium"
-      routerLink="/ingredients"
-      >Ingredients</shared-button
-    >
-    <shared-button
-      buttonClass="no-bg-primary-color medium"
-      routerLink="/meal-kits"
-      >Meal Kits</shared-button
-    >
-    <shared-button
-      buttonClass="no-bg-primary-color medium"
-      routerLink="/regions/all"
-      >Regions</shared-button
-    >
-    <shared-button buttonClass="no-bg-primary-color medium"
-      >Offers</shared-button
-    >
-  </div>
-  <div>
+    @if (this.screenWidth < 900) {
+      <shared-button
+        buttonClass="no-bg-primary-color medium"
+        [iconOnly]="true"
+        iconClass="fa-solid fa-magnifying-glass"
+        (click)="toggleSearchBox()"
+      ></shared-button>
+    }
     <shared-button
       buttonClass="no-bg-primary-color small"
       [iconOnly]="true"
@@ -49,3 +71,158 @@
     ></shared-button>
   </div>
 </nav>
+@if (screenWidth < 900 && showNavMenu) {
+  <div class="menu-backdrop" (click)="closeNavMenu()"></div>
+  <div class="menu-items-container">
+    <div class="drawer-header">
+      <shared-button
+        buttonClass="no-bg-primary-color small"
+        routerLink="/home"
+        (click)="closeNavMenu()"
+      >
+        <img src="assets/Logos/logo.png" class="drawer-logo-image" alt="logo" />
+      </shared-button>
+      <shared-button
+        buttonClass="no-bg-primary-color medium"
+        [iconOnly]="true"
+        iconClass="fa-solid fa-xmark"
+        (click)="closeNavMenu()"
+        class="close-btn"
+      ></shared-button>
+    </div>
+
+    <div class="drawer-nav-links">
+      <shared-button
+        buttonClass="no-bg-primary-color medium"
+        [addLeftRightIcons]="true"
+        iconClass="fa-solid fa-book-open"
+        rightIconClass="fa-solid fa-angle-right"
+        routerLink="/recipe/all"
+        class="navbar-menu-item"
+        routerLinkActive="active"
+        (click)="closeNavMenu()"
+        >Recipes</shared-button
+      >
+      <shared-button
+        buttonClass="no-bg-primary-color medium"
+        [addLeftRightIcons]="true"
+        iconClass="fa-solid fa-seedling"
+        rightIconClass="fa-solid fa-angle-right"
+        routerLink="/ingredients"
+        class="navbar-menu-item"
+        routerLinkActive="active"
+        (click)="closeNavMenu()"
+        >Ingredients</shared-button
+      >
+      <shared-button
+        buttonClass="no-bg-primary-color medium"
+        [addLeftRightIcons]="true"
+        rightIconClass="fa-solid fa-angle-right"
+        iconClass="fa-solid fa-box-open"
+        routerLink="/meal-kits"
+        class="navbar-menu-item"
+        routerLinkActive="active"
+        (click)="closeNavMenu()"
+        >Meal Kits</shared-button
+      >
+      <shared-button
+        buttonClass="no-bg-primary-color medium"
+        [addLeftRightIcons]="true"
+        rightIconClass="fa-solid fa-angle-right"
+        iconClass="fa-solid fa-location-dot"
+        routerLink="/regions/all"
+        class="navbar-menu-item"
+        routerLinkActive="active"
+        (click)="closeNavMenu()"
+        >Regions</shared-button
+      >
+      <shared-button
+        buttonClass="no-bg-primary-color medium"
+        [addLeftRightIcons]="true"
+        rightIconClass="fa-solid fa-angle-right"
+        iconClass="fa-solid fa-tag"
+        class="navbar-menu-item"
+        routerLinkActive="active"
+        (click)="closeNavMenu()"
+        >Offers</shared-button
+      >
+    </div>
+
+    <div class="horizontal-divider"></div>
+
+    <div class="info-section">
+      <div class="info-item-container">
+        <img
+          src="assets/HeroPage/FreshAndHighQuality.png"
+          class="info-icon-image"
+          alt="Fresh & High Quality"
+        />
+        <div class="info-item-details">
+          <label class="captions-labels">Fresh & High Quality</label>
+          <p class="small-helper-text">
+            Handpicked ingredients for every recipe
+          </p>
+        </div>
+      </div>
+      <div class="info-item-container">
+        <img
+          src="assets/HeroPage/ExactQualityForEachRecipe.png"
+          class="info-icon-image"
+          alt="Exact Quality for Every Recipe"
+        />
+        <div class="info-item-details">
+          <label class="captions-labels">Exact Quality for Recipes</label>
+          <p class="small-helper-text">Measured and packed with care</p>
+        </div>
+      </div>
+      <div class="info-item-container">
+        <img
+          src="assets/HeroPage/DeliveredInTime.png"
+          class="info-icon-image"
+          alt="Delivered in 2-4 hours"
+        />
+        <div class="info-item-details">
+          <label class="captions-labels">Delivered in 2-4 hours</label>
+          <p class="small-helper-text">Fresh to your doorstep, right on time</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="horizontal-divider"></div>
+
+    <div class="drawer-action-buttons">
+      <shared-button
+        buttonClass="no-bg-prompt-color-prompt-border small"
+        [addLeftRightIcons]="true"
+        iconClass="fa-solid fa-bag-shopping"
+        rightIconClass="fa-solid fa-angle-right"
+        routerLink="/recipe/all"
+        (click)="closeNavMenu()"
+        >Browse Recipes</shared-button
+      >
+      <shared-button
+        buttonClass="no-bg-prompt-color-prompt-border small"
+        [addLeftRightIcons]="true"
+        iconClass="fa-solid fa-basket-shopping"
+        rightIconClass="fa-solid fa-angle-right"
+        routerLink="/ingredients"
+        (click)="closeNavMenu()"
+        >Shop Ingredients</shared-button
+      >
+    </div>
+
+    <div class="horizontal-divider"></div>
+
+    <div class="drawer-footer">
+      <shared-button
+        buttonClass="no-bg-primary-color medium"
+        [addLeftRightIcons]="true"
+        iconClass="fa-solid fa-headset"
+        rightIconClass="fa-solid fa-angle-right"
+        class="navbar-menu-item"
+        (click)="closeNavMenu()"
+        >Need Help?</shared-button
+      >
+    </div>
+  </div>
+}

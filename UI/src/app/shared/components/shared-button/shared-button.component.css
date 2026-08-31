@@ -22,6 +22,12 @@ button:hover {
   cursor: pointer !important;
 }
 
+.both-icons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 button * {
   cursor: pointer !important;
 }
@@ -131,6 +137,17 @@ button:disabled * {
 }
 
 .no-bg-prompt-color:hover {
+  color: var(--secondary-color);
+}
+
+.no-bg-prompt-color-prompt-border {
+  background: transparent;
+  color: var(--prompt-color);
+  border: 1px solid var(--prompt-color);
+}
+
+.no-bg-prompt-color-prompt-border:hover {
+  background-color: var(--primary-color);
   color: var(--secondary-color);
 }
 

@@ -25,31 +25,40 @@
       >
         <span class="card-title-recipe-name">{{ recipeName() }}</span>
       </shared-button>
-      <div class="recipe-ratings small-helper-text">
-        @for (i of getRange(recipeRating()); track $index) {
-          <i class="fa-solid fa-star filled"></i>
-        }
-        @if (hasHalfStar(recipeRating())) {
-          <i class="fa-solid fa-star-half-stroke filled"></i>
-        }
-        @for (i of getRange(5 - recipeRating()); track $index) {
-          <i class="fa-solid fa-star unfilled"></i>
-        }
-        <label class="number-of-reviews">{{ reviewCount() }}</label>
-      </div>
-      <div class="recipe-specifics small-helper-text">
-        <span class="recipe-time">
-          <i class="fa-solid fa-clock"></i>
-          <label>{{ timeToCook() }}</label>
-        </span>
-        <span class="recipe-serves">
-          <i class="fa-solid fa-users"></i>
-          <label>Serves {{ noOfPeopleServes() }}</label>
-        </span>
-        <span class="recipe-ingredients">
-          <i class="fa-solid fa-list"></i>
-          <label>{{ noOfIngredients() }} Ingredients</label>
-        </span>
+      <div class="recipe-details-container">
+        <div class="recipe-ratings small-helper-text">
+          @if (screenWidth > 900) {
+            @for (i of getRange(recipeRating()); track $index) {
+              <i class="fa-solid fa-star filled"></i>
+            }
+            @if (hasHalfStar(recipeRating())) {
+              <i class="fa-solid fa-star-half-stroke filled"></i>
+            }
+            @for (i of getRange(5 - recipeRating()); track $index) {
+              <i class="fa-solid fa-star unfilled"></i>
+            }
+          } @else {
+            <i class="fa-solid fa-star filled"></i>
+          }
+          <label class="recipe-rating">{{ recipeRating() }}</label>
+          <label class="number-of-reviews">({{ reviewCount() }})</label>
+        </div>
+        <div class="recipe-specifics small-helper-text">
+          <span class="recipe-time">
+            <i class="fa-solid fa-clock"></i>
+            <label>{{ timeToCook() }}</label>
+          </span>
+          @if (screenWidth > 900) {
+            <span class="recipe-serves">
+              <i class="fa-solid fa-users"></i>
+              <label>Serves {{ noOfPeopleServes() }}</label>
+            </span>
+            <span class="recipe-ingredients">
+              <i class="fa-solid fa-list"></i>
+              <label>{{ noOfIngredients() }} Ingredients</label>
+            </span>
+          }
+        </div>
       </div>
       <div class="recipe-pricing">
         <span class="recipe-price large-highlight-text"

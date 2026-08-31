@@ -13,56 +13,84 @@
         <div class="flex button-pannel">
           <shared-button
             buttonClass="secondary-background-primary-color-no-border large"
-            [addIcon]="true"
-            iconClass="fa-solid fa-arrow-right"
-            customPadding="0.5rem"
             routerLink="/recipe/all"
             >Browse Recipes</shared-button
           >
           <shared-button
             buttonClass="primary-background-secondary-color-border large"
-            customPadding="0.4rem"
             routerLink="/ingredients"
             >Shop Ingredients</shared-button
           >
         </div>
-        <div class="features-panel">
-          <span class="feature-card">
-            <img
-              src="assets/HeroPage/FreshAndHighQuality.png"
-              class="feature-image"
-            />
-            <label class="feature-label small-helper-text"
-              >Fresh and High Quality</label
+        @if (screenWidth > 900) {
+          <div class="features-panel">
+            <span class="feature-card">
+              <img
+                src="assets/HeroPage/FreshAndHighQuality.png"
+                class="feature-image"
+              />
+              <label class="feature-label small-helper-text"
+                >Fresh and High Quality</label
+              >
+            </span>
+            <div class="vertical-divider"></div>
+            <span class="feature-card">
+              <img
+                src="assets/HeroPage/ExactQualityForEachRecipe.png"
+                class="feature-image"
+              />
+              <label class="feature-label small-helper-text"
+                >Exact Quality for Recipes</label
+              >
+            </span>
+            <div class="vertical-divider"></div>
+            <span class="feature-card">
+              <img
+                src="assets/HeroPage/DeliveredInTime.png"
+                class="feature-image"
+              />
+              <label class="feature-label small-helper-text"
+                >Delivered in 2-4 hours</label
+              ></span
             >
-          </span>
-          <div class="vertical-divider"></div>
-          <span class="feature-card">
-            <img
-              src="assets/HeroPage/ExactQualityForEachRecipe.png"
-              class="feature-image"
-            />
-            <label class="feature-label small-helper-text"
-              >Exact Quality for Recipes</label
-            >
-          </span>
-          <div class="vertical-divider"></div>
-          <span class="feature-card">
-            <img
-              src="assets/HeroPage/DeliveredInTime.png"
-              class="feature-image"
-            />
-            <label class="feature-label small-helper-text"
-              >Delivered in 2-4 hours</label
-            ></span
-          >
-        </div>
+          </div>
+        }
       </div>
     </section>
     <section>
       <img src="assets/HeroPage/main_background.png" class="main-background" />
     </section>
   </div>
+  @if (screenWidth <= 900) {
+    <div class="features-panel">
+      <span class="feature-card">
+        <img
+          src="assets/HeroPage/FreshAndHighQuality.png"
+          class="feature-image"
+        />
+        <label class="feature-label small-helper-text"
+          >Fresh and High Quality</label
+        >
+      </span>
+      <div class="vertical-divider"></div>
+      <span class="feature-card">
+        <img
+          src="assets/HeroPage/ExactQualityForEachRecipe.png"
+          class="feature-image"
+        />
+        <label class="feature-label small-helper-text"
+          >Exact Quality for Recipes</label
+        >
+      </span>
+      <div class="vertical-divider"></div>
+      <span class="feature-card">
+        <img src="assets/HeroPage/DeliveredInTime.png" class="feature-image" />
+        <label class="feature-label small-helper-text"
+          >Delivered in 2-4 hours</label
+        ></span
+      >
+    </div>
+  }
   <section class="procedure-section">
     <label class="subsection-heading"> How It Works </label>
     <div class="procedure-panel">
@@ -70,39 +98,53 @@
         <img src="assets/HeroPage/SelectRecipe.png" class="procedure-image" />
         <div class="procedure-details">
           <span class="captions-labels">1.Choose Recipe</span>
-          <span class="small-helper-text"
-            >Choose from a wide range of delicious recipes</span
-          >
+          @if (screenWidth > 900) {
+            <span class="small-helper-text"
+              >Choose from a wide range of delicious recipes</span
+            >
+          }
         </div>
       </div>
-      <i class="fa-solid fa-arrow-right"></i>
+      @if (screenWidth > 900) {
+        <i class="fa-solid fa-arrow-right"></i>
+      }
       <div class="procedure-card">
         <img src="assets/HeroPage/WePack.png" class="procedure-image" />
         <div class="procedure-details">
           <span class="captions-labels">2.We Pack</span>
-          <span class="small-helper-text"
-            >We pack exact ingredients in perfect quantities</span
-          >
+          @if (screenWidth > 900) {
+            <span class="small-helper-text"
+              >We pack exact ingredients in perfect quantities</span
+            >
+          }
         </div>
       </div>
-      <i class="fa-solid fa-arrow-right"></i>
+      @if (screenWidth > 900) {
+        <i class="fa-solid fa-arrow-right"></i>
+      }
       <div class="procedure-card">
         <img src="assets/HeroPage/WeDeliver.png" class="procedure-image" />
         <div class="procedure-details">
           <span class="captions-labels">3.We Deliver</span>
-          <span class="small-helper-text"
-            >Fresh ingredients delivered to your doorstep</span
-          >
+          @if (screenWidth > 900) {
+            <span class="small-helper-text"
+              >Fresh ingredients delivered to your doorstep</span
+            >
+          }
         </div>
       </div>
-      <i class="fa-solid fa-arrow-right"></i>
+      @if (screenWidth > 900) {
+        <i class="fa-solid fa-arrow-right"></i>
+      }
       <div class="procedure-card">
         <img src="assets/HeroPage/CookAndEnjoy.png" class="procedure-image" />
         <div class="procedure-details">
           <span class="captions-labels">4.Cook and Enjoy</span>
-          <span class="small-helper-text"
-            >Cook and enjoy delicious homemade meals.</span
-          >
+          @if (screenWidth > 900) {
+            <span class="small-helper-text"
+              >Cook and enjoy delicious homemade meals.</span
+            >
+          }
         </div>
       </div>
     </div>

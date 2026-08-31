@@ -27,7 +27,9 @@ export class SharedButtonComponent {
   iconOnly = input<boolean>(false);
   addIcon = input<boolean>(false);
   iconClass = input<string>('');
+  rightIconClass = input<string>('');
   leftIcon = input<boolean>(false);
+  addLeftRightIcons = input<boolean>(false);
   buttonWidth = input<string>('');
   disabled = input<boolean>(false);
   addedToCartButton = input<boolean>(false);
