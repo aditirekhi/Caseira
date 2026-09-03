@@ -9,26 +9,25 @@
       <div class="form-container">
         <span class="input-container">
           <label class="captions-labels">Email</label>
-          <shared-input
-            placeholderText="Enter email"
-            inputClass="no-bg-font-border-secondary"
-            [leftIcon]="true"
-            [addIcon]="true"
-            iconClass="fa-solid fa-user"
-            formControlName="emailAddress"
-          ></shared-input>
+          <span class="native-input no-bg-font-border-secondary">
+            <i class="fa-solid fa-user"></i>
+            <input
+              type="text"
+              placeholder="Enter email"
+              formControlName="emailAddress"
+            />
+          </span>
         </span>
         <span class="input-container">
           <label class="captions-labels">Password</label>
-          <shared-input
-            placeholderText="Enter password"
-            inputClass="no-bg-font-border-secondary"
-            [leftIcon]="true"
-            [addIcon]="true"
-            iconClass="fa-solid fa-lock"
-            inputType="password"
-            formControlName="password"
-          ></shared-input>
+          <span class="native-input no-bg-font-border-secondary">
+            <i class="fa-solid fa-lock"></i>
+            <input
+              type="password"
+              placeholder="Enter password"
+              formControlName="password"
+            />
+          </span>
         </span>
         <shared-button
           buttonType="button"

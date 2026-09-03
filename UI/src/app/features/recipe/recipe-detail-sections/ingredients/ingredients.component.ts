@@ -5,7 +5,6 @@ import { IngredientsDetailsInterface } from '../../../../shared/interfaces/ingre
 import { RecipesService } from '../../../../core/services/recipes.service';
 import { RecipeDetailsInterface } from '../../../../shared/interfaces/recipes.interface';
 import { KeyValuePipe } from '@angular/common';
-import { SharedInputComponent } from '../../../../shared/components/shared-input/shared-input.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CartService } from '../../../../core/services/cart.service';
 import { CartDetails, UpdateCartRequest } from '../../../../shared/interfaces/cart.interface';
@@ -14,7 +13,7 @@ import { Constants } from '../../../../shared/components/constants/constants';
 
 @Component({
   selector: 'app-ingredients',
-  imports: [SharedButtonComponent, SharedInputComponent, KeyValuePipe],
+  imports: [SharedButtonComponent, KeyValuePipe],
   templateUrl: './ingredients.component.html',
   styleUrl: './ingredients.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -207,12 +206,12 @@ export class IngredientsComponent {
       });
   }
 
-  addRemoveIngredient(event: boolean, ingredient: IngredientsDetailsInterface) {
+  addRemoveIngredient(event: Event, ingredient: IngredientsDetailsInterface) {
     for (const ingredientGroup of this.ingredients) {
       for (const ingredientList of Object.values(ingredientGroup)) {
         const item = ingredientList.find(i => i.ingredient_id === ingredient.ingredient_id);
         if (item) {
-          item.added_to_cart = event;
+          item.added_to_cart = (event.target as HTMLInputElement).checked;
           break;
         }
       }

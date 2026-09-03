@@ -8,32 +8,187 @@
       <label class="secondary-text"
         >Discover delicious recipe from our collection.</label
       >
-      <label class="secondary-text">1,045 Recipes Found</label>
+      <label class="secondary-text"
+        >{{ totalNumberOfRecipes }} Recipes Found</label
+      >
     </div>
   </section>
   <section class="recipe-list-container">
-    <span class="grid-cell filter-container">
-      @if (!checkIfAnyFilterApplied()) {
-        <shared-tags
-          tagClass="primage-bg-secondary-color-muted-background-color-border"
-          tagName="Filter"
+    @if (constants.globalScreenWidth() > 900) {
+      <span class="grid-cell filter-container">
+        @if (!checkIfAnyFilterApplied()) {
+          <shared-tags
+            tagClass="primage-bg-secondary-color-muted-background-color-border"
+            tagName="Filter"
+            [addIcon]="true"
+            [leftIcon]="true"
+            iconClass="fa-solid fa-filter"
+          ></shared-tags>
+        } @else {
+          <shared-tags
+            tagClass="primage-bg-secondary-color-muted-background-color-border"
+            tagName="Clear Filters"
+            [addIcon]="true"
+            [leftIcon]="true"
+            iconClass="fa-solid fa-filter-circle-xmark"
+            (click)="clearAllFilters()"
+          ></shared-tags>
+        }
+      </span>
+      <span class="grid-cell recipe-filters-container">
+        <div class="filter-container">
+          <div
+            class="sorting-options-wrapper"
+            (focusout)="closeSortingOptionsOnFocusOut($event)"
+          >
+            <shared-button
+              buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
+              [addIcon]="true"
+              iconClass="fa-solid fa-chevron-down"
+              (click)="toggleSortingOptions()"
+              >Sort By: {{ selectedSortingOption }}</shared-button
+            >
+            @if (showSortingOptions) {
+              <div class="sorting-options-container">
+                @for (option of sortingOptions | keyvalue; track option.key) {
+                  <shared-button
+                    buttonClass="sorting-option-button"
+                    buttonWidth="100%"
+                    (click)="
+                      selectSortingOption(
+                        option.value.field,
+                        option.value.direction,
+                        option.value.label
+                      )
+                    "
+                    >{{ option.value.label }}</shared-button
+                  >
+                }
+              </div>
+            }
+          </div>
+          <div class="veg-filter-container">
+            <input
+              type="checkbox"
+              class="slider-checkbox"
+              [(ngModel)]="showOnlyVegetarian"
+            />
+            <span class="slider-container" (click)="toggleVegetarianFilter()"
+              ><span class="slider"></span
+            ></span>
+            <label>Vegetarian</label>
+          </div>
+          <div class="non-veg-filter-container">
+            <input
+              type="checkbox"
+              class="slider-checkbox"
+              [(ngModel)]="showOnlyNonVegetarian"
+            />
+            <span class="slider-container" (click)="toggleNonVegetarianFilter()"
+              ><span class="slider"></span
+            ></span>
+            <label>Non Vegetarian</label>
+          </div>
+        </div>
+        <span class="display-type-container">
+          <shared-button
+            class="small-icon-display-button"
+            [ngClass]="isGridView ? 'button-active' : ''"
+            (click)="togglePageView()"
+            ><i class="fa-solid fa-table-cells-large"></i
+          ></shared-button>
+          <shared-button
+            class="list-display-button"
+            [ngClass]="!isGridView ? 'button-active' : ''"
+            (click)="togglePageView()"
+            ><i class="fa-solid fa-list"></i
+          ></shared-button>
+        </span>
+      </span>
+      <span class="grid-cell category-filter-container">
+        <div class="category-cuisine-filter-header">
+          <label class="card-title-recipe-name">Categories</label>
+          <img src="assets/header_icon.png" class="filter-header-icon" />
+        </div>
+        <ul class="category-cuisine-list-container">
+          @if (isCategoryLoading) {
+            <li class="skeleton-list-container">
+              <shared-skeleton
+                skeletonType="row-skeleton"
+                [skeletonRowCount]="10"
+              ></shared-skeleton>
+            </li>
+          } @else {
+            @for (category of categoriesDetails; track category.category_name) {
+              <li class="secondary-text">
+                <span
+                  class="category-cuisine-name-container"
+                  (click)="
+                    toggleCategoryFilter(
+                      category.category_id,
+                      category.category_name
+                    )
+                  "
+                  [ngClass]="
+                    checkCategoryFilterApplied(category.category_id)
+                      ? 'active-category-cuisine-filter'
+                      : ''
+                  "
+                  ><shared-button class="category-cuisine-index-container"
+                    ><i
+                      [class]="getCategoryIcon(category.category_name)"
+                    ></i></shared-button
+                  >{{ category.category_name }}</span
+                ><label>{{ category.recipes_count }}</label>
+              </li>
+            }
+          }
+        </ul>
+        <div class="category-cuisine-filter-header">
+          <label class="card-title-recipe-name">Cuisines</label>
+          <img src="assets/header_icon.png" class="filter-header-icon" />
+        </div>
+        <ul class="category-cuisine-list-container">
+          @if (isRegionsLoading) {
+            <li class="skeleton-list-container">
+              <shared-skeleton
+                skeletonType="row-skeleton"
+                [skeletonRowCount]="10"
+              ></shared-skeleton>
+            </li>
+          } @else {
+            @for (region of regionsDetails; track region.region_id) {
+              <li class="secondary-text">
+                <span
+                  class="category-cuisine-name-container"
+                  (click)="
+                    toggleRegionFilter(region.region_id, region.region_name)
+                  "
+                  [ngClass]="
+                    checkRegionFilterApplied(region.region_id)
+                      ? 'active-category-cuisine-filter'
+                      : ''
+                  "
+                  ><shared-button class="category-cuisine-index-container">{{
+                    $index + 1
+                  }}</shared-button
+                  >{{ region.region_name }}</span
+                ><label>{{ region.recipes_count }}</label>
+              </li>
+            }
+          }
+        </ul>
+      </span>
+    } @else {
+      <span class="filter-sorting-menu-container">
+        <shared-button
+          buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
           [addIcon]="true"
           [leftIcon]="true"
           iconClass="fa-solid fa-filter"
-        ></shared-tags>
-      } @else {
-        <shared-tags
-          tagClass="primage-bg-secondary-color-muted-background-color-border"
-          tagName="Clear Filters"
-          [addIcon]="true"
-          [leftIcon]="true"
-          iconClass="fa-solid fa-filter-circle-xmark"
-          (click)="clearAllFilters()"
-        ></shared-tags>
-      }
-    </span>
-    <span class="grid-cell recipe-filters-container">
-      <div class="filter-container">
+          (click)="toggleFilterOptions()"
+          >Filter</shared-button
+        >
         <div
           class="sorting-options-wrapper"
           (focusout)="closeSortingOptionsOnFocusOut($event)"
@@ -46,129 +201,180 @@
             >Sort By: {{ selectedSortingOption }}</shared-button
           >
           @if (showSortingOptions) {
-            <div class="sorting-options-container">
-              @for (option of sortingOptions | keyvalue; track option.key) {
-                <shared-button
-                  buttonClass="sorting-option-button"
-                  buttonWidth="100%"
-                  (click)="
-                    selectSortingOption(
-                      option.value.field,
-                      option.value.direction,
-                      option.value.label
-                    )
-                  "
-                  >{{ option.value.label }}</shared-button
-                >
-              }
+            <div class="sorting-filter-backdrop">
+              <div class="sorting-options-container">
+                <span class="sorting-filtering-title">
+                  <label class="subsection-heading">Sort By</label>
+                  <shared-button
+                    [iconOnly]="true"
+                    iconClass="fa-solid fa-xmark"
+                    (click)="showSortingOptions = false"
+                  ></shared-button>
+                </span>
+                <div class="options-container">
+                  @for (option of sortingOptions | keyvalue; track $index) {
+                    <span class="sort-option">
+                      <input
+                        type="radio"
+                        name="sortingOption"
+                        (change)="
+                          selectSortingOption(
+                            option.value.field,
+                            option.value.direction,
+                            option.value.label
+                          )
+                        "
+                      />
+                      <label class="body-paragraph">{{
+                        option.value.label
+                      }}</label>
+                    </span>
+                  }
+                </div>
+              </div>
             </div>
           }
         </div>
-        <div class="veg-filter-container">
-          <input
-            type="checkbox"
-            class="slider-checkbox"
-            [(ngModel)]="showOnlyVegetarian"
-          />
-          <span class="slider-container" (click)="toggleVegetarianFilter()"
-            ><span class="slider"></span
-          ></span>
-          <label>Vegetarian</label>
-        </div>
-        <div class="non-veg-filter-container">
-          <input
-            type="checkbox"
-            class="slider-checkbox"
-            [(ngModel)]="showOnlyNonVegetarian"
-          />
-          <span class="slider-container" (click)="toggleNonVegetarianFilter()"
-            ><span class="slider"></span
-          ></span>
-          <label>Non Vegetarian</label>
-        </div>
-      </div>
-      <span class="display-type-container">
-        <shared-button
-          class="small-icon-display-button"
-          [ngClass]="isGridView ? 'button-active' : ''"
-          (click)="togglePageView()"
-          ><i class="fa-solid fa-table-cells-large"></i
-        ></shared-button>
-        <shared-button
-          class="list-display-button"
-          [ngClass]="!isGridView ? 'button-active' : ''"
-          (click)="togglePageView()"
-          ><i class="fa-solid fa-list"></i
-        ></shared-button>
+        @if (showFilterOptions) {
+          <div class="sorting-filter-backdrop">
+            <div class="filter-options-container">
+              <span class="sorting-filtering-title">
+                <label class="subsection-heading">Filters</label>
+                <shared-button
+                  [iconOnly]="true"
+                  iconClass="fa-solid fa-xmark"
+                  (click)="showFilterOptions = false"
+                ></shared-button>
+              </span>
+              <div class="options-container">
+                <span
+                  class="menu-title-drawer"
+                  (click)="toggleCategoriesFilters()"
+                >
+                  <label class="body-paragraph"><b>Categories</b></label>
+                  <i
+                    [ngClass]="
+                      showCategoriesFilters
+                        ? 'fa-solid fa-angle-up'
+                        : 'fa-solid fa-angle-down'
+                    "
+                  ></i>
+                </span>
+                @if (showCategoriesFilters) {
+                  <span class="category-options-container">
+                    @for (option of categoriesDetails; track $index) {
+                      <span class="category-option">
+                        <span class="secondary-text category-name-container">
+                          <i
+                            [class]="getCategoryIcon(option.category_name)"
+                          ></i>
+                          {{ option.category_name }}</span
+                        >
+                        <input
+                          type="checkbox"
+                          (change)="
+                            toggleCategoryFilter(
+                              option.category_id,
+                              option.category_name
+                            )
+                          "
+                        />
+                      </span>
+                    }
+                  </span>
+                }
+                <span
+                  class="menu-title-drawer"
+                  (click)="toggleRegionsFilters()"
+                >
+                  <label class="body-paragraph"><b>Regions</b></label>
+                  <i
+                    [ngClass]="
+                      showRegionsFilters
+                        ? 'fa-solid fa-angle-up'
+                        : 'fa-solid fa-angle-down'
+                    "
+                  ></i>
+                </span>
+                @if (showRegionsFilters) {
+                  <span class="region-options-container">
+                    @for (option of regionsDetails; track $index) {
+                      <shared-button
+                        [buttonClass]="
+                          checkRegionFilterApplied(option.region_id)
+                            ? 'secondary-background-primary-color-no-border small'
+                            : 'no-bg-secondary-color-muted-secondary-border small'
+                        "
+                        [addIcon]="
+                          checkRegionFilterApplied(option.region_id)
+                            ? true
+                            : false
+                        "
+                        [iconClass]="'fa-solid fa-check'"
+                        (click)="
+                          toggleRegionFilter(
+                            option.region_id,
+                            option.region_name
+                          )
+                        "
+                        >{{ option.region_name }}</shared-button
+                      >
+                    }
+                  </span>
+                }
+                <span
+                  class="menu-title-drawer"
+                  (click)="toggleMealTypeFilters()"
+                >
+                  <label class="body-paragraph"><b>Meal Types</b></label>
+                  <i
+                    [ngClass]="
+                      showMealTypeFilters
+                        ? 'fa-solid fa-angle-up'
+                        : 'fa-solid fa-angle-down'
+                    "
+                  ></i>
+                </span>
+                @if (showMealTypeFilters) {
+                  <span class="meal-type-options-container">
+                    <shared-button
+                      [buttonClass]="
+                        showOnlyVegetarian
+                          ? 'secondary-background-primary-color-no-border small'
+                          : 'no-bg-secondary-color-muted-secondary-border small'
+                      "
+                      [addIcon]="showOnlyVegetarian ? true : false"
+                      iconClass="fa-solid fa-check"
+                      (click)="toggleVegetarianFilter()"
+                      >Vegetarian</shared-button
+                    >
+                    <shared-button
+                      [buttonClass]="
+                        showOnlyNonVegetarian
+                          ? 'secondary-background-primary-color-no-border small'
+                          : 'no-bg-secondary-color-muted-secondary-border small'
+                      "
+                      [addIcon]="showOnlyNonVegetarian ? true : false"
+                      iconClass="fa-solid fa-check"
+                      (click)="toggleNonVegetarianFilter()"
+                      >Non-Vegetarian</shared-button
+                    ></span
+                  >
+                }
+              </div>
+            </div>
+            <div class="filter-button-container">
+              <shared-button
+                buttonClass="no-bg-secondary-color-muted-secondary-border medium"
+                buttonWidth="100%"
+                (click)="clearAllFilters()"
+                >Clear All Filters</shared-button
+              >
+            </div>
+          </div>
+        }
       </span>
-    </span>
-    <span class="grid-cell category-filter-container">
-      <div class="category-cuisine-filter-header">
-        <label class="card-title-recipe-name">Categories</label>
-        <img src="assets/header_icon.png" class="filter-header-icon" />
-      </div>
-      <ul class="category-cuisine-list-container">
-        @if (isCategoryLoading) {
-          <li class="skeleton-list-container">
-            <shared-skeleton
-              skeletonType="row-skeleton"
-              [skeletonRowCount]="10"
-            ></shared-skeleton>
-          </li>
-        } @else {
-          @for (category of categoriesDetails; track category.category_name) {
-            <li class="secondary-text">
-              <span
-                class="category-cuisine-name-container"
-                (click)="toggleCategoryFilter(category.category_id)"
-                [ngClass]="
-                  checkCategoryFilterApplied(category.category_id)
-                    ? 'active-category-cuisine-filter'
-                    : ''
-                "
-                ><shared-button class="category-cuisine-index-container"
-                  ><i
-                    [class]="getCategoryIcon(category.category_name)"
-                  ></i></shared-button
-                >{{ category.category_name }}</span
-              ><label>{{ category.recipes_count }}</label>
-            </li>
-          }
-        }
-      </ul>
-      <div class="category-cuisine-filter-header">
-        <label class="card-title-recipe-name">Cuisines</label>
-        <img src="assets/header_icon.png" class="filter-header-icon" />
-      </div>
-      <ul class="category-cuisine-list-container">
-        @if (isRegionsLoading) {
-          <li class="skeleton-list-container">
-            <shared-skeleton
-              skeletonType="row-skeleton"
-              [skeletonRowCount]="10"
-            ></shared-skeleton>
-          </li>
-        } @else {
-          @for (region of regionsDetails; track region.region_id) {
-            <li class="secondary-text">
-              <span
-                class="category-cuisine-name-container"
-                (click)="toggleRegionFilter(region.region_id)"
-                [ngClass]="
-                  checkRegionFilterApplied(region.region_id)
-                    ? 'active-category-cuisine-filter'
-                    : ''
-                "
-                ><shared-button class="category-cuisine-index-container">{{
-                  $index + 1
-                }}</shared-button
-                >{{ region.region_name }}</span
-              ><label>{{ region.recipes_count }}</label>
-            </li>
-          }
-        }
-      </ul>
-    </span>
+    }
     <span
       class="grid-cell recipes-container"
       [ngClass]="isGridView ? 'grid-view' : 'list-view'"

@@ -1,5 +1,5 @@
 <nav class="navbar">
-  @if (screenWidth < 900) {
+  @if (constants.globalScreenWidth() < 900) {
     <shared-button
       buttonClass="no-bg-primary-color medium"
       [iconOnly]="true"
@@ -12,43 +12,25 @@
       <img src="assets/Logos/logo.png" class="logo-image" alt="logo" />
     </shared-button>
   }
-  @if (screenWidth >= 900) {
-    <shared-input
-      placeholderText="Search recipes, ingredients..."
-      inputClass="no-bg-font-border-primary shrink-0"
-      [addIcon]="true"
-      iconClass="fa-solid fa-magnifying-glass"
-    ></shared-input>
+  @if (constants.globalScreenWidth() >= 900) {
+    <span class="native-input no-bg-font-border-primary shrink-0">
+      <input type="search" placeholder="Search recipes, ingredients..." />
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </span>
   }
-  @if (screenWidth > 900) {
+  @if (constants.globalScreenWidth() > 900) {
     <div>
-      <shared-button
-        buttonClass="no-bg-primary-color medium"
-        routerLink="/recipe/all"
-        >Recipes</shared-button
-      >
-      <shared-button
-        buttonClass="no-bg-primary-color medium"
-        routerLink="/ingredients"
-        >Ingredients</shared-button
-      >
-      <shared-button
-        buttonClass="no-bg-primary-color medium"
-        routerLink="/meal-kits"
-        >Meal Kits</shared-button
-      >
-      <shared-button
-        buttonClass="no-bg-primary-color medium"
-        routerLink="/regions/all"
-        >Regions</shared-button
-      >
-      <shared-button buttonClass="no-bg-primary-color medium"
-        >Offers</shared-button
-      >
+      @for (menu of navbarMenuItems; track $index) {
+        <shared-button
+          buttonClass="no-bg-primary-color medium"
+          routerLink="{{ menu.route }}"
+          >{{ menu.label }}</shared-button
+        >
+      }
     </div>
   }
   <div>
-    @if (this.screenWidth < 900) {
+    @if (constants.globalScreenWidth() < 900) {
       <shared-button
         buttonClass="no-bg-primary-color medium"
         [iconOnly]="true"
@@ -71,7 +53,7 @@
     ></shared-button>
   </div>
 </nav>
-@if (screenWidth < 900 && showNavMenu) {
+@if (constants.globalScreenWidth() < 900 && showNavMenu) {
   <div class="menu-backdrop" (click)="closeNavMenu()"></div>
   <div class="menu-items-container">
     <div class="drawer-header">

@@ -108,113 +108,169 @@
     </div>
     <div>
       @for (review of reviews.review_details; track $index) {
-        <div class="review-card">
-          <i class="fa-solid fa-user"></i>
-          <div class="review-card-details">
-            <span class="user-rating-details">
+        @if (constants.globalScreenWidth() > 900) {
+          <div class="review-card">
+            <i class="fa-solid fa-user"></i>
+            <div class="review-card-details">
+              <span class="user-rating-details">
+                <span class="body-paragraph username"
+                  ><b>{{ review.username }}</b></span
+                >
+                <span class="user-rating">
+                  @for (rating of getRange(review.ratings!); track $index) {
+                    <i class="fa-solid fa-star filled"></i>
+                  }
+                  @if (hasHalfStar(review.ratings!)) {
+                    <i class="fa-solid fa-star-half-stroke filled"></i>
+                  }
+                  @for (rating of getRange(5 - review.ratings!); track $index) {
+                    <i class="fa-solid fa-star unfilled"></i>
+                  }
+                </span>
+              </span>
+              <span class="body-paragraph">{{ review.comment }}</span>
+              <span class="review-date small-helper-text">{{
+                getRelativeTime(review.created_at)
+              }}</span>
+            </div>
+            @if (
+              sendingHelpfulReviewRequest &&
+              review.recipe_review_id === currentReviewId
+            ) {
+              <shared-button
+                buttonClass="no-bg-secondary-color-secondary-border medium"
+                [addIcon]="true"
+                [iconClass]="'fa-solid fa-spinner fa-spin'"
+                [leftIcon]="true"
+                [disabled]="true"
+                >Helpful ({{ review.helpful_review_count }})</shared-button
+              >
+            } @else {
+              <shared-button
+                buttonClass="no-bg-secondary-color-secondary-border medium"
+                [addIcon]="true"
+                [iconClass]="
+                  review.helpful_review_given_by_user
+                    ? 'fa-solid fa-thumbs-up'
+                    : 'fa-regular fa-thumbs-up'
+                "
+                [leftIcon]="true"
+                (click)="toggleHelpfulReview(review)"
+                >Helpful ({{ review.helpful_review_count }})</shared-button
+              >
+            }
+          </div>
+        } @else {
+          <div class="review-card">
+            <span class="review-user-details">
+              <i class="fa-solid fa-user"></i>
               <span class="body-paragraph username"
                 ><b>{{ review.username }}</b></span
               >
-              <span class="user-rating">
-                @for (rating of getRange(review.ratings!); track $index) {
-                  <i class="fa-solid fa-star filled"></i>
-                }
-                @if (hasHalfStar(review.ratings!)) {
-                  <i class="fa-solid fa-star-half-stroke filled"></i>
-                }
-                @for (rating of getRange(5 - review.ratings!); track $index) {
-                  <i class="fa-solid fa-star unfilled"></i>
-                }
-              </span>
+              @if (
+                sendingHelpfulReviewRequest &&
+                review.recipe_review_id === currentReviewId
+              ) {
+                <shared-button
+                  buttonClass="no-bg-secondary-color-secondary-border medium"
+                  [addIcon]="true"
+                  [iconClass]="'fa-solid fa-spinner fa-spin'"
+                  [leftIcon]="true"
+                  [disabled]="true"
+                  >Helpful ({{ review.helpful_review_count }})</shared-button
+                >
+              } @else {
+                <shared-button
+                  buttonClass="no-bg-secondary-color-secondary-border medium"
+                  [addIcon]="true"
+                  [iconClass]="
+                    review.helpful_review_given_by_user
+                      ? 'fa-solid fa-thumbs-up'
+                      : 'fa-regular fa-thumbs-up'
+                  "
+                  [leftIcon]="true"
+                  (click)="toggleHelpfulReview(review)"
+                  >Helpful ({{ review.helpful_review_count }})</shared-button
+                >
+              }
             </span>
-            <span class="body-paragraph">{{ review.comment }}</span>
-            <span class="review-date small-helper-text">{{
-              getRelativeTime(review.created_at)
-            }}</span>
+            <div class="review-card-details">
+              <span class="user-rating-details">
+                <span class="user-rating">
+                  @for (rating of getRange(review.ratings!); track $index) {
+                    <i class="fa-solid fa-star filled"></i>
+                  }
+                  @if (hasHalfStar(review.ratings!)) {
+                    <i class="fa-solid fa-star-half-stroke filled"></i>
+                  }
+                  @for (rating of getRange(5 - review.ratings!); track $index) {
+                    <i class="fa-solid fa-star unfilled"></i>
+                  }
+                </span>
+              </span>
+              <span class="body-paragraph">{{ review.comment }}</span>
+              <span class="review-date small-helper-text">{{
+                getRelativeTime(review.created_at)
+              }}</span>
+            </div>
           </div>
-          @if (
-            sendingHelpfulReviewRequest &&
-            review.recipe_review_id === currentReviewId
-          ) {
-            <shared-button
-              buttonClass="no-bg-secondary-color-secondary-border medium"
-              [addIcon]="true"
-              [iconClass]="'fa-solid fa-spinner fa-spin'"
-              [leftIcon]="true"
-              [disabled]="true"
-              >Helpful ({{ review.helpful_review_count }})</shared-button
-            >
-          } @else {
-            <shared-button
-              buttonClass="no-bg-secondary-color-secondary-border medium"
-              [addIcon]="true"
-              [iconClass]="
-                review.helpful_review_given_by_user
-                  ? 'fa-solid fa-thumbs-up'
-                  : 'fa-regular fa-thumbs-up'
-              "
-              [leftIcon]="true"
-              (click)="toggleHelpfulReview(review)"
-              >Helpful ({{ review.helpful_review_count }})</shared-button
-            >
-          }
-        </div>
+        }
       }
       <div class="new-review-container">
         @if (showReviewInput) {
-          <div>
-            <shared-button
-              buttonClass="no-bg-prompt-color"
-              [iconOnly]="true"
-              [iconClass]="
-                reviewRatings[1].filled
-                  ? 'fa-solid fa-star filled'
-                  : 'fa-solid fa-star unfilled'
-              "
-              (click)="addRating(1)"
-            ></shared-button>
-            <shared-button
-              buttonClass="no-bg-prompt-color"
-              [iconOnly]="true"
-              [iconClass]="
-                reviewRatings[2].filled
-                  ? 'fa-solid fa-star filled'
-                  : 'fa-solid fa-star unfilled'
-              "
-              (click)="addRating(2)"
-            ></shared-button>
-            <shared-button
-              buttonClass="no-bg-prompt-color"
-              [iconOnly]="true"
-              [iconClass]="
-                reviewRatings[3].filled
-                  ? 'fa-solid fa-star filled'
-                  : 'fa-solid fa-star unfilled'
-              "
-              (click)="addRating(3)"
-            ></shared-button>
-            <shared-button
-              buttonClass="no-bg-prompt-color"
-              [iconOnly]="true"
-              [iconClass]="
-                reviewRatings[4].filled
-                  ? 'fa-solid fa-star filled'
-                  : 'fa-solid fa-star unfilled'
-              "
-              (click)="addRating(4)"
-            ></shared-button>
-            <shared-button
-              buttonClass="no-bg-prompt-color"
-              [iconOnly]="true"
-              [iconClass]="
-                reviewRatings[5].filled
-                  ? 'fa-solid fa-star filled'
-                  : 'fa-solid fa-star unfilled'
-              "
-              (click)="addRating(5)"
-            ></shared-button>
-          </div>
           <div class="new-review-input">
+            <div class="review-rating-selector">
+              <shared-button
+                buttonClass="no-bg-prompt-color"
+                [iconOnly]="true"
+                [iconClass]="
+                  reviewRatings[0].filled
+                    ? 'fa-solid fa-star filled'
+                    : 'fa-solid fa-star unfilled'
+                "
+                (click)="addRating(1)"
+              ></shared-button>
+              <shared-button
+                buttonClass="no-bg-prompt-color"
+                [iconOnly]="true"
+                [iconClass]="
+                  reviewRatings[1].filled
+                    ? 'fa-solid fa-star filled'
+                    : 'fa-solid fa-star unfilled'
+                "
+                (click)="addRating(2)"
+              ></shared-button>
+              <shared-button
+                buttonClass="no-bg-prompt-color"
+                [iconOnly]="true"
+                [iconClass]="
+                  reviewRatings[2].filled
+                    ? 'fa-solid fa-star filled'
+                    : 'fa-solid fa-star unfilled'
+                "
+                (click)="addRating(3)"
+              ></shared-button>
+              <shared-button
+                buttonClass="no-bg-prompt-color"
+                [iconOnly]="true"
+                [iconClass]="
+                  reviewRatings[3].filled
+                    ? 'fa-solid fa-star filled'
+                    : 'fa-solid fa-star unfilled'
+                "
+                (click)="addRating(4)"
+              ></shared-button>
+              <shared-button
+                buttonClass="no-bg-prompt-color"
+                [iconOnly]="true"
+                [iconClass]="
+                  reviewRatings[4].filled
+                    ? 'fa-solid fa-star filled'
+                    : 'fa-solid fa-star unfilled'
+                "
+                (click)="addRating(5)"
+              ></shared-button>
+            </div>
             <textarea
               class="review-textarea"
               [rows]="4"

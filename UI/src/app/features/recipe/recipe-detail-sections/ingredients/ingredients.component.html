@@ -11,11 +11,11 @@
           <ul class="ingredient-list">
             @for (ingredient of itemIngredient.value; track $index) {
               <li class="body-paragraph ingredient-value">
-                <shared-input
-                  inputType="checkbox"
-                  [inputChecked]="ingredient.added_to_cart"
-                  (onValueChange)="addRemoveIngredient($event, ingredient)"
-                ></shared-input>
+                <input
+                  type="checkbox"
+                  [checked]="ingredient.added_to_cart"
+                  (change)="addRemoveIngredient($event, ingredient)"
+                />
                 {{ ingredient.ingredient_name }}
               </li>
             }

@@ -3,7 +3,7 @@
     @for (placeholder of placeholders; track $index) {
       <article class="recipe-card-skeleton-container">
         <div class="image-skeleton"></div>
-        <div>
+        <div class="recipe-card-skeleton-details">
           <div class="row-skeleton"></div>
           <div class="row-skeleton" [style.width.%]="30"></div>
           <div class="row-skeleton" [style.width.%]="60"></div>
@@ -12,14 +12,18 @@
     }
   }
   @case ("row-skeleton") {
-    @for (placeholder of placeholders; track $index) {
-      <div class="row-skeleton"></div>
-    }
+    <div class="row-skeleton-list-container">
+      @for (placeholder of placeholders; track $index) {
+        <div class="row-skeleton"></div>
+      }
+    </div>
   }
   @case ("image") {
-    @for (placeholder of placeholders; track $index) {
-      <div class="image-skeleton"></div>
-    }
+    <div class="image-skeleton-list-container">
+      @for (placeholder of placeholders; track $index) {
+        <div class="image-skeleton"></div>
+      }
+    </div>
   }
   @case ("todays-special") {
     <main class="todays-special-skeleton-container">

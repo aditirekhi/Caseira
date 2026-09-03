@@ -10,10 +10,9 @@
       >
     </span>
     <span>
-      <shared-input
-        placeholderText="Enter your email"
-        inputClass="no-bg-font-border-primary shrink-0"
-      ></shared-input>
+      <span class="native-input no-bg-font-border-primary shrink-0">
+        <input type="email" placeholder="Enter your email" />
+      </span>
       <shared-button
         buttonClass="prompt-background-secondary-color-no-border medium"
         >Subscribe</shared-button
@@ -21,77 +20,169 @@
     </span>
   </div>
   <hr class="horizontal-divider" />
-  <div class="information-container">
-    <div class="about-caseira">
-      <img src="assets/Logos/logo.png" class="logo-image" />
-      <label class="caseira-description small-helper-text"
-        >We deliver fresh, high-quality ingredients measured perfectly for your
-        favorite recipes.</label
-      >
-      <span class="social-media-panel">
-        <i class="fa-brands fa-instagram"></i>
-        <i class="fa-brands fa-facebook"></i>
-        <i class="fa-brands fa-x-twitter"></i>
-        <i class="fa-brands fa-youtube"></i>
-      </span>
-    </div>
-    <div>
-      <label class="captions-labels">Explore</label>
-      <ul class="small-helper-text">
-        <li>All Recipes</li>
-        <li>Meal Kits</li>
-        <li>Ingredients</li>
-        <li>Regions</li>
-        <li>Offers</li>
-      </ul>
-    </div>
-    <div>
-      <label class="captions-labels">Help</label>
-      <ul class="small-helper-text">
-        <li>FAQ</li>
-        <li>Shipping</li>
-        <li>Returns</li>
-        <li>Track Order</li>
-        <li>Contact Us</li>
-      </ul>
-    </div>
-    <div>
-      <label class="captions-labels">Company</label>
-      <ul class="small-helper-text">
-        <li>About Us</li>
-        <li>Our Story</li>
-        <li>Careers</li>
-        <li>Blog</li>
-        <li>Press</li>
-      </ul>
-    </div>
-    <div>
-      <label class="captions-labels">Legal</label>
-      <ul class="small-helper-text">
-        <li>Terms And Conditions</li>
-        <li>Privacy Policy</li>
-        <li>Refund Policy</li>
-        <li>Cancellation Policy</li>
-      </ul>
-    </div>
-    <div>
-      <label class="captions-labels">We Accepts</label>
-      <div class="payment-options">
-        <img src="assets/payments/visa.png" class="payment-image" />
-        <img src="assets/payments/mastercard.png" class="payment-image" />
-        <img src="assets/payments/american_express.png" class="payment-image" />
-      </div>
-      <div class="payment-options">
-        <img src="assets/payments/gpay.png" class="payment-image" />
-        <img src="assets/payments/upi.png" class="payment-image" />
-        <img src="assets/payments/paytm.png" class="payment-image" />
-      </div>
-      <span class="copyright-text">
-        <img src="assets/Footer/copyright.png" class="copyright-image" />
-        <label class="small-helper-text"
-          >2024 Caseira. All Rights Reserved.</label
+  @if (constants.globalScreenWidth() > 900) {
+    <div class="information-container">
+      <div class="about-caseira">
+        <img src="assets/Logos/logo.png" class="logo-image" />
+        <label class="caseira-description small-helper-text"
+          >We deliver fresh, high-quality ingredients measured perfectly for
+          your favorite recipes.</label
         >
-      </span>
+        <span class="social-media-panel">
+          <i class="fa-brands fa-instagram"></i>
+          <i class="fa-brands fa-facebook"></i>
+          <i class="fa-brands fa-x-twitter"></i>
+          <i class="fa-brands fa-youtube"></i>
+        </span>
+      </div>
+      <div>
+        <label class="captions-labels">Explore</label>
+        <ul class="small-helper-text">
+          <li>All Recipes</li>
+          <li>Meal Kits</li>
+          <li>Ingredients</li>
+          <li>Regions</li>
+          <li>Offers</li>
+        </ul>
+      </div>
+      <div>
+        <label class="captions-labels">Help</label>
+        <ul class="small-helper-text">
+          <li>FAQ</li>
+          <li>Shipping</li>
+          <li>Returns</li>
+          <li>Track Order</li>
+          <li>Contact Us</li>
+        </ul>
+      </div>
+      <div>
+        <label class="captions-labels">Company</label>
+        <ul class="small-helper-text">
+          <li>About Us</li>
+          <li>Our Story</li>
+          <li>Careers</li>
+          <li>Blog</li>
+          <li>Press</li>
+        </ul>
+      </div>
+      <div>
+        <label class="captions-labels">Legal</label>
+        <ul class="small-helper-text">
+          <li>Terms And Conditions</li>
+          <li>Privacy Policy</li>
+          <li>Refund Policy</li>
+          <li>Cancellation Policy</li>
+        </ul>
+      </div>
+      <div>
+        <label class="captions-labels">We Accepts</label>
+        <div class="payment-options">
+          <img src="assets/payments/visa.png" class="payment-image" />
+          <img src="assets/payments/mastercard.png" class="payment-image" />
+          <img
+            src="assets/payments/american_express.png"
+            class="payment-image"
+          />
+        </div>
+        <div class="payment-options">
+          <img src="assets/payments/gpay.png" class="payment-image" />
+          <img src="assets/payments/upi.png" class="payment-image" />
+          <img src="assets/payments/paytm.png" class="payment-image" />
+        </div>
+        <span class="copyright-text">
+          <img src="assets/Footer/copyright.png" class="copyright-image" />
+          <label class="small-helper-text"
+            >2026 Caseira. All Rights Reserved.</label
+          >
+        </span>
+      </div>
     </div>
-  </div>
+  } @else {
+    <div class="information-container">
+      <div class="menu-card">
+        <span class="menu-header" (click)="toggleExploreMenu()">
+          <label class="body-paragraph">Explore</label>
+          <i class="fa-solid fa-angle-down"></i>
+        </span>
+        @if (showExploreMenu) {
+          <ul class="small-helper-text">
+            <li>All Recipes</li>
+            <li>Meal Kits</li>
+            <li>Ingredients</li>
+            <li>Regions</li>
+            <li>Offers</li>
+          </ul>
+        }
+      </div>
+      <div class="menu-card">
+        <span class="menu-header" (click)="toggleHelpMenu()">
+          <label class="body-paragraph">Help</label>
+          <i class="fa-solid fa-angle-down"></i>
+        </span>
+        @if (showHelpMenu) {
+          <ul class="small-helper-text">
+            <li>FAQ</li>
+            <li>Shipping</li>
+            <li>Returns</li>
+            <li>Track Order</li>
+            <li>Contact Us</li>
+          </ul>
+        }
+      </div>
+      <div class="menu-card">
+        <span class="menu-header" (click)="toggleCompanyMenu()">
+          <label class="body-paragraph">Company</label>
+          <i class="fa-solid fa-angle-down"></i>
+        </span>
+        @if (showCompanyMenu) {
+          <ul class="small-helper-text">
+            <li>About Us</li>
+            <li>Our Story</li>
+            <li>Careers</li>
+            <li>Blog</li>
+            <li>Press</li>
+          </ul>
+        }
+      </div>
+      <div class="menu-card">
+        <span class="menu-header" (click)="toggleLegalMenu()">
+          <label class="body-paragraph">Legal</label>
+          <i class="fa-solid fa-angle-down"></i>
+        </span>
+        @if (showLegalMenu) {
+          <ul class="small-helper-text">
+            <li>Terms And Conditions</li>
+            <li>Privacy Policy</li>
+            <li>Refund Policy</li>
+            <li>Cancellation Policy</li>
+          </ul>
+        }
+      </div>
+      <div class="menu-card">
+        <span class="menu-header" (click)="toggleWeAcceptsMenu()">
+          <label class="body-paragraph">We Accepts</label>
+          <i class="fa-solid fa-angle-down"></i>
+        </span>
+        @if (showWeAcceptsMenu) {
+          <div class="payment-options">
+            <img src="assets/payments/visa.png" class="payment-image" />
+            <img src="assets/payments/mastercard.png" class="payment-image" />
+            <img
+              src="assets/payments/american_express.png"
+              class="payment-image"
+            />
+            <img src="assets/payments/gpay.png" class="payment-image" />
+            <img src="assets/payments/upi.png" class="payment-image" />
+            <img src="assets/payments/paytm.png" class="payment-image" />
+          </div>
+        }
+        <span class="copyright-text">
+          <img src="assets/Footer/copyright.png" class="copyright-image" />
+          <label class="small-helper-text"
+            >2026 Caseira. All Rights Reserved.</label
+          >
+        </span>
+      </div>
+    </div>
+  }
 </footer>

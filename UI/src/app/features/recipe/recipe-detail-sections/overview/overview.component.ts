@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RecipeCardInterface, RecipeDetailsInterface } from '../../../../shared/interfaces/recipes.interface';
+import { RecipeAllResponse, RecipeCardInterface, RecipeDetailsInterface } from '../../../../shared/interfaces/recipes.interface';
 import { RecipeReviewRatingInput, RecipeReviewRequest, RecipeReviewResponse } from '../../../../shared/interfaces/recipe-review.interface';
 import { RecipesService } from '../../../../core/services/recipes.service';
 import { filter } from 'rxjs';
@@ -30,8 +30,8 @@ export class OverviewComponent {
   private recipeService: RecipesService = inject(RecipesService);
   private cartService: CartService = inject(CartService);
   private reviewService: ReviewsService = inject(ReviewsService);
-  private constants: Constants = inject(Constants);
   private sharedToastNotificationService: SharedToastNotificationService = inject(SharedToastNotificationService);
+  constants: Constants = inject(Constants);
 
   recipeDetails: RecipeDetailsInterface | null = null;
   recommendedRecipes: RecipeCardInterface[] | null = null;
@@ -86,11 +86,11 @@ export class OverviewComponent {
     this.recipeService.fetchAllRecipes({ order_by_field: 'created_at', order_by_direction: 'desc', page_size: 2 })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (response: RecipeCardInterface[] | string) => {
+        next: (response: RecipeAllResponse | string) => {
           if (typeof response === 'string') {
             this.sharedToastNotificationService.showNotification(response, this.constants.TOAST_NOTIFICATION_TYPES['ERROR']);
           } else {
-            this.allRecipes = response;
+            this.allRecipes = response.recipes;
             this.updateRecommendedRecipes();
             this.changeDetection.markForCheck();
           }

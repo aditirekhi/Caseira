@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { SharedInputComponent } from "../../../../shared/components/shared-input/shared-input.component";
 import { SharedButtonComponent } from "../../../../shared/components/shared-button/shared-button.component";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Constants } from '../../../../shared/components/constants/constants';
@@ -11,7 +10,7 @@ import { Observable, Subscription, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, SharedInputComponent, SharedButtonComponent, RouterLink],
+  imports: [ReactiveFormsModule, SharedButtonComponent, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { RecipesService } from '../../../core/services/recipes.service';
 import { RecipeCardInterface } from '../../../shared/interfaces/recipes.interface';
 import { SharedToastNotificationService } from '../../../shared/components/shared-toast-notification/shared-toast-notification.service';
@@ -18,13 +18,11 @@ import { Router } from '@angular/router';
 export class TodaysSpecialComponent {
   private changeDetection: ChangeDetectorRef = inject(ChangeDetectorRef);
   private router: Router = inject(Router);
-  private constants: Constants = inject(Constants);
   private recipeService: RecipesService = inject(RecipesService);
   private cartService: CartService = inject(CartService);
   private authService: AuthenticationService = inject(AuthenticationService);
   private sharedToastNotificationService: SharedToastNotificationService = inject(SharedToastNotificationService);
-
-  screenWidth: number = 0;
+  constants: Constants = inject(Constants);
 
   todaysSpecialRecipe: RecipeCardInterface | null = null;
   addToCartInProgress: boolean = false;
@@ -32,12 +30,6 @@ export class TodaysSpecialComponent {
 
   ngOnInit(): void {
     this.fetchTodaysSpecialRecipe();
-    this.screenWidth = window.innerWidth;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
-    this.screenWidth = (event.target as Window).innerWidth;
   }
 
   fetchTodaysSpecialRecipe(): void {

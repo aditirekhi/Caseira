@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedToastNotificationService } from '../../../shared/components/shared-toast-notification/shared-toast-notification.service';
 import { Constants } from '../../../shared/components/constants/constants';
 import { RecipesService } from '../../../core/services/recipes.service';
-import { RecipeAllRequestQueryParams, RecipeCardInterface } from '../../../shared/interfaces/recipes.interface';
+import { RecipeAllRequestQueryParams, RecipeAllResponse, RecipeCardInterface } from '../../../shared/interfaces/recipes.interface';
 import { SharedRecipeCardComponent } from '../../../shared/components/shared-recipe-card/shared-recipe-card.component';
 import { CommonModule } from '@angular/common';
 import { RegionsService } from '../../../core/services/regions.service';
@@ -28,7 +28,7 @@ export class AllRecipesComponent {
   private recipeService: RecipesService = inject(RecipesService);
   private regionsService: RegionsService = inject(RegionsService);
   private categoriesService: CategoriesService = inject(CategoriesService);
-  private constants: Constants = inject(Constants);
+  constants: Constants = inject(Constants);
 
   showOnlyVegetarian: boolean = false;
   showOnlyNonVegetarian: boolean = false;
@@ -38,13 +38,14 @@ export class AllRecipesComponent {
     page_size: this.constants.recipesConstants.ALL_RECIPES_PAGE_SIZE
   };
 
+  totalNumberOfRecipes: number = 0;
   recipeDetails: RecipeCardInterface[] = [];
   regionsDetails: FetchAllRegionsResponse[] = [];
   categoriesDetails: AllCategoryDetailsInterface[] = [];
   sortingOptions = this.constants.allRecipesConstants.SORTING_OPTIONS;
   selectedSortingOption: string = this.sortingOptions.MOST_POPULAR.label;
-  selectedCategoryIds: string[] = [];
-  selectedRegionIds: string[] = [];
+  selectedCategoryNames: string[] = [];
+  selectedRegionNames: string[] = [];
   selectedVegetarian: boolean | null = null;
 
   isGridView: boolean = true;
@@ -52,6 +53,10 @@ export class AllRecipesComponent {
   isCategoryLoading: boolean = true;
   isRegionsLoading: boolean = true;
   showSortingOptions: boolean = false;
+  showFilterOptions: boolean = false;
+  showCategoriesFilters: boolean = true;
+  showRegionsFilters: boolean = false;
+  showMealTypeFilters: boolean = false;
 
   ngOnInit() {
     this.fetchAllRecipes();
@@ -131,11 +136,13 @@ export class AllRecipesComponent {
     this.changeDetection.markForCheck();
 
     this.recipeService.fetchAllRecipes(this.recipeFilterPayload).subscribe({
-      next: (response: RecipeCardInterface[] | string) => {
+      next: (response: RecipeAllResponse | string) => {
         if (response && typeof response === 'string') {
           this.sharedToastNotificationService.showNotification(response, this.constants.TOAST_NOTIFICATION_TYPES['ERROR']);
-        } else if (response && Array.isArray(response)) {
-          this.recipeDetails = response;
+        } else if (response && typeof response !== 'string') {
+          this.recipeDetails = response.recipes;
+          this.totalNumberOfRecipes = response.total_recipe;
+          this.changeDetection.markForCheck();
         }
         this.isRecipesLoading = false;
         this.changeDetection.markForCheck();
@@ -188,11 +195,28 @@ export class AllRecipesComponent {
     this.showSortingOptions = !this.showSortingOptions;
   }
 
+  toggleFilterOptions() {
+    this.showFilterOptions = !this.showFilterOptions;
+  }
+
+  toggleCategoriesFilters() {
+    this.showCategoriesFilters = !this.showCategoriesFilters;
+  }
+
+  toggleRegionsFilters() {
+    this.showRegionsFilters = !this.showRegionsFilters;
+  }
+
+  toggleMealTypeFilters() {
+    this.showMealTypeFilters = !this.showMealTypeFilters;
+  }
+
   selectSortingOption(field: string, direction: string, label: string) {
     this.recipeFilterPayload.order_by_field = field;
     this.recipeFilterPayload.order_by_direction = direction;
     this.selectedSortingOption = label;
     this.isRecipesLoading = true;
+    this.showSortingOptions = false;
     this.changeDetection.markForCheck();
     this.fetchAllRecipes();
   }
@@ -205,13 +229,13 @@ export class AllRecipesComponent {
     }
   }
 
-  toggleCategoryFilter(categoryId: string) {
-    console.log('Toggling category filter for categoryId:', categoryId);
+  toggleCategoryFilter(categoryId: string, categoryName: string) {
     this.isRecipesLoading = true;
     if (this.recipeFilterPayload.category_id) {
       const categoryExists = this.recipeFilterPayload.category_id.includes(categoryId);
       if (categoryExists) {
         this.recipeFilterPayload.category_id = this.recipeFilterPayload.category_id.filter(id => id !== categoryId);
+        this.selectedCategoryNames.push(categoryName);
       } else {
         this.recipeFilterPayload.category_id.push(categoryId);
       }
@@ -225,13 +249,14 @@ export class AllRecipesComponent {
     return this.recipeFilterPayload.category_id ? this.recipeFilterPayload.category_id.includes(categoryId) : false;
   }
 
-  toggleRegionFilter(regionsId: string) {
+  toggleRegionFilter(regionsId: string, regionName: string) {
     console.log('Toggling region filter for regionId:', regionsId);
     this.isRecipesLoading = true;
     if (this.recipeFilterPayload.region_id) {
       const regionExists = this.recipeFilterPayload.region_id.includes(regionsId);
       if (regionExists) {
         this.recipeFilterPayload.region_id = this.recipeFilterPayload.region_id.filter(id => id !== regionsId);
+        this.selectedRegionNames.push(regionName);
       } else {
         this.recipeFilterPayload.region_id.push(regionsId);
       }

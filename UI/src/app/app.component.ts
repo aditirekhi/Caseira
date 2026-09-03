@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, WritableSignal, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, WritableSignal, signal, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SharedToastNotificationComponent } from './shared/components/shared-toast-notification/shared-toast-notification.component';
 import { CookieService } from './core/services/cookie.service';
@@ -33,6 +33,11 @@ export class AppComponent {
         this.constants.primaryLoadingPage.set(false);
       }
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.constants.globalScreenWidth.set(window.innerWidth);
   }
 
   ngOnDestroy(): void {

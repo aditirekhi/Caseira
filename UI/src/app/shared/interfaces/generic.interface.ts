@@ -15,3 +15,9 @@ export interface CookieStateInterface {
 export interface AppState {
     cookie: CookieStateInterface;
 }
+
+export interface MenuTab {
+    label: string;
+    route: string;
+    icon?: string;
+}

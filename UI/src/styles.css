@@ -202,3 +202,25 @@ body {
 .fa-brands {
   margin: 0 0.5rem;
 }
+
+@media (max-width: 500px) {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .hero-heading {
+    font-size: 34px;
+    line-height: 42px;
+  }
+
+  .section-heading {
+    font-size: 28px;
+    line-height: 36px;
+  }
+}

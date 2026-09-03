@@ -10,67 +10,76 @@
         <div class="name-container">
           <span class="input-container">
             <label class="captions-labels">First Name</label>
-            <shared-input
-              placeholderText="First Name"
-              inputClass="no-bg-font-border-secondary small-helper-text"
-              [leftIcon]="true"
-              [addIcon]="true"
-              iconClass="fa-solid fa-user"
-              formControlName="firstName"
-            ></shared-input>
+            <span
+              class="native-input no-bg-font-border-secondary small-helper-text"
+            >
+              <i class="fa-solid fa-user"></i>
+              <input
+                type="text"
+                placeholder="First Name"
+                formControlName="firstName"
+              />
+            </span>
           </span>
           <span class="input-container">
             <label class="captions-labels">Last Name</label>
-            <shared-input
-              placeholderText="Last Name"
-              inputClass="no-bg-font-border-secondary small-helper-text"
-              [leftIcon]="true"
-              [addIcon]="true"
-              iconClass="fa-solid fa-user"
-              formControlName="lastName"
-            ></shared-input>
+            <span
+              class="native-input no-bg-font-border-secondary small-helper-text"
+            >
+              <i class="fa-solid fa-user"></i>
+              <input
+                type="text"
+                placeholder="Last Name"
+                formControlName="lastName"
+              />
+            </span>
           </span>
         </div>
         <span class="input-container">
           <label class="captions-labels">Email</label>
-          <shared-input
-            placeholderText="Enter your Email"
-            inputClass="no-bg-font-border-secondary small-helper-text"
-            [leftIcon]="true"
-            [addIcon]="true"
-            iconClass="fa-solid fa-envelope"
-            formControlName="emailAddress"
-          ></shared-input>
+          <span
+            class="native-input no-bg-font-border-secondary small-helper-text"
+          >
+            <i class="fa-solid fa-envelope"></i>
+            <input
+              type="email"
+              placeholder="Enter your Email"
+              formControlName="emailAddress"
+            />
+          </span>
         </span>
         <span class="input-container">
           <label class="captions-labels">Password</label>
-          <shared-input
-            placeholderText="Create password"
-            inputClass="no-bg-font-border-secondary small-helper-text"
-            [leftIcon]="true"
-            [addIcon]="true"
-            iconClass="fa-solid fa-lock"
-            inputType="password"
-            formControlName="password"
-          ></shared-input>
+          <span
+            class="native-input no-bg-font-border-secondary small-helper-text"
+          >
+            <i class="fa-solid fa-lock"></i>
+            <input
+              type="password"
+              placeholder="Create password"
+              formControlName="password"
+            />
+          </span>
         </span>
         <span class="input-container">
           <label class="captions-labels">Confirm Password</label>
-          <shared-input
-            placeholderText="Confirm password"
-            inputClass="no-bg-font-border-secondary small-helper-text"
-            [leftIcon]="true"
-            [addIcon]="true"
-            iconClass="fa-solid fa-lock"
-            inputType="password"
-            formControlName="confirmPassword"
-          ></shared-input>
+          <span
+            class="native-input no-bg-font-border-secondary small-helper-text"
+          >
+            <i class="fa-solid fa-lock"></i>
+            <input
+              type="password"
+              placeholder="Confirm password"
+              formControlName="confirmPassword"
+            />
+          </span>
         </span>
         <div class="accept-policy-container">
-          <shared-input
-            inputType="checkbox"
+          <input
+            class="policy-checkbox"
+            type="checkbox"
             formControlName="policyAccepted"
-          ></shared-input>
+          />
           <span class="small-helper-text"
             >I agree to the
             <label class="highlight-text">Terms of Service</label> and

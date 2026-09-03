@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, ChangeDetectionStrategy, Component, inject, HostListener } from '@angular/core';
+import { ChangeDetectorRef, ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RecipesService } from '../../../core/services/recipes.service';
 import { RecipeCardInterface, RecipeAllRequestQueryParams } from '../../../shared/interfaces/recipes.interface';
 import { SharedToastNotificationService } from '../../../shared/components/shared-toast-notification/shared-toast-notification.service';
@@ -17,19 +17,11 @@ export class MostViewedRecipesComponent {
   private recipesService: RecipesService = inject(RecipesService);
   private sharedToastNotificationService: SharedToastNotificationService = inject(SharedToastNotificationService);
 
-  screenWidth: number = 0;
-
   mostViewedRecipes: RecipeCardInterface[] = [];
   loadingMostViewedRecipes: boolean = true;
 
   ngOnInit() {
-    this.screenWidth = window.innerWidth;
     this.fetchMostViewedRecipes();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.screenWidth = window.innerWidth;
   }
 
   fetchMostViewedRecipes() {

@@ -1,7 +1,7 @@
 import { inject, Service } from '@angular/core';
 import { BehaviorSubject, filter, finalize, switchMap, take } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { IsBookmarkedRecipe, IsFavoriteRecipe, RecipeAllRequestQueryParams, RecipeDetailsInterface, ToogleRecipeFavoriteBookmarkStatus } from '../../shared/interfaces/recipes.interface';
+import { IsBookmarkedRecipe, IsFavoriteRecipe, RecipeAllRequestQueryParams, RecipeAllResponse, RecipeDetailsInterface, ToogleRecipeFavoriteBookmarkStatus } from '../../shared/interfaces/recipes.interface';
 import { Constants } from '../../shared/components/constants/constants';
 import { RouteConstants } from '../../shared/components/constants/route-constants';
 import { ApiResponse } from '../../shared/interfaces/generic.interface';
@@ -30,7 +30,7 @@ export class RecipesService {
     }
 
 
-    fetchAllRecipes(queryParams: RecipeAllRequestQueryParams): Observable<RecipeCardInterface[] | string> {
+    fetchAllRecipes(queryParams: RecipeAllRequestQueryParams): Observable<RecipeAllResponse | string> {
         let httpParams = new HttpParams();
 
         if (queryParams.order_by_field) {
@@ -56,10 +56,10 @@ export class RecipesService {
             httpParams = httpParams.set('region_id', queryParams.region_id.join(','));
         }
 
-        return this.http.get<ApiResponse<RecipeCardInterface[]>>(this.routeConstants.completeFetchAllRecipesCardURL,
+        return this.http.get<ApiResponse<RecipeAllResponse>>(this.routeConstants.completeFetchAllRecipesCardURL,
             { params: httpParams, context: withTokenExpirationCheck(false) })
             .pipe(
-                map((response: ApiResponse<RecipeCardInterface[]>): RecipeCardInterface[] | string => {
+                map((response: ApiResponse<RecipeAllResponse>): RecipeAllResponse | string => {
                     if (response.success) {
                         return response.data;
                     } else {

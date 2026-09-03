@@ -80,13 +80,13 @@
                     ><b>SELECT PREFERRED DAY:</b></label
                   >
                   <span class="input-button-container">
-                    <shared-input
-                      inputType="date"
-                      inputClass="no-bg-font-border-secondary"
-                      [defaultValue]="
+                    <input
+                      type="date"
+                      class="no-bg-font-border-secondary"
+                      [value]="
                         (recipeDetails.plan_date | date: 'yyyy-MM-dd') ?? ''
                       "
-                      (onValueChange)="onSelectingPlanDate($event)"
+                      (change)="onSelectingPlanDate($event)"
                     />
                     <shared-button
                       buttonClass="secondary-background-primary-color-no-border small"
@@ -122,10 +122,10 @@
                     ><b>SELECT PREFERRED DAY:</b></label
                   >
                   <span class="input-button-container">
-                    <shared-input
-                      inputType="date"
-                      inputClass="no-bg-font-border-secondary"
-                      (onValueChange)="onSelectingPlanDate($event)"
+                    <input
+                      type="date"
+                      class="no-bg-font-border-secondary"
+                      (change)="onSelectingPlanDate($event)"
                     />
                     <shared-button
                       buttonClass="secondary-background-primary-color-no-border small"
@@ -163,7 +163,7 @@
       <div class="detail-card">
         <i class="fa-solid fa-clock"></i>
         <span class="text-card">
-          <label class="captions-labels">Prep Time</label>
+          <label class="captions-labels"><b>Prep Time</b></label>
           <label class="small-helper-text">{{ recipeDetails.prep_time }}</label>
         </span>
       </div>
@@ -171,7 +171,7 @@
       <div class="detail-card">
         <i class="fa-solid fa-hourglass-half"></i>
         <span class="text-card">
-          <label class="captions-labels">Cook Time</label>
+          <label class="captions-labels"><b>Cook Time</b></label>
           <label class="small-helper-text">{{ recipeDetails.cook_time }}</label>
         </span>
       </div>
@@ -179,7 +179,7 @@
       <div class="detail-card">
         <i class="fa-solid fa-stopwatch"></i>
         <span class="text-card">
-          <label class="captions-labels">Total Time</label>
+          <label class="captions-labels"><b>Total Time</b></label>
           <label class="small-helper-text">{{
             recipeDetails.total_time
           }}</label>
@@ -189,7 +189,7 @@
       <div class="detail-card">
         <i class="fa-solid fa-users"></i>
         <span class="text-card">
-          <label class="captions-labels">Serves</label>
+          <label class="captions-labels"><b>Serves</b></label>
           <label class="small-helper-text"
             >{{ recipeDetails.no_of_people_served }} people</label
           >
@@ -199,7 +199,7 @@
       <div class="detail-card">
         <i class="fa-solid fa-chart-line"></i>
         <span class="text-card">
-          <label class="captions-labels">Difficulty Level</label>
+          <label class="captions-labels"><b>Difficulty Level</b></label>
           <label class="small-helper-text">{{
             recipeDetails.difficulty_level
           }}</label>
@@ -207,36 +207,22 @@
       </div>
     </section>
     <section class="tab-view">
-      <shared-button
-        class="tab-tile"
-        [routerLink]="'/recipe/' + recipeDetails.recipe_id + '/overview'"
-        routerLinkActive="active-tile"
-        >Overview</shared-button
-      >
-      <shared-button
-        class="tab-tile"
-        [routerLink]="'/recipe/' + recipeDetails.recipe_id + '/ingredients'"
-        routerLinkActive="active-tile"
-        >Ingredients</shared-button
-      >
-      <shared-button
-        class="tab-tile"
-        [routerLink]="'/recipe/' + recipeDetails.recipe_id + '/directions'"
-        routerLinkActive="active-tile"
-        >Step by Step</shared-button
-      >
-      <shared-button
-        class="tab-tile"
-        [routerLink]="'/recipe/' + recipeDetails.recipe_id + '/nutrition'"
-        routerLinkActive="active-tile"
-        >Nutrition</shared-button
-      >
-      <shared-button
-        class="tab-tile"
-        [routerLink]="'/recipe/' + recipeDetails.recipe_id + '/reviews'"
-        routerLinkActive="active-tile"
-        >Reviews</shared-button
-      >
+      @for (tab of menuTab; track $index) {
+        <shared-button
+          class="tab-tile"
+          [routerLink]="'/recipe/' + recipeDetails.recipe_id + tab.route"
+          routerLinkActive="active-tile"
+        >
+          @if (constants.globalScreenWidth() > 900) {
+            {{ tab.label }}
+          } @else {
+            <span class="button-title-responsive">
+              <i [class]="tab.icon"></i>
+              <label class="small-helper-text">{{ tab.label }}</label>
+            </span>
+          }
+        </shared-button>
+      }
     </section>
     <section class="detail-view">
       <router-outlet></router-outlet>

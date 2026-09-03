@@ -7,7 +7,7 @@ import { CartDetails } from '../../shared/interfaces/cart.interface';
 
 @Component({
   selector: 'app-cart',
-  imports: [NavbarComponent],
+  imports: [],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })

@@ -1,5 +1,5 @@
-import { Component, HostListener } from '@angular/core';
-import { SharedButtonComponent } from '../../../shared/components/shared-button/shared-button.component';
+import { Component, inject } from '@angular/core';
+import { Constants } from '../../../shared/components/constants/constants';
 
 @Component({
   selector: 'app-hero-page',
@@ -8,14 +8,5 @@ import { SharedButtonComponent } from '../../../shared/components/shared-button/
   styleUrl: './hero-page.component.css',
 })
 export class HeroPageComponent {
-  screenWidth: number = 0;
-
-  ngOnInit() {
-    this.screenWidth = window.innerWidth;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.screenWidth = window.innerWidth;
-  }
+  constants: Constants = inject(Constants);
 }

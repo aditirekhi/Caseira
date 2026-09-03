@@ -1,5 +1,5 @@
 import { Component, inject, ChangeDetectionStrategy, ChangeDetectorRef, HostListener } from '@angular/core';
-import { ActivatedRoute, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { RecipesService } from '../../../core/services/recipes.service';
 import { RecipeDetailsInterface, ToogleRecipeFavoriteBookmarkStatus } from '../../../shared/interfaces/recipes.interface';
 import { SharedToastNotificationService } from '../../../shared/components/shared-toast-notification/shared-toast-notification.service';
@@ -7,26 +7,27 @@ import { Constants } from '../../../shared/components/constants/constants';
 import { SharedTagsComponent } from "../../../shared/components/shared-tags/shared-tags.component";
 import { SharedButtonComponent } from "../../../shared/components/shared-button/shared-button.component";
 import { distinctUntilChanged, filter, map, Subject, switchMap, takeUntil, tap } from 'rxjs';
-import { SharedInputComponent } from "../../../shared/components/shared-input/shared-input.component";
 import { CalendarPlanDetailsService } from '../../../core/services/calendar-plan-details.service';
 import { UserCalendarPlanDetailsCreateUpdate } from '../../../shared/interfaces/user-calendar-plan-details';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
+import { MenuTab } from '../../../shared/interfaces/generic.interface';
 
 @Component({
   selector: 'app-recipe-details',
-  imports: [DatePipe, SharedTagsComponent, SharedButtonComponent, RouterOutlet, RouterLink, RouterLinkActive, SharedInputComponent],
+  imports: [DatePipe, SharedTagsComponent, SharedButtonComponent, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './recipe-details.component.html',
   styleUrl: './recipe-details.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RecipeDetailsComponent {
   private changeDetection: ChangeDetectorRef = inject(ChangeDetectorRef);
-  private router: ActivatedRoute = inject(ActivatedRoute);
-  private constants: Constants = inject(Constants);
+  private activeRouter: ActivatedRoute = inject(ActivatedRoute);
+  private router: Router = inject(Router);
   private recipeService: RecipesService = inject(RecipesService);
   private sharedToastNotificationService: SharedToastNotificationService = inject(SharedToastNotificationService);
   private calendarPlanDetailsService: CalendarPlanDetailsService = inject(CalendarPlanDetailsService);
   private destroy$: Subject<void> = new Subject<void>();
+  constants: Constants = inject(Constants);
 
   recipeId: string | null = null;
   recipeDetails: RecipeDetailsInterface | null = null;
@@ -35,6 +36,14 @@ export class RecipeDetailsComponent {
   creatingUpdatingPlanDate: boolean = false;
   selectedPlanDate: string | null = null;
   addingRemovingBookmark: boolean = false;
+  menuTab: MenuTab[] = [
+    { label: 'Overview', route: '/overview', icon: 'fa-solid fa-info' },
+    { label: 'Ingredients', route: '/ingredients', icon: 'fa-solid fa-basket-shopping' },
+    { label: 'Step by Step', route: '/directions', icon: 'fa-solid fa-list-check' },
+    { label: 'Nutrition', route: '/nutrition', icon: 'fa-solid fa-chart-simple' },
+    { label: 'Reviews', route: '/reviews', icon: 'fa-solid fa-star' }
+  ];
+  selectedTab: string = 'Overview';
 
   ngOnInit() {
     this.listenRecipeDetails();
@@ -57,7 +66,7 @@ export class RecipeDetailsComponent {
   }
 
   fetchRecipeDetails(): void {
-    this.router.paramMap
+    this.activeRouter.paramMap
       .pipe(
         map(paramMap => paramMap.get('id')),
         filter((id: string | null): id is string => id !== null),
@@ -110,8 +119,8 @@ export class RecipeDetailsComponent {
     }
   }
 
-  onSelectingPlanDate($event: string) {
-    this.selectedPlanDate = $event;
+  onSelectingPlanDate($event: Event) {
+    this.selectedPlanDate = ($event.target as HTMLInputElement).value;
   }
 
   onPlanDateChange() {

@@ -20,8 +20,8 @@ export class ReviewsComponent {
   private router: ActivatedRoute = inject(ActivatedRoute);
   private reviewService: ReviewsService = inject(ReviewsService);
   private sharedToastNotificationService: SharedToastNotificationService = inject(SharedToastNotificationService);
-  private constants: Constants = inject(Constants)
   private destroy$: Subject<void> = new Subject<void>();
+  constants: Constants = inject(Constants);
 
   recipeId: string | null = null;
   reviews: RecipeDetailReviewResponse | null = null;
@@ -76,9 +76,7 @@ export class ReviewsComponent {
     this.reviewService.fetchReviewDetailsByRecipeId(recipeId)
       .subscribe({
         next: (response: RecipeDetailReviewResponse | string) => {
-          if (typeof response === 'string') {
-            this.sharedToastNotificationService.showNotification(response, this.constants.TOAST_NOTIFICATION_TYPES['ERROR']);
-          } else {
+          if (typeof response !== 'string') {
             this.reviews = response;
             this.changeDetector.markForCheck();
           }

@@ -2,7 +2,6 @@ import { Component, ViewChild, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedButtonComponent } from '../../../../shared/components/shared-button/shared-button.component';
-import { SharedInputComponent } from '../../../../shared/components/shared-input/shared-input.component';
 import { passwordValidator } from '../../../../shared/validators/password-validator';
 import { Constants } from '../../../../shared/components/constants/constants';
 import { MainModulesRoutingModule } from "../../../../features/main-modules/main-modules-routing.module";
@@ -16,7 +15,7 @@ import { CartService } from '../../../services/cart.service';
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, SharedButtonComponent, SharedInputComponent, MainModulesRoutingModule],
+  imports: [ReactiveFormsModule, SharedButtonComponent, MainModulesRoutingModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })

@@ -13,7 +13,7 @@
           [iconOnly]="true"
           [disabled]="favoriteToggleInProgress"
           (click)="toggleRecipeInFavorites()"
-          buttonClass="primary-background-secondary-color-border small"
+          buttonClass="no-background-secondary-color-border small"
         ></shared-button>
       </div>
       <img [src]="'assets/' + imageUrl()" class="recipe-image" />
@@ -27,7 +27,7 @@
       </shared-button>
       <div class="recipe-details-container">
         <div class="recipe-ratings small-helper-text">
-          @if (screenWidth > 900) {
+          @if (constants.globalScreenWidth() > 900) {
             @for (i of getRange(recipeRating()); track $index) {
               <i class="fa-solid fa-star filled"></i>
             }
@@ -48,7 +48,7 @@
             <i class="fa-solid fa-clock"></i>
             <label>{{ timeToCook() }}</label>
           </span>
-          @if (screenWidth > 900) {
+          @if (constants.globalScreenWidth() > 900) {
             <span class="recipe-serves">
               <i class="fa-solid fa-users"></i>
               <label>Serves {{ noOfPeopleServes() }}</label>

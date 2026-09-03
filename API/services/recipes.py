@@ -2,7 +2,7 @@ import math
 from typing import Any, cast
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 
 from database.models import RecipeDetails
 from schemas.ingredient_recipe_mapping import (
@@ -12,6 +12,7 @@ from schemas.ingredients import IngredientClassCreate
 from schemas.recipe_directions import RecipeDirectionsCreate
 from schemas.recipe_items import RecipeItemsCreate
 from schemas.recipes import (
+    AllRecipesReturn,
     OrderByField,
     OrderDirection,
     RecipeCartReadClass,
@@ -59,7 +60,7 @@ class RecipesService(BaseService[RecipeDetails]):
         direction: OrderDirection = OrderDirection.ASC,
         page_size: int = 20,
         filter_values: RecipeFilterClass | None = None,
-    ) -> list[RecipesClassCardRead]:
+    ) -> AllRecipesReturn:
         print(
             "-------------------------------- Entering RecipesService.fetch_all_recipe_cards"
         )
@@ -102,6 +103,9 @@ class RecipesService(BaseService[RecipeDetails]):
 
         recipes = await self.session.execute(statement)
 
+        total_recipe = await self.session.execute(select(func.count(model.recipe_id)))
+        total_recipe_count = total_recipe.scalar() or 0
+
         rows = recipes.scalars().all()
         if rows is None:
             return []
@@ -131,7 +135,10 @@ class RecipesService(BaseService[RecipeDetails]):
                 elif direction == OrderDirection.DESC:
                     result.sort(key=lambda x: float(x.ratings), reverse=True)
 
-            return result
+            return AllRecipesReturn(
+                total_recipe=total_recipe_count,
+                recipes=result,
+            )
 
     async def fetch_recipe_by_id(
         self, recipe_id: UUID, user_id: UUID | None = None

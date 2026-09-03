@@ -7,7 +7,7 @@ import { JsonPipe, KeyValuePipe } from '@angular/common';
 
 @Component({
   selector: 'app-nutrition',
-  imports: [KeyValuePipe, JsonPipe],
+  imports: [KeyValuePipe],
   templateUrl: './nutrition.component.html',
   styleUrl: './nutrition.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

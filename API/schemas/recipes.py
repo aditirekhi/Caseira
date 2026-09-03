@@ -37,6 +37,7 @@ class RecipesClassCardRead(RecipesClassBase):
     region_id: UUID
     ingredients_count: int = 0
     review_count: str
+    total_recipe: int = 0
 
 
 class RecipesClassDetailRead(RecipesClassBase):
@@ -185,3 +186,8 @@ class OrderByField(str, Enum):
 class OrderDirection(str, Enum):
     ASC = "asc"
     DESC = "desc"
+
+
+class AllRecipesReturn(BaseModel):
+    total_recipe: int
+    recipes: list[RecipesClassCardRead]

@@ -4,6 +4,7 @@ from fastapi import APIRouter, HTTPException, status
 
 from schemas.base import ApiResponse
 from schemas.recipes import (
+    AllRecipesReturn,
     OrderByField,
     OrderDirection,
     RecipeFilterClass,
@@ -22,7 +23,7 @@ from shared.dependencies import ConstantsDependency
 router = APIRouter(prefix="/recipes", tags=["Recipes"])
 
 
-@router.get("/all", response_model=ApiResponse[list[RecipesClassCardRead]])
+@router.get("/all", response_model=ApiResponse[AllRecipesReturn])
 async def get_recipes(
     recipes_service: RecipesServiceDependency,
     constants: ConstantsDependency,
@@ -46,7 +47,7 @@ async def get_recipes(
     )
     recipes = await recipes_service.fetch_all_recipe_cards(
         order_by_field=order_by_field,
-        direction=order_by_direction.value,
+        direction=OrderDirection(order_by_direction),
         page_size=page_size,
         filter_values=filter_values,
     )

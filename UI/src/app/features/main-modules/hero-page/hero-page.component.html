@@ -22,7 +22,7 @@
             >Shop Ingredients</shared-button
           >
         </div>
-        @if (screenWidth > 900) {
+        @if (constants.globalScreenWidth() > 900) {
           <div class="features-panel">
             <span class="feature-card">
               <img
@@ -61,7 +61,7 @@
       <img src="assets/HeroPage/main_background.png" class="main-background" />
     </section>
   </div>
-  @if (screenWidth <= 900) {
+  @if (constants.globalScreenWidth() <= 900) {
     <div class="features-panel">
       <span class="feature-card">
         <img
@@ -98,49 +98,49 @@
         <img src="assets/HeroPage/SelectRecipe.png" class="procedure-image" />
         <div class="procedure-details">
           <span class="captions-labels">1.Choose Recipe</span>
-          @if (screenWidth > 900) {
+          @if (constants.globalScreenWidth() > 900) {
             <span class="small-helper-text"
               >Choose from a wide range of delicious recipes</span
             >
           }
         </div>
       </div>
-      @if (screenWidth > 900) {
+      @if (constants.globalScreenWidth() > 900) {
         <i class="fa-solid fa-arrow-right"></i>
       }
       <div class="procedure-card">
         <img src="assets/HeroPage/WePack.png" class="procedure-image" />
         <div class="procedure-details">
           <span class="captions-labels">2.We Pack</span>
-          @if (screenWidth > 900) {
+          @if (constants.globalScreenWidth() > 900) {
             <span class="small-helper-text"
               >We pack exact ingredients in perfect quantities</span
             >
           }
         </div>
       </div>
-      @if (screenWidth > 900) {
+      @if (constants.globalScreenWidth() > 900) {
         <i class="fa-solid fa-arrow-right"></i>
       }
       <div class="procedure-card">
         <img src="assets/HeroPage/WeDeliver.png" class="procedure-image" />
         <div class="procedure-details">
           <span class="captions-labels">3.We Deliver</span>
-          @if (screenWidth > 900) {
+          @if (constants.globalScreenWidth() > 900) {
             <span class="small-helper-text"
               >Fresh ingredients delivered to your doorstep</span
             >
           }
         </div>
       </div>
-      @if (screenWidth > 900) {
+      @if (constants.globalScreenWidth() > 900) {
         <i class="fa-solid fa-arrow-right"></i>
       }
       <div class="procedure-card">
         <img src="assets/HeroPage/CookAndEnjoy.png" class="procedure-image" />
         <div class="procedure-details">
           <span class="captions-labels">4.Cook and Enjoy</span>
-          @if (screenWidth > 900) {
+          @if (constants.globalScreenWidth() > 900) {
             <span class="small-helper-text"
               >Cook and enjoy delicious homemade meals.</span
             >

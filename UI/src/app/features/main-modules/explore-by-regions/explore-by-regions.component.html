@@ -6,7 +6,9 @@
       [addIcon]="true"
       iconClass="fa-solid fa-arrow-right"
       routerLink="/regions/all"
-      >View All Regions</shared-button
+      >{{
+        constants.globalScreenWidth() > 900 ? "View All Regions" : "View All"
+      }}</shared-button
     >
   </div>
   <div class="regions-container">

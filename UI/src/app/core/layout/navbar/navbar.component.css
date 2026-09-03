@@ -19,6 +19,29 @@
   margin: 0.5rem;
 }
 
+.native-input {
+  display: inline-flex;
+  align-items: center;
+  width: min(24rem, 30vw);
+  position: relative;
+}
+
+.native-input input {
+  width: 100%;
+  height: 2rem;
+  padding: 0.5rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  outline: none;
+  background-color: transparent;
+  color: var(--primary-color);
+}
+
+.native-input i {
+  padding: 0 0.5rem;
+  color: var(--primary-color);
+}
+
 @media (max-width: 900px) {
   .menu-backdrop {
     position: fixed;
@@ -195,5 +218,26 @@
     to {
       opacity: 1;
     }
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar {
+    min-height: 3.75rem;
+    box-sizing: border-box;
+  }
+
+  .logo-image {
+    width: 72px;
+    margin: 0.35rem;
+  }
+
+  .menu-items-container {
+    width: min(90vw, 340px);
+    padding: 1rem 0.75rem;
+  }
+
+  .drawer-logo-image {
+    width: 72px;
   }
 }

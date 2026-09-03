@@ -10,7 +10,6 @@ import { MostViewedRecipesComponent } from './most-viewed-recipes/most-viewed-re
 import { TodaysSpecialComponent } from './todays-special/todays-special.component';
 import { WhyCaseiraComponent } from './why-caseira/why-caseira.component';
 import { SharedButtonComponent } from '../../shared/components/shared-button/shared-button.component';
-import { SharedInputComponent } from '../../shared/components/shared-input/shared-input.component';
 import { SharedCustomerCardComponent } from '../../shared/components/shared-customer-card/shared-customer-card.component';
 import { SharedRecipeCardComponent } from '../../shared/components/shared-recipe-card/shared-recipe-card.component';
 import { SharedRegionsCardComponent } from '../../shared/components/shared-regions-card/shared-regions-card.component';
@@ -22,7 +21,6 @@ import { SharedRegionsCardComponent } from '../../shared/components/shared-regio
     CommonModule,
     MainModulesRoutingModule,
     SharedButtonComponent,
-    SharedInputComponent,
     SharedCustomerCardComponent,
     SharedRecipeCardComponent,
     SharedRegionsCardComponent,

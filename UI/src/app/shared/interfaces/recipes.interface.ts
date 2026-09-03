@@ -10,6 +10,11 @@ export interface RecipeAllRequestQueryParams {
     non_vegetarian?: boolean;
 }
 
+export interface RecipeAllResponse {
+    recipes: RecipeCardInterface[];
+    total_recipe: number;
+}
+
 export interface RecipeCardInterface {
     recipe_name: string;
     image_url: string;

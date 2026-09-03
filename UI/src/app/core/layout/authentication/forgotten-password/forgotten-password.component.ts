@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { passwordValidator } from '../../../../shared/validators/password-validator';
 import { SharedButtonComponent } from '../../../../shared/components/shared-button/shared-button.component';
-import { SharedInputComponent } from '../../../../shared/components/shared-input/shared-input.component';
 import { Constants } from '../../../../shared/components/constants/constants';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ChangePasswordRequest } from '../../../../shared/interfaces/authentication.interface';
@@ -12,7 +11,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-forgotten-password',
-  imports: [ReactiveFormsModule, RouterModule, SharedInputComponent, SharedButtonComponent],
+  imports: [ReactiveFormsModule, RouterModule, SharedButtonComponent],
   templateUrl: './forgotten-password.component.html',
   styleUrl: './forgotten-password.component.css',
 })

@@ -13,9 +13,9 @@ import { Constants } from '../../../shared/components/constants/constants';
 })
 export class ExploreByRegionsComponent {
   private changeDetection = inject(ChangeDetectorRef);
-  private constants: Constants = inject(Constants);
   private sharedToastNotificationService = inject(SharedToastNotificationService);
   private regionsService: RegionsService = inject(RegionsService);
+  constants: Constants = inject(Constants);
 
   regionsDetails: FetchAllRegionsResponse[] = [];
   loadingRegions: boolean = true;

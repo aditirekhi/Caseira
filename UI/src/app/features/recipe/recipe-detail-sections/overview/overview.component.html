@@ -1,98 +1,102 @@
 @if (recipeDetails) {
   <main class="overview-section">
-    <section class="ingredients">
-      <span class="section-header">
-        <label class="card-title-recipe-name"><b>Ingredients</b></label>
-        <img src="assets/header_icon.png" class="header-icon" />
-      </span>
-      <div class="ingredients-list-container">
-        @for (section of recipeDetails.ingredients; track $index) {
-          <span class="ingredient-item-list">
-            @for (
-              itemIngredient of section | keyvalue;
-              track itemIngredient.key
-            ) {
-              <span class="item-ingredients-list">
-                <shared-tags
-                  tagClass="secondary-bg-primary-color-no-border"
-                  [tagName]="itemIngredient.key"
-                ></shared-tags>
-              </span>
-              <ul class="ingredient-list">
-                @for (ingredient of itemIngredient.value; track $index) {
-                  <li class="captions-labels">
-                    {{ ingredient.ingredient_name }}
-                  </li>
-                }
-              </ul>
-            }
-          </span>
-          @if (!$last) {
-            <div class="vertical-divider"></div>
-          }
-        }
-      </div>
-      @if (recipeInCart) {
-        <shared-button
-          buttonClass="light larger"
-          [addedToCartButton]="true"
-          [recipeId]="recipeDetails.recipe_id"
-          buttonWidth="100%"
-          (recipeDeleted)="removeRecipeFromCart()"
-        ></shared-button>
-      } @else if (addingRecipeToCart) {
-        <shared-button
-          buttonClass="no-bg-secondary-color-muted-secondary-border larger"
-          [addIcon]="true"
-          iconClass="fa-solid fa-spinner fa-spin"
-          [leftIcon]="true"
-          buttonWidth="100%"
-          [disabled]="true"
-          >Adding ingredients to Cart...</shared-button
-        >
-      } @else {
-        <shared-button
-          buttonClass="no-bg-secondary-color-muted-secondary-border larger"
-          [addIcon]="true"
-          iconClass="fa-solid fa-cart-shopping"
-          [leftIcon]="true"
-          class="add-to-cart-button"
-          buttonWidth="100%"
-          (click)="addRecipeToCart()"
-          >Add all ingredients to cart</shared-button
-        >
-      }
-    </section>
-    <section class="both-rows">
-      <section class="nutrition-section">
+    @if (constants.globalScreenWidth() > 900) {
+      <section class="ingredients">
         <span class="section-header">
-          <label class="card-title-recipe-name"><b>Nutrition</b></label>
+          <label class="card-title-recipe-name"><b>Ingredients</b></label>
           <img src="assets/header_icon.png" class="header-icon" />
         </span>
-        @for (
-          section of recipeDetails.nutrition_details.slice(0, 3) | keyvalue;
-          track $index
-        ) {
-          @for (nutrition of section.value | keyvalue; track $index) {
-            <span class="nutrition-item">
-              <label class="secondary-text nutrition-key">{{
-                nutrition.key
-              }}</label>
-              <label class="secondary-text nutrition-value">{{
-                nutrition.value
-              }}</label>
+        <div class="ingredients-list-container">
+          @for (section of recipeDetails.ingredients; track $index) {
+            <span class="ingredient-item-list">
+              @for (
+                itemIngredient of section | keyvalue;
+                track itemIngredient.key
+              ) {
+                <span class="item-ingredients-list">
+                  <shared-tags
+                    tagClass="secondary-bg-primary-color-no-border"
+                    [tagName]="itemIngredient.key"
+                  ></shared-tags>
+                </span>
+                <ul class="ingredient-list">
+                  @for (ingredient of itemIngredient.value; track $index) {
+                    <li class="captions-labels">
+                      {{ ingredient.ingredient_name }}
+                    </li>
+                  }
+                </ul>
+              }
             </span>
+            @if (!$last) {
+              <div class="vertical-divider"></div>
+            }
           }
+        </div>
+        @if (recipeInCart) {
+          <shared-button
+            buttonClass="light larger"
+            [addedToCartButton]="true"
+            [recipeId]="recipeDetails.recipe_id"
+            buttonWidth="100%"
+            (recipeDeleted)="removeRecipeFromCart()"
+          ></shared-button>
+        } @else if (addingRecipeToCart) {
+          <shared-button
+            buttonClass="no-bg-secondary-color-muted-secondary-border larger"
+            [addIcon]="true"
+            iconClass="fa-solid fa-spinner fa-spin"
+            [leftIcon]="true"
+            buttonWidth="100%"
+            [disabled]="true"
+            >Adding ingredients to Cart...</shared-button
+          >
+        } @else {
+          <shared-button
+            buttonClass="no-bg-secondary-color-muted-secondary-border larger"
+            [addIcon]="true"
+            iconClass="fa-solid fa-cart-shopping"
+            [leftIcon]="true"
+            class="add-to-cart-button"
+            buttonWidth="100%"
+            (click)="addRecipeToCart()"
+            >Add all ingredients to cart</shared-button
+          >
         }
-        <shared-button
-          buttonClass="no-bg-secondary-color-muted-secondary-border larger"
-          [addIcon]="true"
-          iconClass="fa-solid fa-arrow-right"
-          buttonWidth="100%"
-          [routerLink]="['/recipe', recipeDetails.recipe_id, 'nutrition']"
-          >Full Nutrition Info</shared-button
-        >
       </section>
+    }
+    <section class="both-rows">
+      @if (constants.globalScreenWidth() > 900) {
+        <section class="nutrition-section">
+          <span class="section-header">
+            <label class="card-title-recipe-name"><b>Nutrition</b></label>
+            <img src="assets/header_icon.png" class="header-icon" />
+          </span>
+          @for (
+            section of recipeDetails.nutrition_details.slice(0, 3) | keyvalue;
+            track $index
+          ) {
+            @for (nutrition of section.value | keyvalue; track $index) {
+              <span class="nutrition-item">
+                <label class="secondary-text nutrition-key">{{
+                  nutrition.key
+                }}</label>
+                <label class="secondary-text nutrition-value">{{
+                  nutrition.value
+                }}</label>
+              </span>
+            }
+          }
+          <shared-button
+            buttonClass="no-bg-secondary-color-muted-secondary-border larger"
+            [addIcon]="true"
+            iconClass="fa-solid fa-arrow-right"
+            buttonWidth="100%"
+            [routerLink]="['/recipe', recipeDetails.recipe_id, 'nutrition']"
+            >Full Nutrition Info</shared-button
+          >
+        </section>
+      }
       <section class="more-recipes-section">
         <span class="section-header">
           <label class="card-title-recipe-name"><b>More Recipes</b></label>
@@ -152,42 +156,44 @@
         >
       </section>
     </section>
-    <section class="recipe-directions">
-      <span class="section-header">
-        <label class="card-title-recipe-name"><b>Step by Step</b></label>
-        <img src="assets/header_icon.png" class="header-icon" />
-      </span>
-      <div class="recipe-item-details-container">
-        <div class="recipe-item-details">
-          @for (item of recipeDetails.recipe_items; track $index) {
-            <div class="item-container">
-              <span class="body-paragraph direction-index"
-                >{{ $index + 1 }}.</span
-              >
-              <div class="item-details">
-                <label class="body-paragraph"
-                  ><b>{{ item.item_name }}</b></label
+    @if (constants.globalScreenWidth() > 900) {
+      <section class="recipe-directions">
+        <span class="section-header">
+          <label class="card-title-recipe-name"><b>Step by Step</b></label>
+          <img src="assets/header_icon.png" class="header-icon" />
+        </span>
+        <div class="recipe-item-details-container">
+          <div class="recipe-item-details">
+            @for (item of recipeDetails.recipe_items; track $index) {
+              <div class="item-container">
+                <span class="body-paragraph direction-index"
+                  >{{ $index + 1 }}.</span
                 >
-                <label class="captions-labels">{{
-                  item.item_description
-                }}</label>
+                <div class="item-details">
+                  <label class="body-paragraph"
+                    ><b>{{ item.item_name }}</b></label
+                  >
+                  <label class="captions-labels">{{
+                    item.item_description
+                  }}</label>
+                </div>
+                @if (!$last) {
+                  <div class="vertical-divider"></div>
+                }
               </div>
-              @if (!$last) {
-                <div class="vertical-divider"></div>
-              }
-            </div>
-          }
+            }
+          </div>
+          <shared-button
+            buttonClass="no-bg-secondary-color-muted-secondary-border larger"
+            [addIcon]="true"
+            iconClass="fa-solid fa-arrow-right"
+            buttonWidth="100%"
+            [routerLink]="['/recipe', recipeDetails.recipe_id, 'directions']"
+            >View Details</shared-button
+          >
         </div>
-        <shared-button
-          buttonClass="no-bg-secondary-color-muted-secondary-border larger"
-          [addIcon]="true"
-          iconClass="fa-solid fa-arrow-right"
-          buttonWidth="100%"
-          [routerLink]="['/recipe', recipeDetails.recipe_id, 'directions']"
-          >View Details</shared-button
-        >
-      </div>
-    </section>
+      </section>
+    }
   </main>
 
   @if (showReviewPopUp) {

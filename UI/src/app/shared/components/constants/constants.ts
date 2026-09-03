@@ -5,6 +5,7 @@ import { Service, WritableSignal, signal } from "@angular/core";
 export class Constants {
 
     primaryLoadingPage: WritableSignal<boolean> = signal(false);
+    globalScreenWidth: WritableSignal<number> = signal(window.innerWidth);
 
 
     public readonly NONE_STRING: string = 'None';

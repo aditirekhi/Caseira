@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
 .category-card {
   background-color: var(--secondary-color);
   border-radius: 10px;
@@ -5,14 +10,14 @@
   position: relative;
   display: inline-block;
   width: 100%;
+  aspect-ratio: 1 / 1;
   box-shadow: 4px 4px 20px 0 var(--muted-secondary-color);
 }
 
 .category-image {
   border-radius: 10px;
   width: 100%;
-  aspect-ratio: 1 / 1;
-  height: auto;
+  height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
@@ -38,4 +43,33 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+@media (max-width: 900px) {
+  .category-card {
+    width: 100%;
+    aspect-ratio: auto;
+    overflow: visible;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .category-image {
+    border-radius: 50%;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+
+  .category-details {
+    background: transparent;
+    color: var(--secondary-color);
+    position: relative;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .category-specifications {
+    text-align: center;
+  }
 }

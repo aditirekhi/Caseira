@@ -1,19 +1,31 @@
-import { Component, ChangeDetectionStrategy, HostListener } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
 import { SharedButtonComponent } from '../../../shared/components/shared-button/shared-button.component';
-import { SharedInputComponent } from "../../../shared/components/shared-input/shared-input.component";
 import { MainModulesRoutingModule } from "../../../features/main-modules/main-modules-routing.module";
+import { Constants } from '../../../shared/components/constants/constants';
+import { MenuTab } from '../../../shared/interfaces/generic.interface';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLinkActive, SharedButtonComponent, SharedInputComponent, MainModulesRoutingModule],
+  imports: [RouterLinkActive, SharedButtonComponent, MainModulesRoutingModule],
   templateUrl: './navbar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  public screenWidth: number = 0;
+  constants: Constants = inject(Constants);
+
+  navbarMenuItems: MenuTab[] = [
+    { label: 'Recipes', route: '/recipe/all' },
+    { label: 'Ingredients', route: '/ingredients' },
+    {
+      label: 'Meal Kits', route: '/meal-kits'
+    },
+    { label: 'Regions', route: '/regions/all' },
+    { label: 'Offers', route: '/offers' }
+  ]
+
   public showNavMenu: boolean = false;
   public showSearchBox: boolean = false;
 
@@ -27,17 +39,5 @@ export class NavbarComponent {
 
   toggleSearchBox(): void {
     this.showSearchBox = !this.showSearchBox;
-  }
-
-  ngOnInit(): void {
-    this.screenWidth = window.innerWidth;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.screenWidth = window.innerWidth;
-    if (this.screenWidth > 900) {
-      this.showNavMenu = true;
-    }
   }
 }
