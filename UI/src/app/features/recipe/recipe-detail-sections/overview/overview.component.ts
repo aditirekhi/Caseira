@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RecipeAllResponse, RecipeCardInterface, RecipeDetailsInterface } from '../../../../shared/interfaces/recipes.interface';
+import { RecipeAllRequestQueryParams, RecipeAllResponse, RecipeCardInterface, RecipeDetailsInterface } from '../../../../shared/interfaces/recipes.interface';
 import { RecipeReviewRatingInput, RecipeReviewRequest, RecipeReviewResponse } from '../../../../shared/interfaces/recipe-review.interface';
 import { RecipesService } from '../../../../core/services/recipes.service';
 import { filter } from 'rxjs';
@@ -83,7 +83,13 @@ export class OverviewComponent {
   }
 
   fetchAllRecipeDetails(): void {
-    this.recipeService.fetchAllRecipes({ order_by_field: 'created_at', order_by_direction: 'desc', page_size: 2 })
+    const payload: RecipeAllRequestQueryParams = {
+      order_by_field: 'created_at',
+      order_by_direction: 'desc',
+      page_number: 1,
+      page_size: 2
+    }
+    this.recipeService.fetchAllRecipes(payload)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (response: RecipeAllResponse | string) => {

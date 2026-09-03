@@ -405,5 +405,10 @@
       }
     </span>
   </section>
+  <shared-pagination
+    [totalPages]="totalPages"
+    [currentPage]="currentPage"
+    (selectedPage)="changeSelectedPage($event)"
+  ></shared-pagination>
 </main>
 <app-footer></app-footer>

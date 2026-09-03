@@ -59,6 +59,7 @@ class RecipesService(BaseService[RecipeDetails]):
         order_by_field: OrderByField = OrderByField.RECIPE_NAME,
         direction: OrderDirection = OrderDirection.ASC,
         page_size: int = 20,
+        page_number: int = 1,
         filter_values: RecipeFilterClass | None = None,
     ) -> AllRecipesReturn:
         print(
@@ -66,6 +67,7 @@ class RecipesService(BaseService[RecipeDetails]):
         )
 
         model = cast(Any, self.model)
+        calculated_offset = (page_number - 1) * page_size
 
         if order_by_field is not OrderByField.RATING:
             if direction == OrderDirection.ASC:
@@ -73,15 +75,22 @@ class RecipesService(BaseService[RecipeDetails]):
                     select(model)
                     .order_by(getattr(model, order_by_field))
                     .limit(page_size)
+                    .offset(calculated_offset)
                 )
             elif direction == OrderDirection.DESC:
                 statement = (
                     select(model)
                     .order_by(getattr(model, order_by_field).desc())
                     .limit(page_size)
+                    .offset(calculated_offset)
                 )
         else:
-            statement = select(model).limit(page_size)
+            statement = (
+                select(model)
+                .order_by(direction)
+                .limit(page_size)
+                .offset(calculated_offset)
+            )
 
         if filter_values:
             if filter_values.category_id:
@@ -103,10 +112,31 @@ class RecipesService(BaseService[RecipeDetails]):
 
         recipes = await self.session.execute(statement)
 
-        total_recipe = await self.session.execute(select(func.count(model.recipe_id)))
+        total_recipe_statement = select(func.count(model.recipe_id))
+
+        if filter_values:
+            if filter_values.category_id:
+                total_recipe_statement = total_recipe_statement.where(
+                    model.category_id.in_(filter_values.category_id)
+                )
+            if filter_values.region_id:
+                total_recipe_statement = total_recipe_statement.where(
+                    model.region_id.in_(filter_values.region_id)
+                )
+            if filter_values.vegetarian is not None:
+                total_recipe_statement = total_recipe_statement.where(
+                    model.vegetarian == filter_values.vegetarian
+                )
+            if filter_values.non_vegetarian is not None:
+                total_recipe_statement = total_recipe_statement.where(
+                    model.vegetarian == (not filter_values.non_vegetarian)
+                )
+
+        total_recipe = await self.session.execute(total_recipe_statement)
         total_recipe_count = total_recipe.scalar() or 0
 
         rows = recipes.scalars().all()
+
         if rows is None:
             return []
         else:

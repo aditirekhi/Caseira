@@ -59,7 +59,6 @@ export class Constants {
             VEGETARIAN: 'vegetarian'
         },
         MOST_VIEWED_RECIPES_PAGE_SIZE: 4,
-        ALL_RECIPES_PAGE_SIZE: 12
     };
 
     public readonly allRecipesConstants = {
@@ -69,7 +68,8 @@ export class Constants {
             'MOST_POPULAR': { field: 'number_of_total_visits', direction: this.SORTING_OPTIONS.DESCENDING, label: 'Most Popular' },
             'NEWEST': { field: 'created_at', direction: this.SORTING_OPTIONS.DESCENDING, label: 'Newest' },
             'CUSTOMER_REVIEWS': { field: 'rating', direction: this.SORTING_OPTIONS.DESCENDING, label: 'Customer Reviews' }
-        }
+        },
+        PAGE_SIZE: 9
     }
 
     private readonly skeletonTypes: string[] = ['recipe-card', 'recipe-row', 'image', 'todays-special'];

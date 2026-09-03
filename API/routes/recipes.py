@@ -30,6 +30,7 @@ async def get_recipes(
     order_by_field: OrderByField = OrderByField.RECIPE_NAME,
     order_by_direction: OrderDirection = OrderDirection.ASC,
     page_size: int = 20,
+    page_number: int = 1,
     vegetarian: bool | None = None,
     non_vegetarian: bool | None = None,
     category_id: str | None = None,
@@ -49,6 +50,7 @@ async def get_recipes(
         order_by_field=order_by_field,
         direction=OrderDirection(order_by_direction),
         page_size=page_size,
+        page_number=page_number,
         filter_values=filter_values,
     )
 

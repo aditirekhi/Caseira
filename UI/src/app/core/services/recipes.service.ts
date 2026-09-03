@@ -42,6 +42,9 @@ export class RecipesService {
         if (queryParams.page_size) {
             httpParams = httpParams.set('page_size', queryParams.page_size.toString());
         }
+        if (queryParams.page_number) {
+            httpParams = httpParams.set('page_number', queryParams.page_number.toString());
+        }
 
         if (queryParams.vegetarian === true || queryParams.vegetarian === false) {
             httpParams = httpParams.set('vegetarian', queryParams.vegetarian.toString());

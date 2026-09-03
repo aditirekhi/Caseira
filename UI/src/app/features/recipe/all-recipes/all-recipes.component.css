@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: start;
   color: var(--secondary-color);
+  gap: 1rem;
 }
 
 .section-header-container {

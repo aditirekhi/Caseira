@@ -29,6 +29,7 @@ export class MostViewedRecipesComponent {
     const queryParams: RecipeAllRequestQueryParams = {
       order_by_field: this.constants.recipesConstants.RECIPE_FIELDS.NUMBER_OF_TOTAL_VISITS,
       order_by_direction: this.constants.SORTING_OPTIONS.DESCENDING,
+      page_number: 1,
       page_size: this.constants.recipesConstants.MOST_VIEWED_RECIPES_PAGE_SIZE
     };
     this.recipesService.fetchAllRecipes(queryParams).subscribe({

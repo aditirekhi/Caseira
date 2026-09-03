@@ -3,7 +3,8 @@ import { IngredientsDetailsInterface } from "./ingredients.interface";
 export interface RecipeAllRequestQueryParams {
     order_by_field?: string;
     order_by_direction?: string;
-    page_size?: number;
+    page_number: number;
+    page_size: number;
     category_id?: string[];
     region_id?: string[];
     vegetarian?: boolean;

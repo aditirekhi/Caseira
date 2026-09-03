@@ -14,10 +14,11 @@ import { RegionsService } from '../../../core/services/regions.service';
 import { FetchAllRegionsResponse } from '../../../shared/interfaces/regions.interface';
 import { AllCategoryDetailsInterface } from '../../../shared/interfaces/categories.interface';
 import { SharedSkeletonComponent } from '../../../shared/components/shared-skeleton/shared-skeleton.component';
+import { SharedPaginationComponent } from "../../../shared/components/shared-pagination/shared-pagination.component";
 
 @Component({
   selector: 'app-all-recipes',
-  imports: [CommonModule, FormsModule, FooterComponent, SharedButtonComponent, SharedTagsComponent, SharedRecipeCardComponent, SharedSkeletonComponent],
+  imports: [CommonModule, FormsModule, FooterComponent, SharedButtonComponent, SharedTagsComponent, SharedRecipeCardComponent, SharedSkeletonComponent, SharedPaginationComponent],
   templateUrl: './all-recipes.component.html',
   styleUrl: './all-recipes.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,12 +31,17 @@ export class AllRecipesComponent {
   private categoriesService: CategoriesService = inject(CategoriesService);
   constants: Constants = inject(Constants);
 
+  totalPages: number = 0;
+  currentPage: number = 1;
+  pageSize: number = this.constants.allRecipesConstants.PAGE_SIZE;
+
   showOnlyVegetarian: boolean = false;
   showOnlyNonVegetarian: boolean = false;
   recipeFilterPayload: RecipeAllRequestQueryParams = {
     order_by_field: this.constants.recipesConstants.RECIPE_FIELDS.NUMBER_OF_TOTAL_VISITS,
     order_by_direction: this.constants.SORTING_OPTIONS.ASCENDING,
-    page_size: this.constants.recipesConstants.ALL_RECIPES_PAGE_SIZE
+    page_size: this.constants.allRecipesConstants.PAGE_SIZE,
+    page_number: this.currentPage,
   };
 
   totalNumberOfRecipes: number = 0;
@@ -142,6 +148,7 @@ export class AllRecipesComponent {
         } else if (response && typeof response !== 'string') {
           this.recipeDetails = response.recipes;
           this.totalNumberOfRecipes = response.total_recipe;
+          this.createPaginationArguments();
           this.changeDetection.markForCheck();
         }
         this.isRecipesLoading = false;
@@ -151,7 +158,17 @@ export class AllRecipesComponent {
         this.sharedToastNotificationService.showNotification(error, this.constants.TOAST_NOTIFICATION_TYPES['ERROR']);
         this.changeDetection.markForCheck();
       }
-    })
+    });
+  }
+
+  createPaginationArguments() {
+    this.totalPages = Math.ceil(this.totalNumberOfRecipes / this.pageSize);
+    this.changeDetection.markForCheck();
+  }
+
+  resetPagination() {
+    this.currentPage = 1;
+    this.recipeFilterPayload.page_number = this.currentPage;
   }
 
   checkIfAnyFilterApplied(): boolean {
@@ -168,13 +185,14 @@ export class AllRecipesComponent {
     this.recipeFilterPayload.region_id = [];
     this.showOnlyVegetarian = false;
     this.showOnlyNonVegetarian = false;
+    this.resetPagination();
     this.fetchAllRecipes();
   }
 
   toggleVegetarianFilter() {
     this.showOnlyVegetarian = !this.showOnlyVegetarian;
     this.recipeFilterPayload.vegetarian = this.showOnlyVegetarian ? true : undefined;
-    this.isRecipesLoading = true;
+    this.resetPagination();
     this.changeDetection.markForCheck();
     this.fetchAllRecipes();
   }
@@ -182,7 +200,7 @@ export class AllRecipesComponent {
   toggleNonVegetarianFilter() {
     this.showOnlyNonVegetarian = !this.showOnlyNonVegetarian;
     this.recipeFilterPayload.non_vegetarian = this.showOnlyNonVegetarian ? true : undefined;
-    this.isRecipesLoading = true;
+    this.resetPagination();
     this.changeDetection.markForCheck();
     this.fetchAllRecipes();
   }
@@ -215,8 +233,8 @@ export class AllRecipesComponent {
     this.recipeFilterPayload.order_by_field = field;
     this.recipeFilterPayload.order_by_direction = direction;
     this.selectedSortingOption = label;
-    this.isRecipesLoading = true;
     this.showSortingOptions = false;
+    this.resetPagination();
     this.changeDetection.markForCheck();
     this.fetchAllRecipes();
   }
@@ -230,7 +248,6 @@ export class AllRecipesComponent {
   }
 
   toggleCategoryFilter(categoryId: string, categoryName: string) {
-    this.isRecipesLoading = true;
     if (this.recipeFilterPayload.category_id) {
       const categoryExists = this.recipeFilterPayload.category_id.includes(categoryId);
       if (categoryExists) {
@@ -242,6 +259,7 @@ export class AllRecipesComponent {
     } else {
       this.recipeFilterPayload.category_id = [categoryId];
     }
+    this.resetPagination();
     this.fetchAllRecipes();
   }
 
@@ -250,8 +268,6 @@ export class AllRecipesComponent {
   }
 
   toggleRegionFilter(regionsId: string, regionName: string) {
-    console.log('Toggling region filter for regionId:', regionsId);
-    this.isRecipesLoading = true;
     if (this.recipeFilterPayload.region_id) {
       const regionExists = this.recipeFilterPayload.region_id.includes(regionsId);
       if (regionExists) {
@@ -263,11 +279,18 @@ export class AllRecipesComponent {
     } else {
       this.recipeFilterPayload.region_id = [regionsId];
     }
+    this.resetPagination();
     this.fetchAllRecipes();
   }
 
   checkRegionFilterApplied(regionId: string): boolean {
     return this.recipeFilterPayload.region_id ? this.recipeFilterPayload.region_id.includes(regionId) : false;
+  }
+
+  changeSelectedPage(event: number) {
+    this.currentPage = event;
+    this.recipeFilterPayload.page_number = this.currentPage;
+    this.fetchAllRecipes();
   }
 
 }
