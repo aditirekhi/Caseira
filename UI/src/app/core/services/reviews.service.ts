@@ -33,8 +33,7 @@ export class ReviewsService {
                 catchError((error): Observable<string> => {
                     const errorMessage = error.error?.detail ?? this.constants.GENERIC_ERROR_MESSAGE;
                     return of(errorMessage);
-                }
-                )
+                })
             );
     }
 

@@ -14,6 +14,7 @@ from routes import (
     recipe_review,
     recipes,
     regions,
+    search,
     security,
     user,
     user_calendar_plan_details,
@@ -39,6 +40,7 @@ app.include_router(cart.router)
 app.include_router(bookmarked_favorites_recipes.router)
 app.include_router(user_calendar_plan_details.router)
 app.include_router(helpful_reviews.router)
+app.include_router(search.router)
 
 origins = ["http://localhost:4200", "https://caseira-ui.onrender.com"]
 

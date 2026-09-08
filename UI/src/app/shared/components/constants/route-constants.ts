@@ -18,6 +18,8 @@ export class RouteConstants {
     private readonly calendarPlanDetailsRoute: string = '/user-calendar-plan-details';
     private readonly helpfulReviewRoute: string = '/helpful-reviews';
 
+    private readonly searchRoute: string = '/search';
+
     private readonly userLogin: string = '/login';
     private readonly userSignin: string = '/signin';
     private readonly userLogout: string = '/logout'
@@ -46,6 +48,8 @@ export class RouteConstants {
     private readonly createHelpfulReview: string = '/create';
     private readonly deleteHelpfulReview: string = '/delete';
 
+
+    public readonly completeSearchURL: string = this.baseURL + this.searchRoute;
 
     public readonly completeUserLoginURL: string = this.baseURL + this.userRoute + this.userLogin;
     public readonly completeUserSigninURL: string = this.baseURL + this.userRoute + this.userSignin;

@@ -188,3 +188,7 @@ class IngredientsService(BaseService[IngredientDetails]):
             )
 
         return details_by_id
+
+    async def get_ingredient_name(self, ingredient_id: UUID) -> str | None:
+        ingredient = await self._get(ingredient_id)
+        return ingredient.ingredient_name if ingredient else None

@@ -604,3 +604,7 @@ class RecipesService(BaseService[RecipeDetails]):
             )
 
         return details_by_id
+
+    async def get_recipe_name(self, recipe_id: UUID) -> str | None:
+        recipe = await self._get(recipe_id)
+        return recipe.recipe_name if recipe else None

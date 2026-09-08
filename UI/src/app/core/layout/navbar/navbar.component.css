@@ -9,6 +9,7 @@
   top: 0;
   z-index: 100;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .logo-image {
@@ -20,10 +21,13 @@
 }
 
 .native-input {
+  position: relative;
   display: inline-flex;
   align-items: center;
   width: min(24rem, 30vw);
-  position: relative;
+  min-width: 0;
+  max-width: 24rem;
+  margin: 0 0.5rem;
 }
 
 .native-input input {
@@ -42,7 +46,85 @@
   color: var(--primary-color);
 }
 
+.search-result-container {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--secondary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 0 0.75rem 1.5rem
+    color-mix(in srgb, var(--secondary-color) 35%, transparent);
+  animation: searchResultsIn 0.2s ease-out;
+}
+
+.search-result-container::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+.search-result-container::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--secondary-color) 80%, black 20%);
+  border-radius: 999px;
+}
+
+.search-result-container::-webkit-scrollbar-thumb {
+  background-color: var(--prompt-color);
+  border: 2px solid var(--secondary-color);
+  border-radius: 999px;
+}
+
+.search-result-container {
+  scrollbar-color: var(--prompt-color) var(--secondary-color);
+  scrollbar-width: thin;
+}
+
+.search-result-container ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.search-result-container li {
+  padding: 0.5rem;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--primary-color) 10%, transparent);
+  color: var(--primary-color);
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.search-result-container li:hover {
+  background-color: color-mix(in srgb, var(--primary-color) 10%, transparent);
+}
+
+.search-result-container li:last-child {
+  border-bottom: none;
+}
+
+@keyframes searchResultsIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.35rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 900px) {
+  .native-input {
+    width: 100%;
+    max-width: none;
+    flex: 1 1 auto;
+  }
+
   .menu-backdrop {
     position: fixed;
     top: 0;

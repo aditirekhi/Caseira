@@ -2,7 +2,7 @@ from datetime import date, datetime
 from enum import Enum
 from uuid import UUID
 
-from sqlalchemy import Column, ForeignKey, UniqueConstraint, text
+from sqlalchemy import Column, ForeignKey, Index, UniqueConstraint, text
 from sqlalchemy.dialects import postgresql
 from sqlmodel import CheckConstraint, Field, Relationship, SQLModel
 
@@ -215,6 +215,11 @@ class IngredientDetails(SQLModel, table=True):
     )
     recipe_ingredient_mapping: list["RecipeIngredientMapping"] = Relationship(
         back_populates="ingredient", sa_relationship_kwargs={"lazy": "selectin"}
+    )
+    recipe_ingredient_search_documents: list["RecipeIngredientSearchDocument"] = (
+        Relationship(
+            back_populates="ingredient", sa_relationship_kwargs={"lazy": "selectin"}
+        )
     )
 
 
@@ -477,6 +482,12 @@ class RecipeDetails(SQLModel, table=True):
     recipe_ingredient_mapping: list["RecipeIngredientMapping"] = Relationship(
         back_populates="recipe", sa_relationship_kwargs={"lazy": "selectin"}
     )
+    recipe_ingredient_search_documents: list["RecipeIngredientSearchDocument"] = (
+        Relationship(
+            back_populates="recipe",
+            sa_relationship_kwargs={"lazy": "selectin"},
+        )
+    )
     recipe_item: list["RecipeItemDetails"] = Relationship(
         back_populates="recipe", sa_relationship_kwargs={"lazy": "selectin"}
     )
@@ -488,6 +499,46 @@ class RecipeDetails(SQLModel, table=True):
     )
     calendar_plan_details: list["UserCalendarPlanDetails"] = Relationship(
         back_populates="recipe", sa_relationship_kwargs={"lazy": "selectin"}
+    )
+
+
+class RecipeIngredientSearchDocument(SQLModel, table=True):
+    __tablename__: str = "recipe_ingredient_search_documents"
+    __table_args__ = (
+        Index(
+            "ix_recipe_ingredient_search_documents_document",
+            "document",
+            postgresql_using="gin",
+        ),
+        Index(
+            "ix_recipe_ingredient_search_documents_ingredient_id",
+            "ingredient_id",
+        ),
+    )
+
+    recipe_id: UUID = Field(
+        sa_column=Column(
+            postgresql.UUID(as_uuid=True),
+            ForeignKey("recipe_details.recipe_id", ondelete="CASCADE"),
+            primary_key=True,
+        )
+    )
+    ingredient_id: UUID = Field(
+        sa_column=Column(
+            postgresql.UUID(as_uuid=True),
+            ForeignKey("ingredient_details.ingredient_id", ondelete="CASCADE"),
+            primary_key=True,
+        )
+    )
+    document: str = Field(sa_column=Column(postgresql.TSVECTOR, nullable=False))
+
+    recipe: RecipeDetails = Relationship(
+        back_populates="recipe_ingredient_search_documents",
+        sa_relationship_kwargs={"lazy": "selectin"},
+    )
+    ingredient: IngredientDetails = Relationship(
+        back_populates="recipe_ingredient_search_documents",
+        sa_relationship_kwargs={"lazy": "selectin"},
     )
 
 

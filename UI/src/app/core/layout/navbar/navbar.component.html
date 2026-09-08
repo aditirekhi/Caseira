@@ -7,17 +7,37 @@
       (click)="toggleNavMenu()"
     ></shared-button>
   }
-  @if (!showNavMenu) {
+  @if (!showNavMenu && constants.globalScreenWidth() >= 900) {
     <shared-button routerLink="/home" buttonClass="no-bg-primary-color small">
       <img src="assets/Logos/logo.png" class="logo-image" alt="logo" />
     </shared-button>
   }
-  @if (constants.globalScreenWidth() >= 900) {
-    <span class="native-input no-bg-font-border-primary shrink-0">
-      <input type="search" placeholder="Search recipes, ingredients..." />
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </span>
-  }
+  <span class="native-input no-bg-font-border-primary grow">
+    <input
+      type="search"
+      placeholder="Search recipes, ingredients..."
+      [(ngModel)]="searchKeyword"
+      (input)="searchRecipeIngredient()"
+    />
+    <i class="fa-solid fa-magnifying-glass"></i>
+    @if (searchResults.length > 0) {
+      <div class="search-result-container">
+        <ul>
+          @for (result of searchResults; track $index) {
+            @if (result.ingredient_list.length > 0) {
+              @for (ingredient of result.ingredient_list; track $index) {
+                <li>
+                  {{ result.recipe_name }} - {{ ingredient.ingredient_name }}
+                </li>
+              }
+            } @else {
+              <li>{{ result.recipe_name }}</li>
+            }
+          }
+        </ul>
+      </div>
+    }
+  </span>
   @if (constants.globalScreenWidth() > 900) {
     <div>
       @for (menu of navbarMenuItems; track $index) {
@@ -30,14 +50,6 @@
     </div>
   }
   <div>
-    @if (constants.globalScreenWidth() < 900) {
-      <shared-button
-        buttonClass="no-bg-primary-color medium"
-        [iconOnly]="true"
-        iconClass="fa-solid fa-magnifying-glass"
-        (click)="toggleSearchBox()"
-      ></shared-button>
-    }
     <shared-button
       buttonClass="no-bg-primary-color small"
       [iconOnly]="true"

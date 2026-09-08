@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     from services.recipe_review import RecipeReviewsService
     from services.recipes import RecipesService
     from services.regions import RegionsService
+    from services.search import SearchService
     from services.security import SecurityClass
     from services.user import UserService
     from services.user_calendar_plan_details import UserCalendarPlanDetailsService
@@ -211,6 +212,12 @@ def get_helpful_reviews_service(databaseSession: databaseSessionDep):
     return HelpfulReviewsService(databaseSession)
 
 
+def get_search_service(databaseSession: databaseSessionDep):
+    from services.search import SearchService
+
+    return SearchService(databaseSession)
+
+
 UtilsServiceDependency = Annotated["UtilsService", Depends(get_utils_service)]
 AddressServiceDependency = Annotated["AddressService", Depends(get_address_service)]
 UserServiceDependency = Annotated["UserService", Depends(get_user_service)]
@@ -239,3 +246,4 @@ UserCalendarPlanDetailsServiceDependency = Annotated[
 HelpfulReviewsServiceDependency = Annotated[
     "HelpfulReviewsService", Depends(get_helpful_reviews_service)
 ]
+SearchServiceDependency = Annotated["SearchService", Depends(get_search_service)]
