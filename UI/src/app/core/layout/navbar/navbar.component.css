@@ -23,6 +23,7 @@
 .native-input {
   position: relative;
   display: inline-flex;
+  flex: 1 1 auto;
   align-items: center;
   width: min(24rem, 30vw);
   min-width: 0;

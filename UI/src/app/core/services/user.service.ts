@@ -7,5 +7,6 @@ import { RouteConstants } from '../../shared/components/constants/route-constant
 
 @Service()
 export class UserService {
+    private http: HttpClient = inject(HttpClient);
 
 }

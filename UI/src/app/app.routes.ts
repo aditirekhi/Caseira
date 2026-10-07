@@ -9,8 +9,10 @@ export const routes: Routes = [
     },
     {
         path: 'user-profile',
-        loadChildren: () => import('./features/user-details/user-details.module')
-            .then(m => m.UserDetailsModule),
+        loadComponent: () => import('./features/user-details/user-main/user-main.component')
+            .then(m => m.UserMainComponent),
+        loadChildren: () => import('./features/user-details/user-details-section/user-details-section.module')
+            .then(m => m.UserDetailsSectionModule),
         canActivate: [checkUserLogin]
     },
     {

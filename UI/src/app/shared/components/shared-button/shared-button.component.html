@@ -1,12 +1,9 @@
 @if (!addedToCartButton()) {
   <button
     [attr.type]="buttonType()"
-    class="{{ buttonClass() }} button-text {{
-      addLeftRightIcons() ? 'both-icons' : ''
-    }}"
+    class="{{ buttonClass() }} button-text addLeftRightIcons() ? 'both-icons' : ''"
     [style.--buttonWidth]="buttonWidth()"
-    [disabled]="disabled()"
-  >
+    [disabled]="disabled()">
     @if (
       (addLeftRightIcons() && iconClass()) ||
       (leftIcon() && (addIcon() || iconOnly()) && iconClass())
@@ -22,8 +19,7 @@
     ) {
       <i
         [attr.class]="addLeftRightIcons() ? rightIconClass() : iconClass()"
-        class="button-icon"
-      ></i>
+        class="button-icon"></i>
     }
   </button>
 } @else {
@@ -31,8 +27,7 @@
     <button
       class="minus-button"
       [disabled]="addingReducingItemFromCart"
-      (click)="reduceItem()"
-    >
+      (click)="reduceItem()">
       <i class="fa-solid fa-minus"></i>
     </button>
     @if (addingReducingItemFromCart) {
@@ -43,8 +38,7 @@
     <button
       class="plus-button"
       [disabled]="addingReducingItemFromCart"
-      (click)="addItem()"
-    >
+      (click)="addItem()">
       <i class="fa-solid fa-plus"></i>
     </button>
   </span>

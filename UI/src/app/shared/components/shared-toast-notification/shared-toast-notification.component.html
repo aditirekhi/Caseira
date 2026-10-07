@@ -5,19 +5,13 @@
   <div [class]="'toast-notification ' + toastNotification.type">
     <span class="toast-notification-info">
       @if (toastNotification.type === "success") {
-        <span class="toast-notification-icon"
-          ><i class="fa-solid fa-check"></i
-        ></span>
+        <span class="toast-notification-icon"><i class="fa-solid fa-check"></i></span>
         <span class="vertical-divider"></span>
       } @else if (toastNotification.type === "warning") {
-        <span class="toast-notification-icon"
-          ><i class="fa-solid fa-triangle-exclamation"></i
-        ></span>
+        <span class="toast-notification-icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
         <span class="vertical-divider"></span>
       } @else if (toastNotification.type === "error") {
-        <span class="toast-notification-icon"
-          ><i class="fa-solid fa-circle-xmark"></i
-        ></span>
+        <span class="toast-notification-icon"><i class="fa-solid fa-circle-xmark"></i></span>
         <span class="vertical-divider"></span>
       }
       <label class="small-helper-text">{{ toastNotification.message }}</label>
@@ -26,7 +20,6 @@
       buttonClass="no-bg-primary-color small"
       [iconOnly]="true"
       iconClass="fa-solid fa-xmark"
-      (click)="dismissToastNotification(toastNotification.id)"
-    ></shared-button>
+      (click)="dismissToastNotification(toastNotification.id)"></shared-button>
   </div>
 }

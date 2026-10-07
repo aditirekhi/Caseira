@@ -50,7 +50,12 @@ class CartIngredientMappingService(BaseService[CartIngredientMapping]):
             )
         )
 
+        from services.recipes import RecipesService
+
+        recipes_service = RecipesService(self.session)
+
         mapped_rows: list[CartIngredientMappingReadClass] = []
+
         for row in rows:
             ingredient_id = row.ingredient_id
             if (
@@ -81,6 +86,7 @@ class CartIngredientMappingService(BaseService[CartIngredientMapping]):
                     price=row.price,
                     ingredient_details=ingredient_details,
                     recipe_id=row.recipe_id,
+                    recipe_name=await recipes_service.get_recipe_name(row.recipe_id),
                 )
             )
 
@@ -155,8 +161,10 @@ class CartIngredientMappingService(BaseService[CartIngredientMapping]):
         if result is None:
             return None
         else:
-            ingredient_details = await self.ingredient_service.fetch_ingredient_details_by_id(
-                result.ingredient_id or UUID(int=0)
+            ingredient_details = (
+                await self.ingredient_service.fetch_ingredient_details_by_id(
+                    result.ingredient_id or UUID(int=0)
+                )
             )
             if ingredient_details is None:
                 ingredient_details = IngredientsClassRead(
@@ -215,8 +223,10 @@ class CartIngredientMappingService(BaseService[CartIngredientMapping]):
             if result is None:
                 return None
             else:
-                ingredient_details = await self.ingredient_service.fetch_ingredient_details_by_id(
-                    result.ingredient_id or UUID(int=0)
+                ingredient_details = (
+                    await self.ingredient_service.fetch_ingredient_details_by_id(
+                        result.ingredient_id or UUID(int=0)
+                    )
                 )
                 if ingredient_details is None:
                     ingredient_details = IngredientsClassRead(

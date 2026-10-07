@@ -27,6 +27,7 @@ export class NavbarComponent {
   searchKeywordSubject$: Subject<string> = new Subject<string>();
 
   navbarMenuItems: MenuTab[] = [
+    { label: 'Home', route: '/home' },
     { label: 'Recipes', route: '/recipe/all' },
     { label: 'Ingredients', route: '/ingredients' },
     {

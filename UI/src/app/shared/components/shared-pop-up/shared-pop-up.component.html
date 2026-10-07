@@ -11,8 +11,7 @@
         buttonClass="no-bg-secondary-color-muted-secondary-border small"
         [iconOnly]="true"
         iconClass="fa-solid fa-xmark"
-        (click)="dismissPopUp()"
-      ></shared-button>
+        (click)="dismissPopUp()"></shared-button>
     </div>
     <div class="horizontal-divider">
       <hr />
@@ -26,13 +25,9 @@
   <div class="pop-up-actions">
     <shared-button
       buttonClass="primary-background-secondary-color-border small"
-      (click)="dismissPopUp()"
-      >Cancel</shared-button
-    >
+      (click)="dismissPopUp()">Cancel</shared-button>
     <shared-button
       buttonClass="secondary-background-primary-color-no-border small"
-      (click)="confirmPopUp()"
-      >Confirm</shared-button
-    >
+      (click)="confirmPopUp()">Confirm</shared-button>
   </div>
 </section>

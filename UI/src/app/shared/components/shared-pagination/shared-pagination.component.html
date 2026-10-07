@@ -7,8 +7,7 @@
     aria-label="Go to first page"
     title="First page"
     (click)="goToFirstPage()"
-    [disabled]="activePage === 1"
-  ></shared-button>
+    [disabled]="activePage === 1"></shared-button>
   <shared-button
     class="pagination-previous-button"
     buttonClass="no-bg-secondary-color"
@@ -17,17 +16,14 @@
     aria-label="Go to previous page"
     title="Previous page"
     (click)="goToPreviousPage()"
-    [disabled]="activePage === 1"
-  ></shared-button>
+    [disabled]="activePage === 1"></shared-button>
   <span class="page-numbers-container">
     @for (page of generatePaginationRange(); track $index) {
       @if (typeof page === "number") {
         <span
           class="page-number"
           (click)="selectPage(page)"
-          [ngClass]="isPageActive(page) ? 'active-page' : ''"
-          >{{ page }}</span
-        >
+          [ngClass]="isPageActive(page) ? 'active-page' : ''">{{ page }}</span>
       } @else {
         <span class="page-number pagination-ellipsis">{{ page }}</span>
       }
@@ -41,8 +37,7 @@
     aria-label="Go to next page"
     title="Next page"
     (click)="goToNextPage()"
-    [disabled]="activePage === totalPages()"
-  ></shared-button>
+    [disabled]="activePage === totalPages()"></shared-button>
   <shared-button
     class="pagination-last-button"
     buttonClass="no-bg-secondary-color"
@@ -51,6 +46,5 @@
     aria-label="Go to last page"
     title="Last page"
     (click)="goToLastPage()"
-    [disabled]="activePage === totalPages()"
-  ></shared-button>
+    [disabled]="activePage === totalPages()"></shared-button>
 </section>

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RecipesService } from '../../../core/services/recipes.service';
-import { RecipeCardInterface, RecipeAllRequestQueryParams } from '../../../shared/interfaces/recipes.interface';
+import { RecipeCardInterface, RecipeAllRequestQueryParams, RecipeAllResponse } from '../../../shared/interfaces/recipes.interface';
 import { SharedToastNotificationService } from '../../../shared/components/shared-toast-notification/shared-toast-notification.service';
 import { Constants } from '../../../shared/components/constants/constants';
 
@@ -33,11 +33,18 @@ export class MostViewedRecipesComponent {
       page_size: this.constants.recipesConstants.MOST_VIEWED_RECIPES_PAGE_SIZE
     };
     this.recipesService.fetchAllRecipes(queryParams).subscribe({
-      next: (recipes) => {
-        this.mostViewedRecipes = Array.isArray(recipes) ? recipes : [];
+      next: (recipes: RecipeAllResponse | string) => {
+        if (typeof recipes === 'string') {
+          this.sharedToastNotificationService.showNotification(
+            recipes,
+            this.constants.TOAST_NOTIFICATION_TYPES['ERROR']
+          );
+          return;
+        }
+        this.mostViewedRecipes = recipes.recipes;
         this.constants.primaryLoadingPage.set(false);
         this.loadingMostViewedRecipes = false;
-        this.changeDetection.detectChanges();
+        this.changeDetection.markForCheck();
       },
       error: (error) => {
         this.sharedToastNotificationService.showNotification(
@@ -45,7 +52,7 @@ export class MostViewedRecipesComponent {
           this.constants.TOAST_NOTIFICATION_TYPES['ERROR']);
         this.constants.primaryLoadingPage.set(false);
         this.loadingMostViewedRecipes = false;
-        this.changeDetection.detectChanges();
+        this.changeDetection.markForCheck();
       }
     });
   }

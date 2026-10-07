@@ -7,7 +7,7 @@ export interface CartDetails {
 
 export interface CartRecipeMapping {
     cart_recipe_id: string;
-    recipe_details: RecipeCartDetails[];
+    recipe_details: RecipeCartDetails;
     cart_id: string;
     recipe_id: string;
     quantity: number;
@@ -26,11 +26,13 @@ export interface RecipeCartDetails {
 
 export interface CartIngredientMapping {
     cart_ingredient_id: string;
-    ingredient_details: IngredientCartDetails[];
+    ingredient_details: IngredientCartDetails;
     cart_id: string;
     ingredient_id: string;
     quantity: number;
     price: number;
+    recipe_id: string;
+    recipe_name: string;
 }
 
 export interface IngredientCartDetails {

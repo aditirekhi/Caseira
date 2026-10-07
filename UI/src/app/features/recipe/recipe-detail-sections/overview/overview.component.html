@@ -1,6 +1,6 @@
 @if (recipeDetails) {
   <main class="overview-section">
-    @if (constants.globalScreenWidth() > 900) {
+    @if (constants.globalScreenWidth()> 900) {
       <section class="ingredients">
         <span class="section-header">
           <label class="card-title-recipe-name"><b>Ingredients</b></label>
@@ -16,8 +16,7 @@
                 <span class="item-ingredients-list">
                   <shared-tags
                     tagClass="secondary-bg-primary-color-no-border"
-                    [tagName]="itemIngredient.key"
-                  ></shared-tags>
+                    [tagName]="itemIngredient.key"></shared-tags>
                 </span>
                 <ul class="ingredient-list">
                   @for (ingredient of itemIngredient.value; track $index) {
@@ -37,10 +36,9 @@
           <shared-button
             buttonClass="light larger"
             [addedToCartButton]="true"
-            [recipeId]="recipeDetails.recipe_id"
+            [itemId]="recipeDetails.recipe_id"
             buttonWidth="100%"
-            (recipeDeleted)="removeRecipeFromCart()"
-          ></shared-button>
+            (recipeDeleted)="removeRecipeFromCart()"></shared-button>
         } @else if (addingRecipeToCart) {
           <shared-button
             buttonClass="no-bg-secondary-color-muted-secondary-border larger"
@@ -48,9 +46,7 @@
             iconClass="fa-solid fa-spinner fa-spin"
             [leftIcon]="true"
             buttonWidth="100%"
-            [disabled]="true"
-            >Adding ingredients to Cart...</shared-button
-          >
+            [disabled]="true">Adding ingredients to Cart...</shared-button>
         } @else {
           <shared-button
             buttonClass="no-bg-secondary-color-muted-secondary-border larger"
@@ -59,14 +55,12 @@
             [leftIcon]="true"
             class="add-to-cart-button"
             buttonWidth="100%"
-            (click)="addRecipeToCart()"
-            >Add all ingredients to cart</shared-button
-          >
+            (click)="addRecipeToCart()">Add all ingredients to cart</shared-button>
         }
       </section>
     }
     <section class="both-rows">
-      @if (constants.globalScreenWidth() > 900) {
+      @if (constants.globalScreenWidth()> 900) {
         <section class="nutrition-section">
           <span class="section-header">
             <label class="card-title-recipe-name"><b>Nutrition</b></label>
@@ -92,9 +86,7 @@
             [addIcon]="true"
             iconClass="fa-solid fa-arrow-right"
             buttonWidth="100%"
-            [routerLink]="['/recipe', recipeDetails.recipe_id, 'nutrition']"
-            >Full Nutrition Info</shared-button
-          >
+            [routerLink]="['/recipe', recipeDetails.recipe_id, 'nutrition']">Full Nutrition Info</shared-button>
         </section>
       }
       <section class="more-recipes-section">
@@ -113,28 +105,21 @@
             [kitPrice]="recipe.kit_price"
             [imageUrl]="recipe.image_url"
             cardDirection="row"
-            class="recipe-card"
-          ></shared-recipe-card>
+            class="recipe-card"></shared-recipe-card>
         }
         <shared-button
           buttonClass="no-bg-secondary-color-muted-secondary-border larger"
           [addIcon]="true"
           iconClass="fa-solid fa-arrow-right"
-          routerLink="/recipe/all"
-          >View All Recipes</shared-button
-        >
+          routerLink="/recipe/all">View All Recipes</shared-button>
       </section>
       <section class="review-section">
         <span class="section-header">
-          <label class="card-title-recipe-name"
-            ><b>Loved this recipe?</b></label
-          >
+          <label class="card-title-recipe-name"><b>Loved this recipe?</b></label>
           <img src="assets/header_icon.png" class="header-icon" />
         </span>
-        <label class="body-paragraph review-subtitle"
-          >Share your experience with this recipe and help others discover the
-          joy of cooking!</label
-        >
+        <label class="body-paragraph review-subtitle">Share your experience with this recipe and help others discover the
+          joy of cooking!</label>
         <span class="body-paragraph">
           @for (review of getRange(recipeDetails.ratings); track review) {
             <i class="fa-solid fa-star filled"></i>
@@ -145,18 +130,14 @@
           @for (review of getRange(5 - recipeDetails.ratings); track review) {
             <i class="fa-solid fa-star unfilled"></i>
           }
-          <label class="body-paragraph review-count"
-            >({{ recipeDetails.review_count }} reviews)</label
-          >
+          <label class="body-paragraph review-count">({{ recipeDetails.review_count }} reviews)</label>
         </span>
         <shared-button
           buttonClass="secondary-background-primary-color-no-border larger"
-          (click)="displayReviewPopUp()"
-          >Write a Review</shared-button
-        >
+          (click)="displayReviewPopUp()">Write a Review</shared-button>
       </section>
     </section>
-    @if (constants.globalScreenWidth() > 900) {
+    @if (constants.globalScreenWidth()> 900) {
       <section class="recipe-directions">
         <span class="section-header">
           <label class="card-title-recipe-name"><b>Step by Step</b></label>
@@ -166,13 +147,9 @@
           <div class="recipe-item-details">
             @for (item of recipeDetails.recipe_items; track $index) {
               <div class="item-container">
-                <span class="body-paragraph direction-index"
-                  >{{ $index + 1 }}.</span
-                >
+                <span class="body-paragraph direction-index">{{ $index + 1 }}.</span>
                 <div class="item-details">
-                  <label class="body-paragraph"
-                    ><b>{{ item.item_name }}</b></label
-                  >
+                  <label class="body-paragraph"><b>{{ item.item_name }}</b></label>
                   <label class="captions-labels">{{
                     item.item_description
                   }}</label>
@@ -188,9 +165,7 @@
             [addIcon]="true"
             iconClass="fa-solid fa-arrow-right"
             buttonWidth="100%"
-            [routerLink]="['/recipe', recipeDetails.recipe_id, 'directions']"
-            >View Details</shared-button
-          >
+            [routerLink]="['/recipe', recipeDetails.recipe_id, 'directions']">View Details</shared-button>
         </div>
       </section>
     }
@@ -202,8 +177,7 @@
       [addIcon]="true"
       iconClass="fa-solid fa-comment"
       (confirmPopUpEvent)="confirmReviewPopUp()"
-      (dismissPopUpEvent)="closeReviewPopUp()"
-    >
+      (dismissPopUpEvent)="closeReviewPopUp()">
       <div class="ratings-container">
         @for (rating of ratings; track rating.index) {
           <shared-button
@@ -213,15 +187,13 @@
                 ? 'fa-solid fa-star filled'
                 : 'fa-solid fa-star unfilled'
             "
-            (click)="addRating(rating.index)"
-          ></shared-button>
+            (click)="addRating(rating.index)"></shared-button>
         }
       </div>
       <textarea
         [placeholder]="'Share your experience...'"
         class="review-input secondary-text"
-        [(ngModel)]="recipeComments"
-      ></textarea>
+        [(ngModel)]="recipeComments"></textarea>
     </shared-pop-up>
   }
 }

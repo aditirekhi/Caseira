@@ -16,6 +16,7 @@ class CartIngredientMappingReadClass(CartIngredientMappingBaseClass):
     cart_ingredient_id: UUID
     ingredient_details: IngredientsClassRead
     ingredient_id: UUID
+    recipe_name: str
 
 
 class CartIngredientMappingCreateClass(CartIngredientMappingBaseClass):

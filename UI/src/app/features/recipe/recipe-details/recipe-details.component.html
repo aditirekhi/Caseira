@@ -13,19 +13,16 @@
           <shared-tags
             [tagName]="recipeDetails.category_name!"
             tagClass="no-bg-secondary-color-muted-background-color-border"
-            class="small-helper-text"
-          ></shared-tags>
+            class="small-helper-text"></shared-tags>
           <shared-tags
             [tagName]="recipeDetails.region_name!"
             tagClass="no-bg-secondary-color-muted-background-color-border"
-            class="small-helper-text"
-          ></shared-tags>
+            class="small-helper-text"></shared-tags>
           @for (feature of recipeDetails.features!; track feature) {
             <shared-tags
               [tagName]="feature"
               tagClass="no-bg-secondary-color-muted-background-color-border"
-              class="small-helper-text"
-            ></shared-tags>
+              class="small-helper-text"></shared-tags>
           }
         </span>
         <span class="review-time-serves-container captions-labels">
@@ -65,20 +62,15 @@
                 "
                 [leftIcon]="true"
                 [disabled]="creatingUpdatingPlanDate"
-                (click)="showCalendarInput = !showCalendarInput"
-                >Planned for
+                (click)="showCalendarInput = !showCalendarInput">Planned for
                 {{
                   recipeDetails.plan_date | date: "dd/MM/yyyy"
-                }}</shared-button
-              >
+                }}</shared-button>
               @if (showCalendarInput) {
                 <div
                   class="calendar-input"
-                  (focusout)="onCalendarFocusOut($event)"
-                >
-                  <label class="small-helper-text"
-                    ><b>SELECT PREFERRED DAY:</b></label
-                  >
+                  (focusout)="onCalendarFocusOut($event)">
+                  <label class="small-helper-text"><b>SELECT PREFERRED DAY:</b></label>
                   <span class="input-button-container">
                     <input
                       type="date"
@@ -92,8 +84,7 @@
                       buttonClass="secondary-background-primary-color-no-border small"
                       [iconOnly]="true"
                       iconClass="fa-solid fa-check"
-                      (click)="onPlanDateChange()"
-                    ></shared-button>
+                      (click)="onPlanDateChange()"></shared-button>
                   </span>
                 </div>
               }
@@ -110,17 +101,12 @@
                 "
                 [leftIcon]="true"
                 (click)="showCalendarInput = !showCalendarInput"
-                [disabled]="creatingUpdatingPlanDate"
-                >Add to Plan</shared-button
-              >
+                [disabled]="creatingUpdatingPlanDate">Add to Plan</shared-button>
               @if (showCalendarInput) {
                 <div
                   class="calendar-input"
-                  (focusout)="onCalendarFocusOut($event)"
-                >
-                  <label class="small-helper-text"
-                    ><b>SELECT PREFERRED DAY:</b></label
-                  >
+                  (focusout)="onCalendarFocusOut($event)">
+                  <label class="small-helper-text"><b>SELECT PREFERRED DAY:</b></label>
                   <span class="input-button-container">
                     <input
                       type="date"
@@ -131,8 +117,7 @@
                       buttonClass="secondary-background-primary-color-no-border small"
                       [iconOnly]="true"
                       iconClass="fa-solid fa-check"
-                      (click)="onPlanDateChange()"
-                    ></shared-button>
+                      (click)="onPlanDateChange()"></shared-button>
                   </span>
                 </div>
               }
@@ -150,9 +135,7 @@
             "
             [leftIcon]="true"
             [disabled]="addingRemovingBookmark"
-            (click)="addRemoveBookmarkForTheRecipe()"
-            >Save Recipe</shared-button
-          >
+            (click)="addRemoveBookmarkForTheRecipe()">Save Recipe</shared-button>
         </span>
       </div>
       <div>
@@ -162,7 +145,7 @@
     <section class="recipe-shorthand-details">
       <div class="detail-card">
         <i class="fa-solid fa-clock"></i>
-        <span class="text-card">
+        <span>
           <label class="captions-labels"><b>Prep Time</b></label>
           <label class="small-helper-text">{{ recipeDetails.prep_time }}</label>
         </span>
@@ -170,7 +153,7 @@
       <div class="vertical-divider"></div>
       <div class="detail-card">
         <i class="fa-solid fa-hourglass-half"></i>
-        <span class="text-card">
+        <span>
           <label class="captions-labels"><b>Cook Time</b></label>
           <label class="small-helper-text">{{ recipeDetails.cook_time }}</label>
         </span>
@@ -178,7 +161,7 @@
       <div class="vertical-divider"></div>
       <div class="detail-card">
         <i class="fa-solid fa-stopwatch"></i>
-        <span class="text-card">
+        <span>
           <label class="captions-labels"><b>Total Time</b></label>
           <label class="small-helper-text">{{
             recipeDetails.total_time
@@ -188,17 +171,15 @@
       <div class="vertical-divider"></div>
       <div class="detail-card">
         <i class="fa-solid fa-users"></i>
-        <span class="text-card">
+        <span>
           <label class="captions-labels"><b>Serves</b></label>
-          <label class="small-helper-text"
-            >{{ recipeDetails.no_of_people_served }} people</label
-          >
+          <label class="small-helper-text">{{ recipeDetails.no_of_people_served }} people</label>
         </span>
       </div>
       <div class="vertical-divider"></div>
       <div class="detail-card">
         <i class="fa-solid fa-chart-line"></i>
-        <span class="text-card">
+        <span>
           <label class="captions-labels"><b>Difficulty Level</b></label>
           <label class="small-helper-text">{{
             recipeDetails.difficulty_level
@@ -211,9 +192,8 @@
         <shared-button
           class="tab-tile"
           [routerLink]="'/recipe/' + recipeDetails.recipe_id + tab.route"
-          routerLinkActive="active-tile"
-        >
-          @if (constants.globalScreenWidth() > 900) {
+          routerLinkActive="active-tile">
+          @if (constants.globalScreenWidth()> 900) {
             {{ tab.label }}
           } @else {
             <span class="button-title-responsive">

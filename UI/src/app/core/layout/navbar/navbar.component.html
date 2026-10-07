@@ -12,7 +12,7 @@
       <img src="assets/Logos/logo.png" class="logo-image" alt="logo" />
     </shared-button>
   }
-  <span class="native-input no-bg-font-border-primary grow">
+  <span class="native-input no-bg-font-border-primary">
     <input
       type="search"
       placeholder="Search recipes, ingredients..."
@@ -31,7 +31,9 @@
                 </li>
               }
             } @else {
-              <li>{{ result.recipe_name }}</li>
+              <li>
+                {{ result.recipe_name }}
+              </li>
             }
           }
         </ul>
@@ -55,7 +57,6 @@
       [iconOnly]="true"
       iconClass="fa-solid fa-user"
       routerLink="/user-profile"
-      class="border-r-2 border-(--primary-color)"
     ></shared-button>
     <shared-button
       buttonClass="no-bg-primary-color small"
@@ -86,6 +87,17 @@
     </div>
 
     <div class="drawer-nav-links">
+      <shared-button
+        buttonClass="no-bg-primary-color medium"
+        [addLeftRightIcons]="true"
+        iconClass="fa-solid fa-book-open"
+        rightIconClass="fa-solid fa-angle-right"
+        routerLink="/home"
+        class="navbar-menu-item"
+        routerLinkActive="active"
+        (click)="closeNavMenu()"
+        >Home</shared-button
+      >
       <shared-button
         buttonClass="no-bg-primary-color medium"
         [addLeftRightIcons]="true"

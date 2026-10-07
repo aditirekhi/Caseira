@@ -1,1 +1,112 @@
-<main></main>
+<main class="cart-page">
+  <section class="cart-panel">
+    <div class="cart-header">
+      <div class="cart-heading-group">
+        <span class="cart-icon">
+          <i class="fa-solid fa-shopping-cart"></i
+        ></span>
+        <div class="cart-heading-copy">
+          <span class="cart-title">Your Basket</span>
+          <span class="cart-subtitle"
+            ><b>Review your cart before checkout.</b></span
+          >
+        </div>
+      </div>
+      <div class="cart-actions">
+        <shared-button
+          buttonClass="no-bg-secondary-color-muted-secondary-border medium"
+          [addIcon]="true"
+          [leftIcon]="true"
+          iconClass="fa-brands fa-pagelines"
+        >
+          {{ totalItems }} Item(s)
+        </shared-button>
+        <shared-button
+          buttonClass="no-bg-secondary-color-muted-secondary-border medium"
+          [addIcon]="true"
+          [leftIcon]="true"
+          iconClass="fa-solid fa-trash"
+          >Clear Cart</shared-button
+        >
+      </div>
+    </div>
+    <div class="cart-items">
+      @for (cartItem of cartDetails?.ingredients_in_cart; track $index) {
+        <div class="cart-item">
+          <img
+            src="assets/{{ cartItem.ingredient_details.image_url }}"
+            class="cart-item-image"
+          />
+          <div class="cart-item-details">
+            <span class="cart-item-title">
+              <b>{{ cartItem.ingredient_details.ingredient_name }}</b>
+            </span>
+            <span class="cart-item-meta">
+              <i class="fa-solid fa-tag"></i>
+              <label class="cart-item-meta-text"
+                ><b>Recipe:</b> {{ cartItem.recipe_name }}</label
+              >
+            </span>
+            <span class="cart-item-meta">
+              <i class="fa-solid fa-box-open"></i>
+              <label class="cart-item-meta-text"
+                ><b>Quantity:</b> {{ cartItem.quantity }}</label
+              >
+            </span>
+          </div>
+          <div class="cart-item-controls">
+            <span class="item-price">&#x20B9; {{ cartItem.price }}</span>
+            <shared-button
+              buttonClass="dark medium"
+              [addedToCartButton]="true"
+              [itemId]="cartItem.ingredient_id"
+              (recipeDeleted)="fetchCartDetails()"
+            ></shared-button>
+          </div>
+        </div>
+      }
+      @for (cartItem of cartDetails?.recipe_in_cart; track $index) {
+        <div class="cart-item">
+          <img
+            src="assets/{{ cartItem.recipe_details.image_url }}"
+            class="cart-item-image"
+          />
+          <div class="cart-item-details">
+            <span class="cart-item-title">
+              <b>{{ cartItem.recipe_details.recipe_name }}</b>
+            </span>
+            <span class="cart-item-meta">
+              <i class="fa-solid fa-box-open"></i>
+              <label class="cart-item-meta-text"
+                ><b>Quantity:</b> {{ cartItem.quantity }}</label
+              >
+            </span>
+          </div>
+          <div class="cart-item-controls">
+            <span class="item-price">&#x20B9; {{ cartItem.price }}</span>
+            <shared-button
+              buttonClass="dark medium"
+              [addedToCartButton]="true"
+              [itemId]="cartItem.recipe_id"
+              (recipeDeleted)="fetchCartDetails()"
+            ></shared-button>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+  <div class="cart-total">
+    <span class="cart-total-label"
+      ><i class="fa-solid fa-receipt"></i><b>Total Price:</b></span
+    >
+    <span class="cart-total-actions">
+      <label>&#x20B9; {{ totalPrice }}</label>
+      <shared-button
+        buttonClass="secondary-background-primary-color-no-border medium"
+        [addIcon]="true"
+        iconClass="fa-solid fa-angle-right"
+        >Continue to Checkout</shared-button
+      >
+    </span>
+  </div>
+</main>

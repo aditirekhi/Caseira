@@ -1,17 +1,21 @@
-<div class="category-card">
-  <img [src]="'assets/' + imageUrl()" class="category-image" />
-  <div class="category-details">
+<div
+  class="category-card">
+  <img
+    [src]="'assets/' + imageUrl()"
+    class="category-image"
+  />
+  <div
+    class="category-details">
     <shared-button [routerLink]="['/regions', regionId()]">
-      @if (constants.globalScreenWidth() > 900) {
+      @if (constants.globalScreenWidth()> 900) {
         <span class="card-title-recipe-name"> {{ regionName() }} </span>
       } @else {
-        <shared-button class="small-helper-text"
-          ><b>{{ regionName() }} </b></shared-button
-        >
+        <shared-button class="small-helper-text"><b>{{ regionName() }} </b></shared-button>
       }
     </shared-button>
-    <div class="category-specifications">
-      @if (constants.globalScreenWidth() > 900) {
+    <div
+      class="category-specifications">
+      @if (constants.globalScreenWidth()> 900) {
         <label class="recipe-count">{{ noOfRecipes() }} Recipes</label>
         <i class="fa-solid fa-arrow-right"></i>
       } @else {

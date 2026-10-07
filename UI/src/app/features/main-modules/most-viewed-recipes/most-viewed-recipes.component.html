@@ -1,15 +1,16 @@
-<main class="most-viewed-recipes-section">
-  <div class="header">
+<main
+  class="most-viewed-recipes-section">
+  <div
+    class="header">
     <label class="section-heading">Most Viewed Recipes</label>
     <shared-button
       buttonClass="no-bg-secondary-color small"
       [addIcon]="true"
       iconClass="fa-solid fa-arrow-right"
-      routerLink="/recipe/all"
-      >View All Recipes</shared-button
-    >
+      routerLink="/recipe/all">View All Recipes</shared-button>
   </div>
-  <div class="recipes-container">
+  <div
+    class="recipes-container">
     @if (loadingMostViewedRecipes) {
       @for (recipeSkeleton of getMostViewedLength(); track $index) {
         <shared-skeleton skeletonType="recipe-card"></shared-skeleton>
@@ -25,8 +26,7 @@
           [timeToCook]="recipe.total_time"
           [noOfIngredients]="recipe.ingredients_count"
           [recipeRating]="recipe.ratings"
-          [reviewCount]="recipe.review_count"
-        ></shared-recipe-card>
+          [reviewCount]="recipe.review_count"></shared-recipe-card>
       }
     }
   </div>

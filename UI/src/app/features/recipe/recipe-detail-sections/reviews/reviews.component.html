@@ -16,9 +16,7 @@
       <span class="rating-details">
         <span class="rating-card">
           <span class="rating-title">
-            <label class="body-paragraph"
-              >5<i class="fa-solid fa-star filled"></i
-            ></label>
+            <label class="body-paragraph">5<i class="fa-solid fa-star filled"></i></label>
           </span>
           <div class="rating-bar">
             <div
@@ -27,16 +25,13 @@
                   ? (reviews.review_count_5 / reviews.total_review_count) * 100
                   : 0
               "
-              class="filled-bar"
-            ></div>
+              class="filled-bar"></div>
           </div>
           <label class="secondary-text">{{ reviews.review_count_5 }}</label>
         </span>
         <span class="rating-card">
           <span class="rating-title">
-            <label class="body-paragraph"
-              >4 <i class="fa-solid fa-star filled"></i
-            ></label>
+            <label class="body-paragraph">4 <i class="fa-solid fa-star filled"></i></label>
           </span>
           <div class="rating-bar">
             <div
@@ -45,16 +40,13 @@
                   ? (reviews.review_count_4 / reviews.total_review_count) * 100
                   : 0
               "
-              class="filled-bar"
-            ></div>
+              class="filled-bar"></div>
           </div>
           <label class="secondary-text">{{ reviews.review_count_4 }}</label>
         </span>
         <span class="rating-card">
           <span class="rating-title">
-            <label class="body-paragraph"
-              >3 <i class="fa-solid fa-star filled"></i
-            ></label>
+            <label class="body-paragraph">3 <i class="fa-solid fa-star filled"></i></label>
           </span>
           <div class="rating-bar">
             <div
@@ -63,16 +55,13 @@
                   ? (reviews.review_count_3 / reviews.total_review_count) * 100
                   : 0
               "
-              class="filled-bar"
-            ></div>
+              class="filled-bar"></div>
           </div>
           <label class="secondary-text">{{ reviews.review_count_3 }}</label>
         </span>
         <span class="rating-card">
           <span class="rating-title">
-            <label class="body-paragraph"
-              >2 <i class="fa-solid fa-star filled"></i
-            ></label>
+            <label class="body-paragraph">2 <i class="fa-solid fa-star filled"></i></label>
           </span>
           <div class="rating-bar">
             <div
@@ -81,16 +70,13 @@
                   ? (reviews.review_count_2 / reviews.total_review_count) * 100
                   : 0
               "
-              class="filled-bar"
-            ></div>
+              class="filled-bar"></div>
           </div>
           <label class="secondary-text">{{ reviews.review_count_2 }}</label>
         </span>
         <span class="rating-card">
           <span class="rating-title">
-            <label class="body-paragraph"
-              >1 <i class="fa-solid fa-star filled"></i
-            ></label>
+            <label class="body-paragraph">1 <i class="fa-solid fa-star filled"></i></label>
           </span>
           <div class="rating-bar">
             <div
@@ -99,8 +85,7 @@
                   ? (reviews.review_count_1 / reviews.total_review_count) * 100
                   : 0
               "
-              class="filled-bar"
-            ></div>
+              class="filled-bar"></div>
           </div>
           <label class="secondary-text">{{ reviews.review_count_1 }}</label>
         </span>
@@ -108,14 +93,12 @@
     </div>
     <div>
       @for (review of reviews.review_details; track $index) {
-        @if (constants.globalScreenWidth() > 900) {
+        @if (constants.globalScreenWidth()> 900) {
           <div class="review-card">
             <i class="fa-solid fa-user"></i>
             <div class="review-card-details">
               <span class="user-rating-details">
-                <span class="body-paragraph username"
-                  ><b>{{ review.username }}</b></span
-                >
+                <span class="body-paragraph username"><b>{{ review.username }}</b></span>
                 <span class="user-rating">
                   @for (rating of getRange(review.ratings!); track $index) {
                     <i class="fa-solid fa-star filled"></i>
@@ -142,9 +125,7 @@
                 [addIcon]="true"
                 [iconClass]="'fa-solid fa-spinner fa-spin'"
                 [leftIcon]="true"
-                [disabled]="true"
-                >Helpful ({{ review.helpful_review_count }})</shared-button
-              >
+                [disabled]="true">Helpful ({{ review.helpful_review_count }})</shared-button>
             } @else {
               <shared-button
                 buttonClass="no-bg-secondary-color-secondary-border medium"
@@ -155,18 +136,14 @@
                     : 'fa-regular fa-thumbs-up'
                 "
                 [leftIcon]="true"
-                (click)="toggleHelpfulReview(review)"
-                >Helpful ({{ review.helpful_review_count }})</shared-button
-              >
+                (click)="toggleHelpfulReview(review)">Helpful ({{ review.helpful_review_count }})</shared-button>
             }
           </div>
         } @else {
           <div class="review-card">
             <span class="review-user-details">
               <i class="fa-solid fa-user"></i>
-              <span class="body-paragraph username"
-                ><b>{{ review.username }}</b></span
-              >
+              <span class="body-paragraph username"><b>{{ review.username }}</b></span>
               @if (
                 sendingHelpfulReviewRequest &&
                 review.recipe_review_id === currentReviewId
@@ -176,9 +153,7 @@
                   [addIcon]="true"
                   [iconClass]="'fa-solid fa-spinner fa-spin'"
                   [leftIcon]="true"
-                  [disabled]="true"
-                  >Helpful ({{ review.helpful_review_count }})</shared-button
-                >
+                  [disabled]="true">Helpful ({{ review.helpful_review_count }})</shared-button>
               } @else {
                 <shared-button
                   buttonClass="no-bg-secondary-color-secondary-border medium"
@@ -189,9 +164,7 @@
                       : 'fa-regular fa-thumbs-up'
                   "
                   [leftIcon]="true"
-                  (click)="toggleHelpfulReview(review)"
-                  >Helpful ({{ review.helpful_review_count }})</shared-button
-                >
+                  (click)="toggleHelpfulReview(review)">Helpful ({{ review.helpful_review_count }})</shared-button>
               }
             </span>
             <div class="review-card-details">
@@ -228,8 +201,7 @@
                     ? 'fa-solid fa-star filled'
                     : 'fa-solid fa-star unfilled'
                 "
-                (click)="addRating(1)"
-              ></shared-button>
+                (click)="addRating(1)"></shared-button>
               <shared-button
                 buttonClass="no-bg-prompt-color"
                 [iconOnly]="true"
@@ -238,8 +210,7 @@
                     ? 'fa-solid fa-star filled'
                     : 'fa-solid fa-star unfilled'
                 "
-                (click)="addRating(2)"
-              ></shared-button>
+                (click)="addRating(2)"></shared-button>
               <shared-button
                 buttonClass="no-bg-prompt-color"
                 [iconOnly]="true"
@@ -248,8 +219,7 @@
                     ? 'fa-solid fa-star filled'
                     : 'fa-solid fa-star unfilled'
                 "
-                (click)="addRating(3)"
-              ></shared-button>
+                (click)="addRating(3)"></shared-button>
               <shared-button
                 buttonClass="no-bg-prompt-color"
                 [iconOnly]="true"
@@ -258,8 +228,7 @@
                     ? 'fa-solid fa-star filled'
                     : 'fa-solid fa-star unfilled'
                 "
-                (click)="addRating(4)"
-              ></shared-button>
+                (click)="addRating(4)"></shared-button>
               <shared-button
                 buttonClass="no-bg-prompt-color"
                 [iconOnly]="true"
@@ -268,40 +237,30 @@
                     ? 'fa-solid fa-star filled'
                     : 'fa-solid fa-star unfilled'
                 "
-                (click)="addRating(5)"
-              ></shared-button>
+                (click)="addRating(5)"></shared-button>
             </div>
             <textarea
               class="review-textarea"
               [rows]="4"
               placeholder="Share your experience with us!"
-              [(ngModel)]="reviewInputValue"
-            ></textarea>
+              [(ngModel)]="reviewInputValue"></textarea>
             <span class="review-button-container">
               <shared-button
-                buttonClass="no-bg-secondary-color-secondary-border small"
-                >Submit</shared-button
-              >
+                buttonClass="no-bg-secondary-color-secondary-border small">Submit</shared-button>
               <shared-button
                 buttonClass="secondary-background-primary-color-no-border small"
-                (click)="resetReviewInput()"
-                >Reset</shared-button
-              >
+                (click)="resetReviewInput()">Reset</shared-button>
             </span>
           </div>
         }
         <shared-button
           buttonClass="secondary-background-primary-color-no-border large"
-          (click)="showReviewInputContainer()"
-          >Write a Review</shared-button
-        >
+          (click)="showReviewInputContainer()">Write a Review</shared-button>
       </div>
     </div>
   </section>
 } @else {
   <div class="no-reviews-container">
-    <label class="card-title-recipe-name no-reviews"
-      >No reviews available for this recipe.</label
-    >
+    <label class="card-title-recipe-name no-reviews">No reviews available for this recipe.</label>
   </div>
 }

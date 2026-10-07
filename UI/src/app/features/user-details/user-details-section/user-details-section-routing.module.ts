@@ -8,7 +8,7 @@ const routes: Routes = [
       .then(m => m.AddressDetailsComponent)
   },
   {
-    path: 'bookmarks',
+    path: 'bookmarked',
     loadComponent: () => import('./bookmarked/bookmarked.component')
       .then(m => m.BookmarkedComponent)
   },
@@ -21,6 +21,16 @@ const routes: Routes = [
     path: 'payment-details',
     loadComponent: () => import('./payment-details/payment-details.component')
       .then(m => m.PaymentDetailsComponent)
+  },
+  {
+    path: 'overall-user-details',
+    loadComponent: () => import('./overall-user-details/overall-user-details.component')
+      .then(m => m.OverallUserDetailsComponent)
+  },
+  {
+    path: 'preferences',
+    loadComponent: () => import('./preferences/preferences.component')
+      .then(m => m.PreferencesComponent)
   },
   {
     path: 'recipes-visited',
@@ -39,8 +49,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadComponent: () => import('./overall-user-details/overall-user-details.component')
-      .then(m => m.OverallUserDetailsComponent)
+    redirectTo: 'overall-user-details',
+    pathMatch: 'full'
   }
 ];
 
@@ -48,4 +58,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UserDetailsRoutingModule { }
+export class UserDetailsSectionRoutingModule { }

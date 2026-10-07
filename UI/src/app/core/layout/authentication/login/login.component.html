@@ -1,17 +1,21 @@
-<main class="login-container">
-  <div class="login-form">
-    <img src="assets/Logos/logo-small.png" class="logo-small" />
+<main
+  class="login-container">
+  <div
+    class="login-form">
+    <img
+      src="assets/Logos/logo-small.png"
+      class="logo-small"
+    />
     <label class="card-title-recipe-name">Welcome Back</label>
-    <label class="small-helper-text"
-      >Log in to continue your healthy journey.</label
-    >
-    <form [formGroup]="loginForm" (ngSubmit)="logInSubmission()">
+    <label class="small-helper-text">Log in to continue your healthy journey.</label>
+    <form  [formGroup]="loginForm" (ngSubmit)="logInSubmission()">
       <div class="form-container">
         <span class="input-container">
           <label class="captions-labels">Email</label>
           <span class="native-input no-bg-font-border-secondary">
             <i class="fa-solid fa-user"></i>
             <input
+
               type="text"
               placeholder="Enter email"
               formControlName="emailAddress"
@@ -23,6 +27,7 @@
           <span class="native-input no-bg-font-border-secondary">
             <i class="fa-solid fa-lock"></i>
             <input
+
               type="password"
               placeholder="Enter password"
               formControlName="password"
@@ -36,14 +41,12 @@
           [routerLink]="[
             '/auth/forgot-password',
             { queryParams: { returnUrl: returnUrl } },
-          ]"
-          >Forgot Password?</shared-button
-        >
+          ]">Forgot Password?</shared-button>
       </div>
       @if (hasErrors) {
-        <span class="error-message small-helper-text">
-          <i class="fa-solid fa-circle-info"></i>{{ errorMessage }}</span
-        >
+        <span
+          class="error-message small-helper-text">
+          <i class="fa-solid fa-circle-info"></i>{{ errorMessage }}</span>
       }
       @if (loginInProgress) {
         <shared-button
@@ -52,9 +55,7 @@
           [addIcon]="true"
           iconClass="fa-solid fa-spinner fa-spin"
           buttonWidth="100%"
-          class="signin-button"
-          >Signing In...</shared-button
-        >
+          class="signin-button">Signing In...</shared-button>
       } @else {
         <shared-button
           buttonType="submit"
@@ -62,42 +63,34 @@
           [addIcon]="true"
           iconClass="fa-solid fa-arrow-right"
           buttonWidth="100%"
-          class="signin-button"
-          >Sign In</shared-button
-        >
+          class="signin-button">Sign In</shared-button>
       }
     </form>
-    <span class="alternative-methods">
-      <hr />
+    <span
+      class="alternative-methods">
+      <hr  />
       <label class="small-helper-text">Or Continue With</label>
-      <hr />
+      <hr  />
     </span>
     <span>
       <shared-button
         buttonClass="white-background-secondary-color-border medium"
         [leftIcon]="true"
         [addIcon]="true"
-        iconClass="fa-brands fa-google"
-        >Google</shared-button
-      >
+        iconClass="fa-brands fa-google">Google</shared-button>
       <shared-button
         buttonClass="white-background-secondary-color-border medium"
         [leftIcon]="true"
         [addIcon]="true"
-        iconClass="fa-brands fa-apple"
-        >Apple</shared-button
-      >
+        iconClass="fa-brands fa-apple">Apple</shared-button>
     </span>
-    <label class="small-helper-text"
-      >Do not have an account?
+    <label class="small-helper-text">Do not have an account?
       <shared-button
         buttonClass="no-bg-prompt-color small-helper-text"
         [routerLink]="[
           '/auth/signup',
           { queryParams: { returnUrl: returnUrl } },
-        ]"
-        >Sign Up</shared-button
-      >
+        ]">Sign Up</shared-button>
     </label>
   </div>
 </main>

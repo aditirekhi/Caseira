@@ -4,17 +4,17 @@
       <article class="recipe-card-skeleton-container">
         <div class="image-skeleton"></div>
         <div class="recipe-card-skeleton-details">
-          <div class="row-skeleton"></div>
-          <div class="row-skeleton" [style.width.%]="30"></div>
-          <div class="row-skeleton" [style.width.%]="60"></div>
+          <div></div>
+          <div  [style.width.%]="30"></div>
+          <div  [style.width.%]="60"></div>
         </div>
       </article>
     }
   }
   @case ("row-skeleton") {
-    <div class="row-skeleton-list-container">
+    <div>
       @for (placeholder of placeholders; track $index) {
-        <div class="row-skeleton"></div>
+        <div></div>
       }
     </div>
   }
@@ -28,21 +28,21 @@
   @case ("todays-special") {
     <main class="todays-special-skeleton-container">
       <div class="todays-special-skeleton-details">
-        <div class="row-skeleton section-title-skeleton"></div>
-        <div class="row-skeleton recipe-title-skeleton"></div>
-        <div class="row-skeleton ratings-skeleton"></div>
-        <div class="row-skeleton specifications-skeleton"></div>
-        <div class="row-skeleton description-skeleton"></div>
-        <div class="row-skeleton description-skeleton short"></div>
-        <div class="row-skeleton price-skeleton"></div>
+        <div class="section-title-skeleton"></div>
+        <div class="recipe-title-skeleton"></div>
+        <div class="ratings-skeleton"></div>
+        <div class="specifications-skeleton"></div>
+        <div class="description-skeleton"></div>
+        <div class="description-skeleton short"></div>
+        <div class="price-skeleton"></div>
         <div class="todays-special-skeleton-actions">
-          <div class="row-skeleton action-skeleton"></div>
-          <div class="row-skeleton action-skeleton"></div>
+          <div class="action-skeleton"></div>
+          <div class="action-skeleton"></div>
         </div>
         <div class="todays-special-skeleton-features">
-          <div class="row-skeleton feature-skeleton"></div>
-          <div class="row-skeleton feature-skeleton"></div>
-          <div class="row-skeleton feature-skeleton"></div>
+          <div class="feature-skeleton"></div>
+          <div class="feature-skeleton"></div>
+          <div class="feature-skeleton"></div>
         </div>
       </div>
       <div class="todays-special-image-skeleton"></div>

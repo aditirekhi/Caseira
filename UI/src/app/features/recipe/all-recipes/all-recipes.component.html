@@ -1,29 +1,23 @@
 <main class="all-recipes-section">
   <section class="section-header-container">
-    <label class="section-heading section-header"
-      >All Recipes
+    <label class="section-heading section-header">All Recipes
       <img src="assets/header_icon.png" class="header-icon" />
     </label>
     <div class="sub-header-container">
-      <label class="secondary-text"
-        >Discover delicious recipe from our collection.</label
-      >
-      <label class="secondary-text"
-        >{{ totalNumberOfRecipes }} Recipes Found</label
-      >
+      <label class="secondary-text">Discover delicious recipe from our collection.</label>
+      <label class="secondary-text">{{ totalNumberOfRecipes }} Recipes Found</label>
     </div>
   </section>
   <section class="recipe-list-container">
-    @if (constants.globalScreenWidth() > 900) {
-      <span class="grid-cell filter-container">
+    @if (constants.globalScreenWidth()> 900) {
+      <span class="filter-container">
         @if (!checkIfAnyFilterApplied()) {
           <shared-tags
             tagClass="primage-bg-secondary-color-muted-background-color-border"
             tagName="Filter"
             [addIcon]="true"
             [leftIcon]="true"
-            iconClass="fa-solid fa-filter"
-          ></shared-tags>
+            iconClass="fa-solid fa-filter"></shared-tags>
         } @else {
           <shared-tags
             tagClass="primage-bg-secondary-color-muted-background-color-border"
@@ -31,23 +25,19 @@
             [addIcon]="true"
             [leftIcon]="true"
             iconClass="fa-solid fa-filter-circle-xmark"
-            (click)="clearAllFilters()"
-          ></shared-tags>
+            (click)="clearAllFilters()"></shared-tags>
         }
       </span>
-      <span class="grid-cell recipe-filters-container">
+      <span class="recipe-filters-container">
         <div class="filter-container">
           <div
             class="sorting-options-wrapper"
-            (focusout)="closeSortingOptionsOnFocusOut($event)"
-          >
+            (focusout)="closeSortingOptionsOnFocusOut($event)">
             <shared-button
               buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
               [addIcon]="true"
               iconClass="fa-solid fa-chevron-down"
-              (click)="toggleSortingOptions()"
-              >Sort By: {{ selectedSortingOption }}</shared-button
-            >
+              (click)="toggleSortingOptions()">Sort By: {{ selectedSortingOption }}</shared-button>
             @if (showSortingOptions) {
               <div class="sorting-options-container">
                 @for (option of sortingOptions | keyvalue; track option.key) {
@@ -60,9 +50,7 @@
                         option.value.direction,
                         option.value.label
                       )
-                    "
-                    >{{ option.value.label }}</shared-button
-                  >
+                    ">{{ option.value.label }}</shared-button>
                 }
               </div>
             }
@@ -73,9 +61,7 @@
               class="slider-checkbox"
               [(ngModel)]="showOnlyVegetarian"
             />
-            <span class="slider-container" (click)="toggleVegetarianFilter()"
-              ><span class="slider"></span
-            ></span>
+            <span class="slider-container" (click)="toggleVegetarianFilter()"><span class="slider"></span></span>
             <label>Vegetarian</label>
           </div>
           <div class="non-veg-filter-container">
@@ -84,9 +70,7 @@
               class="slider-checkbox"
               [(ngModel)]="showOnlyNonVegetarian"
             />
-            <span class="slider-container" (click)="toggleNonVegetarianFilter()"
-              ><span class="slider"></span
-            ></span>
+            <span class="slider-container" (click)="toggleNonVegetarianFilter()"><span class="slider"></span></span>
             <label>Non Vegetarian</label>
           </div>
         </div>
@@ -94,18 +78,14 @@
           <shared-button
             class="small-icon-display-button"
             [ngClass]="isGridView ? 'button-active' : ''"
-            (click)="togglePageView()"
-            ><i class="fa-solid fa-table-cells-large"></i
-          ></shared-button>
+            (click)="togglePageView()"><i class="fa-solid fa-table-cells-large"></i></shared-button>
           <shared-button
-            class="list-display-button"
+
             [ngClass]="!isGridView ? 'button-active' : ''"
-            (click)="togglePageView()"
-            ><i class="fa-solid fa-list"></i
-          ></shared-button>
+            (click)="togglePageView()"><i class="fa-solid fa-list"></i></shared-button>
         </span>
       </span>
-      <span class="grid-cell category-filter-container">
+      <span class="category-filter-container">
         <div class="category-cuisine-filter-header">
           <label class="card-title-recipe-name">Categories</label>
           <img src="assets/header_icon.png" class="filter-header-icon" />
@@ -115,8 +95,7 @@
             <li class="skeleton-list-container">
               <shared-skeleton
                 skeletonType="row-skeleton"
-                [skeletonRowCount]="10"
-              ></shared-skeleton>
+                [skeletonRowCount]="10"></shared-skeleton>
             </li>
           } @else {
             @for (category of categoriesDetails; track category.category_name) {
@@ -133,13 +112,8 @@
                     checkCategoryFilterApplied(category.category_id)
                       ? 'active-category-cuisine-filter'
                       : ''
-                  "
-                  ><shared-button class="category-cuisine-index-container"
-                    ><i
-                      [class]="getCategoryIcon(category.category_name)"
-                    ></i></shared-button
-                  >{{ category.category_name }}</span
-                ><label>{{ category.recipes_count }}</label>
+                  "><shared-button class="category-cuisine-index-container"><i
+                      [class]="getCategoryIcon(category.category_name)"></i></shared-button>{{ category.category_name }}</span><label>{{ category.recipes_count }}</label>
               </li>
             }
           }
@@ -153,8 +127,7 @@
             <li class="skeleton-list-container">
               <shared-skeleton
                 skeletonType="row-skeleton"
-                [skeletonRowCount]="10"
-              ></shared-skeleton>
+                [skeletonRowCount]="10"></shared-skeleton>
             </li>
           } @else {
             @for (region of regionsDetails; track region.region_id) {
@@ -168,12 +141,9 @@
                     checkRegionFilterApplied(region.region_id)
                       ? 'active-category-cuisine-filter'
                       : ''
-                  "
-                  ><shared-button class="category-cuisine-index-container">{{
+                  "><shared-button class="category-cuisine-index-container">{{
                     $index + 1
-                  }}</shared-button
-                  >{{ region.region_name }}</span
-                ><label>{{ region.recipes_count }}</label>
+                  }}</shared-button>{{ region.region_name }}</span><label>{{ region.recipes_count }}</label>
               </li>
             }
           }
@@ -186,20 +156,15 @@
           [addIcon]="true"
           [leftIcon]="true"
           iconClass="fa-solid fa-filter"
-          (click)="toggleFilterOptions()"
-          >Filter</shared-button
-        >
+          (click)="toggleFilterOptions()">Filter</shared-button>
         <div
           class="sorting-options-wrapper"
-          (focusout)="closeSortingOptionsOnFocusOut($event)"
-        >
+          (focusout)="closeSortingOptionsOnFocusOut($event)">
           <shared-button
             buttonClass="no-bg-secondary-color-muted-secondary-border medium small-helper-text"
             [addIcon]="true"
             iconClass="fa-solid fa-chevron-down"
-            (click)="toggleSortingOptions()"
-            >Sort By: {{ selectedSortingOption }}</shared-button
-          >
+            (click)="toggleSortingOptions()">Sort By: {{ selectedSortingOption }}</shared-button>
           @if (showSortingOptions) {
             <div class="sorting-filter-backdrop">
               <div class="sorting-options-container">
@@ -208,8 +173,7 @@
                   <shared-button
                     [iconOnly]="true"
                     iconClass="fa-solid fa-xmark"
-                    (click)="showSortingOptions = false"
-                  ></shared-button>
+                    (click)="showSortingOptions = false"></shared-button>
                 </span>
                 <div class="options-container">
                   @for (option of sortingOptions | keyvalue; track $index) {
@@ -243,22 +207,19 @@
                 <shared-button
                   [iconOnly]="true"
                   iconClass="fa-solid fa-xmark"
-                  (click)="showFilterOptions = false"
-                ></shared-button>
+                  (click)="showFilterOptions = false"></shared-button>
               </span>
               <div class="options-container">
                 <span
                   class="menu-title-drawer"
-                  (click)="toggleCategoriesFilters()"
-                >
+                  (click)="toggleCategoriesFilters()">
                   <label class="body-paragraph"><b>Categories</b></label>
                   <i
                     [ngClass]="
                       showCategoriesFilters
                         ? 'fa-solid fa-angle-up'
                         : 'fa-solid fa-angle-down'
-                    "
-                  ></i>
+                    "></i>
                 </span>
                 @if (showCategoriesFilters) {
                   <span class="category-options-container">
@@ -266,10 +227,8 @@
                       <span class="category-option">
                         <span class="secondary-text category-name-container">
                           <i
-                            [class]="getCategoryIcon(option.category_name)"
-                          ></i>
-                          {{ option.category_name }}</span
-                        >
+                            [class]="getCategoryIcon(option.category_name)"></i>
+                          {{ option.category_name }}</span>
                         <input
                           type="checkbox"
                           (change)="
@@ -285,16 +244,14 @@
                 }
                 <span
                   class="menu-title-drawer"
-                  (click)="toggleRegionsFilters()"
-                >
+                  (click)="toggleRegionsFilters()">
                   <label class="body-paragraph"><b>Regions</b></label>
                   <i
                     [ngClass]="
                       showRegionsFilters
                         ? 'fa-solid fa-angle-up'
                         : 'fa-solid fa-angle-down'
-                    "
-                  ></i>
+                    "></i>
                 </span>
                 @if (showRegionsFilters) {
                   <span class="region-options-container">
@@ -316,24 +273,20 @@
                             option.region_id,
                             option.region_name
                           )
-                        "
-                        >{{ option.region_name }}</shared-button
-                      >
+                        ">{{ option.region_name }}</shared-button>
                     }
                   </span>
                 }
                 <span
                   class="menu-title-drawer"
-                  (click)="toggleMealTypeFilters()"
-                >
+                  (click)="toggleMealTypeFilters()">
                   <label class="body-paragraph"><b>Meal Types</b></label>
                   <i
                     [ngClass]="
                       showMealTypeFilters
                         ? 'fa-solid fa-angle-up'
                         : 'fa-solid fa-angle-down'
-                    "
-                  ></i>
+                    "></i>
                 </span>
                 @if (showMealTypeFilters) {
                   <span class="meal-type-options-container">
@@ -345,9 +298,7 @@
                       "
                       [addIcon]="showOnlyVegetarian ? true : false"
                       iconClass="fa-solid fa-check"
-                      (click)="toggleVegetarianFilter()"
-                      >Vegetarian</shared-button
-                    >
+                      (click)="toggleVegetarianFilter()">Vegetarian</shared-button>
                     <shared-button
                       [buttonClass]="
                         showOnlyNonVegetarian
@@ -356,10 +307,7 @@
                       "
                       [addIcon]="showOnlyNonVegetarian ? true : false"
                       iconClass="fa-solid fa-check"
-                      (click)="toggleNonVegetarianFilter()"
-                      >Non-Vegetarian</shared-button
-                    ></span
-                  >
+                      (click)="toggleNonVegetarianFilter()">Non-Vegetarian</shared-button></span>
                 }
               </div>
             </div>
@@ -367,23 +315,19 @@
               <shared-button
                 buttonClass="no-bg-secondary-color-muted-secondary-border medium"
                 buttonWidth="100%"
-                (click)="clearAllFilters()"
-                >Clear All Filters</shared-button
-              >
+                (click)="clearAllFilters()">Clear All Filters</shared-button>
             </div>
           </div>
         }
       </span>
     }
     <span
-      class="grid-cell recipes-container"
-      [ngClass]="isGridView ? 'grid-view' : 'list-view'"
-    >
+      class="recipes-container"
+      [ngClass]="isGridView ? 'grid-view' : 'list-view'">
       @if (isRecipesLoading) {
         <shared-skeleton
           [skeletonType]="isGridView ? 'recipe-card' : 'row-skeleton'"
-          [skeletonRowCount]="isGridView ? 9 : 3"
-        ></shared-skeleton>
+          [skeletonRowCount]="isGridView ? 9 : 3"></shared-skeleton>
       } @else {
         @for (recipe of recipeDetails; track recipe.recipe_id) {
           <shared-recipe-card
@@ -396,8 +340,7 @@
             [recipeRating]="recipe.ratings"
             [timeToCook]="recipe.total_time"
             [noOfPeopleServes]="recipe.no_of_people_served"
-            [isVegetarian]="recipe.vegetarian"
-          ></shared-recipe-card>
+            [isVegetarian]="recipe.vegetarian"></shared-recipe-card>
           @if (!$last && !isGridView) {
             <div class="horizontal-divider"></div>
           }
@@ -408,7 +351,6 @@
   <shared-pagination
     [totalPages]="totalPages"
     [currentPage]="currentPage"
-    (selectedPage)="changeSelectedPage($event)"
-  ></shared-pagination>
+    (selectedPage)="changeSelectedPage($event)"></shared-pagination>
 </main>
 <app-footer></app-footer>

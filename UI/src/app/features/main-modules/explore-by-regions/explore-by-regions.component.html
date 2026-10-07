@@ -1,17 +1,17 @@
-<main class="explore-by-regions-section">
+<main
+  class="explore-by-regions-section">
   <div class="header-section">
     <label class="section-heading">Explore By Regions</label>
     <shared-button
       buttonClass="no-bg-secondary-color small"
       [addIcon]="true"
       iconClass="fa-solid fa-arrow-right"
-      routerLink="/regions/all"
-      >{{
-        constants.globalScreenWidth() > 900 ? "View All Regions" : "View All"
-      }}</shared-button
-    >
+      routerLink="/regions/all">{{
+        constants.globalScreenWidth()> 900 ? "View All Regions" : "View All"
+      }}</shared-button>
   </div>
-  <div class="regions-container">
+  <div
+    class="regions-container">
     @if (loadingRegions) {
       @for (regionSkeleton of getRegionsLength(); track $index) {
         <shared-skeleton skeletonType="recipe-card"></shared-skeleton>
@@ -22,8 +22,7 @@
           [regionId]="region.region_id"
           [regionName]="region.region_name"
           [noOfRecipes]="region.recipes_count"
-          [imageUrl]="region.image_url"
-        ></shared-regions-card>
+          [imageUrl]="region.image_url"></shared-regions-card>
       }
     }
   </div>

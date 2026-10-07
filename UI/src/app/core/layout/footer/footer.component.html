@@ -1,34 +1,39 @@
 <footer>
-  <div class="footer-message">
-    <img src="assets/Footer/footer_image.png" class="footer-image" />
+  <div
+    class="footer-message">
+    <img
+      src="assets/Footer/footer_image.png"
+      class="footer-image"
+    />
     <span class="footer-text">
-      <label class="card-title-recipe-name"
-        >Never Miss a Delicious Recipe!</label
-      >
-      <label class="secondary-text"
-        >Subscribe to get new recipes, offers and cooking tips.</label
-      >
+      <label class="card-title-recipe-name">Never Miss a Delicious Recipe!</label>
+      <label class="secondary-text">Subscribe to get new recipes, offers and cooking tips.</label>
     </span>
     <span>
-      <span class="native-input no-bg-font-border-primary shrink-0">
-        <input type="email" placeholder="Enter your email" />
+      <span class="native-input no-bg-font-border-primary">
+        <input
+
+          type="email"
+          placeholder="Enter your email"
+        />
       </span>
       <shared-button
-        buttonClass="prompt-background-secondary-color-no-border medium"
-        >Subscribe</shared-button
-      >
+        buttonClass="prompt-background-secondary-color-no-border medium">Subscribe</shared-button>
     </span>
   </div>
   <hr class="horizontal-divider" />
-  @if (constants.globalScreenWidth() > 900) {
-    <div class="information-container">
+  @if (constants.globalScreenWidth()> 900) {
+    <div
+      class="information-container">
       <div class="about-caseira">
-        <img src="assets/Logos/logo.png" class="logo-image" />
-        <label class="caseira-description small-helper-text"
-          >We deliver fresh, high-quality ingredients measured perfectly for
-          your favorite recipes.</label
-        >
-        <span class="social-media-panel">
+        <img
+          src="assets/Logos/logo.png"
+          class="logo-image"
+        />
+        <label class="caseira-description small-helper-text">We deliver fresh, high-quality ingredients measured perfectly for
+          your favorite recipes.</label>
+        <span
+          class="social-media-panel">
           <i class="fa-brands fa-instagram"></i>
           <i class="fa-brands fa-facebook"></i>
           <i class="fa-brands fa-x-twitter"></i>
@@ -77,30 +82,49 @@
       <div>
         <label class="captions-labels">We Accepts</label>
         <div class="payment-options">
-          <img src="assets/payments/visa.png" class="payment-image" />
-          <img src="assets/payments/mastercard.png" class="payment-image" />
+          <img
+            src="assets/payments/visa.png"
+            class="payment-image"
+          />
+          <img
+            src="assets/payments/mastercard.png"
+            class="payment-image"
+          />
           <img
             src="assets/payments/american_express.png"
             class="payment-image"
           />
         </div>
         <div class="payment-options">
-          <img src="assets/payments/gpay.png" class="payment-image" />
-          <img src="assets/payments/upi.png" class="payment-image" />
-          <img src="assets/payments/paytm.png" class="payment-image" />
+          <img
+            src="assets/payments/gpay.png"
+            class="payment-image"
+          />
+          <img
+            src="assets/payments/upi.png"
+            class="payment-image"
+          />
+          <img
+            src="assets/payments/paytm.png"
+            class="payment-image"
+          />
         </div>
         <span class="copyright-text">
-          <img src="assets/Footer/copyright.png" class="copyright-image" />
-          <label class="small-helper-text"
-            >2026 Caseira. All Rights Reserved.</label
-          >
+          <img
+            src="assets/Footer/copyright.png"
+            class="copyright-image"
+          />
+          <label class="small-helper-text">2026 Caseira. All Rights Reserved.</label>
         </span>
       </div>
     </div>
   } @else {
-    <div class="information-container">
+    <div
+      class="information-container">
       <div class="menu-card">
-        <span class="menu-header" (click)="toggleExploreMenu()">
+        <span
+          class="menu-header"
+          (click)="toggleExploreMenu()">
           <label class="body-paragraph">Explore</label>
           <i class="fa-solid fa-angle-down"></i>
         </span>
@@ -115,7 +139,9 @@
         }
       </div>
       <div class="menu-card">
-        <span class="menu-header" (click)="toggleHelpMenu()">
+        <span
+          class="menu-header"
+          (click)="toggleHelpMenu()">
           <label class="body-paragraph">Help</label>
           <i class="fa-solid fa-angle-down"></i>
         </span>
@@ -130,7 +156,9 @@
         }
       </div>
       <div class="menu-card">
-        <span class="menu-header" (click)="toggleCompanyMenu()">
+        <span
+          class="menu-header"
+          (click)="toggleCompanyMenu()">
           <label class="body-paragraph">Company</label>
           <i class="fa-solid fa-angle-down"></i>
         </span>
@@ -145,7 +173,9 @@
         }
       </div>
       <div class="menu-card">
-        <span class="menu-header" (click)="toggleLegalMenu()">
+        <span
+          class="menu-header"
+          (click)="toggleLegalMenu()">
           <label class="body-paragraph">Legal</label>
           <i class="fa-solid fa-angle-down"></i>
         </span>
@@ -159,7 +189,9 @@
         }
       </div>
       <div class="menu-card">
-        <span class="menu-header" (click)="toggleWeAcceptsMenu()">
+        <span
+          class="menu-header"
+          (click)="toggleWeAcceptsMenu()">
           <label class="body-paragraph">We Accepts</label>
           <i class="fa-solid fa-angle-down"></i>
         </span>
@@ -178,9 +210,7 @@
         }
         <span class="copyright-text">
           <img src="assets/Footer/copyright.png" class="copyright-image" />
-          <label class="small-helper-text"
-            >2026 Caseira. All Rights Reserved.</label
-          >
+          <label class="small-helper-text">2026 Caseira. All Rights Reserved.</label>
         </span>
       </div>
     </div>

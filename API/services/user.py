@@ -126,3 +126,14 @@ class UserService(BaseService[UserDetails]):
         await self._update(user)
         await self.session.commit()
         return {"message": "Password changed successfully"}
+
+    async def delete_user(self, email: str):
+        print("-------------------------------- Entering UserService.delete_user")
+        user = await self.get_user_by_email(email)
+
+        if not user:
+            return None
+
+        await self._delete(user)
+        await self.session.commit()
+        return user

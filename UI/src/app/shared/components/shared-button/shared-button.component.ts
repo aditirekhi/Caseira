@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy, input, output, inject, model, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, inject, model, ChangeDetectorRef, SimpleChanges } from '@angular/core';
+import { CookieService } from '../../../core/services/cookie.service';
 import { finalize } from 'rxjs';
 import { CartService } from '../../../core/services/cart.service';
-import { CartDetails, UpdateCartRequest } from '../../interfaces/cart.interface';
+import { CartDetails, CartIngredientMapping, CartRecipeMapping, UpdateCartRequest } from '../../interfaces/cart.interface';
 import { SharedToastNotificationService } from '../shared-toast-notification/shared-toast-notification.service';
 import { Constants } from '../constants/constants';
 
@@ -20,6 +21,7 @@ export class SharedButtonComponent {
   private changeDetection = inject(ChangeDetectorRef);
   private constants: Constants = inject(Constants);
   private cartService: CartService = inject(CartService);
+  private cookieService = inject(CookieService);
   private sharedToastNotificationService: SharedToastNotificationService = inject(SharedToastNotificationService);
 
   buttonClass = input<string>('');
@@ -33,7 +35,7 @@ export class SharedButtonComponent {
   buttonWidth = input<string>('');
   disabled = input<boolean>(false);
   addedToCartButton = input<boolean>(false);
-  recipeId = input<string | undefined>('');
+  itemId = input<string | undefined>('');
 
   recipeDeleted = output<boolean>();
 
@@ -41,25 +43,45 @@ export class SharedButtonComponent {
 
   addingReducingItemFromCart: boolean = false;
 
-  ngOnInit() {
-    if (this.addedToCartButton() && this.recipeId()) {
-      this.quantity = String(this.cartService.fetchRecipeDetailsInCart(this.recipeId() || '')?.quantity || 0);
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('Initializing SharedButtonComponent with itemId:', this.itemId());
+    if (this.addedToCartButton() && this.itemId()) {
+      console.log('Cart details from cookie:', this.cookieService.fetchCartDetailsFromCookie());
+      // this.quantity = String(this.cartService.fetchRecipeDetailsInCart(this.itemId() || '')?.quantity || '0');
+      this.quantity = String(this.cookieService.fetchCartDetailsFromCookie()?.recipe_in_cart
+        .find(recipe => recipe.recipe_id === this.itemId())?.quantity ||
+        this.cookieService.fetchCartDetailsFromCookie()?.ingredients_in_cart
+          .find(ingredient => ingredient.ingredient_id === this.itemId())?.quantity || '0');
     }
   }
 
   addItem() {
-    const recipeDetails = this.cartService.fetchRecipeDetailsInCart(this.recipeId() || '');
-    if (recipeDetails) {
+    const itemDetails = this.cookieService.fetchCartDetailsFromCookie()?.recipe_in_cart
+      .find(recipe => recipe.recipe_id === this.itemId()) ||
+      this.cookieService.fetchCartDetailsFromCookie()?.ingredients_in_cart
+        .find(ingredient => ingredient.ingredient_id === this.itemId());
+    if (itemDetails) {
       this.addingReducingItemFromCart = true;
-      const payload: UpdateCartRequest = {
-        recipe_in_cart: [{
-          cart_id: recipeDetails.cart_id,
-          recipe_id: recipeDetails.recipe_id,
-          quantity: recipeDetails.quantity + 1,
-          price: recipeDetails.price
-        }],
-        ingredients_in_cart: null
-      };
+      const payload: UpdateCartRequest = 'cart_ingredient_id' in itemDetails
+        ? {
+          recipe_in_cart: null,
+          ingredients_in_cart: [{
+            cart_id: itemDetails.cart_id,
+            ingredient_id: itemDetails.ingredient_id,
+            quantity: itemDetails.quantity + 1,
+            price: itemDetails.price,
+            recipe_id: itemDetails.recipe_id
+          }]
+        }
+        : {
+          recipe_in_cart: [{
+            cart_id: itemDetails.cart_id,
+            recipe_id: itemDetails.recipe_id,
+            quantity: itemDetails.quantity + 1,
+            price: itemDetails.price
+          }],
+          ingredients_in_cart: null
+        };
       this.cartService.updateCartDetails(payload)
         .pipe(
           finalize(() => {
@@ -72,7 +94,8 @@ export class SharedButtonComponent {
             if (typeof response === 'string') {
               this.sharedToastNotificationService.showNotification(response, this.constants.TOAST_NOTIFICATION_TYPES['ERROR']);
             } else {
-              this.quantity = String(response.recipe_in_cart.find(recipe => recipe.recipe_id === this.recipeId())?.quantity || 0);
+              this.quantity = String(response.recipe_in_cart.find(recipe => recipe.recipe_id === this.itemId())?.quantity ||
+                String(response.ingredients_in_cart.find(ingredient => ingredient.ingredient_id === this.itemId())?.quantity) || 0);
               if (this.quantity === '0') {
                 this.recipeDeleted.emit(true);
               }
@@ -86,17 +109,31 @@ export class SharedButtonComponent {
   }
 
   reduceItem() {
-    const recipeDetails = this.cartService.fetchRecipeDetailsInCart(this.recipeId() || '');
-    if (recipeDetails && recipeDetails.quantity > 0) {
-      const updateRequest: UpdateCartRequest = {
-        recipe_in_cart: [{
-          cart_id: recipeDetails.cart_id,
-          recipe_id: recipeDetails.recipe_id,
-          quantity: recipeDetails.quantity - 1,
-          price: recipeDetails.price
-        }],
-        ingredients_in_cart: null
-      };
+    const itemDetails = this.cookieService.fetchCartDetailsFromCookie()?.recipe_in_cart
+      .find(recipe => recipe.recipe_id === this.itemId()) || this.cookieService.fetchCartDetailsFromCookie()?.ingredients_in_cart
+        .find(ingredient => ingredient.ingredient_id === this.itemId());
+
+    if (itemDetails && itemDetails.quantity > 0) {
+      const updateRequest: UpdateCartRequest = 'cart_ingredient_id' in itemDetails
+        ? {
+          recipe_in_cart: null,
+          ingredients_in_cart: [{
+            cart_id: itemDetails.cart_id,
+            ingredient_id: itemDetails.ingredient_id,
+            quantity: itemDetails.quantity - 1,
+            price: itemDetails.price,
+            recipe_id: itemDetails.recipe_id
+          }]
+        }
+        : {
+          recipe_in_cart: [{
+            cart_id: itemDetails.cart_id,
+            recipe_id: itemDetails.recipe_id,
+            quantity: itemDetails.quantity - 1,
+            price: itemDetails.price
+          }],
+          ingredients_in_cart: null
+        };
       this.addingReducingItemFromCart = true;
       this.cartService.updateCartDetails(updateRequest)
         .pipe(
@@ -110,7 +147,8 @@ export class SharedButtonComponent {
             if (typeof response === 'string') {
               this.sharedToastNotificationService.showNotification(response, this.constants.TOAST_NOTIFICATION_TYPES['ERROR']);
             } else {
-              this.quantity = String(response.recipe_in_cart.find(recipe => recipe.recipe_id === this.recipeId())?.quantity || 0);
+              this.quantity = String(response.recipe_in_cart.find(recipe => recipe.recipe_id === this.itemId())?.quantity ||
+                String(response.ingredients_in_cart.find(ingredient => ingredient.ingredient_id === this.itemId())?.quantity) || 0);
               if (this.quantity === '0') {
                 this.recipeDeleted.emit(true);
               }

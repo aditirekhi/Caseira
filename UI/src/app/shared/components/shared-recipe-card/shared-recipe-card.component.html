@@ -13,21 +13,19 @@
           [iconOnly]="true"
           [disabled]="favoriteToggleInProgress"
           (click)="toggleRecipeInFavorites()"
-          buttonClass="no-background-secondary-color-border small"
-        ></shared-button>
+          buttonClass="no-background-secondary-color-border small"></shared-button>
       </div>
       <img [src]="'assets/' + imageUrl()" class="recipe-image" />
     </div>
     <div class="recipe-details">
       <shared-button
-        buttonClass="no-bg-secondary-color "
-        [routerLink]="['/recipe', recipeId()]"
-      >
+        buttonClass="no-bg-secondary-color"
+        [routerLink]="['/recipe', recipeId()]">
         <span class="card-title-recipe-name">{{ recipeName() }}</span>
       </shared-button>
       <div class="recipe-details-container">
         <div class="recipe-ratings small-helper-text">
-          @if (constants.globalScreenWidth() > 900) {
+          @if (constants.globalScreenWidth()> 900) {
             @for (i of getRange(recipeRating()); track $index) {
               <i class="fa-solid fa-star filled"></i>
             }
@@ -48,7 +46,7 @@
             <i class="fa-solid fa-clock"></i>
             <label>{{ timeToCook() }}</label>
           </span>
-          @if (constants.globalScreenWidth() > 900) {
+          @if (constants.globalScreenWidth()> 900) {
             <span class="recipe-serves">
               <i class="fa-solid fa-users"></i>
               <label>Serves {{ noOfPeopleServes() }}</label>
@@ -61,34 +59,26 @@
         </div>
       </div>
       <div class="recipe-pricing">
-        <span class="recipe-price large-highlight-text"
-          >&#8377; {{ kitPrice() }}</span
-        >
+        <span class="recipe-price large-highlight-text">&#8377; {{ kitPrice() }}</span>
         @if (recipeInCart) {
           <shared-button
             buttonClass="dark small"
             [addedToCartButton]="true"
-            [recipeId]="recipeId()"
-            (recipeDeleted)="removeRecipeFromCart()"
-          ></shared-button>
+            [itemId]="recipeId()"
+            (recipeDeleted)="removeRecipeFromCart()"></shared-button>
         } @else if (addToCartInProgress) {
           <shared-button
             buttonClass="secondary-background-primary-color-no-border small"
             [addIcon]="true"
             iconClass="fa-solid fa-spin fa-spinner"
-            [recipeId]="recipeId()"
-            [disabled]="true"
-            >Adding...</shared-button
-          >
+            [itemId]="recipeId()"
+            [disabled]="true">Adding...</shared-button>
         } @else {
           <shared-button
             buttonClass="secondary-background-primary-color-no-border small"
             [addIcon]="true"
             iconClass="fa-solid fa-cart-plus"
-            customPadding="0.5rem"
-            (click)="addToCart($event)"
-            >Add Kit</shared-button
-          >
+            (click)="addToCart($event)">Add Kit</shared-button>
         }
       </div>
     </div>
@@ -122,10 +112,8 @@
               ? 'fa-solid fa-bookmark'
               : 'fa-regular fa-bookmark'
         "
-        customPadding="0.5rem"
         [disabled]="bookmarkToggleInProgress"
-        (click)="toggleBookmark()"
-      ></shared-button>
+        (click)="toggleBookmark()"></shared-button>
     </span>
   </div>
 } @else if (recipeOnly() && cardDirection() === "column") {
@@ -143,14 +131,12 @@
               : 'fa-regular fa-bookmark'
         "
         [disabled]="bookmarkToggleInProgress"
-        (click)="toggleBookmark()"
-      ></shared-button>
+        (click)="toggleBookmark()"></shared-button>
     </span>
     <span class="recipe-only-details-container">
       <shared-button
-        buttonClass="no-bg-secondary-color "
-        [routerLink]="['/recipe', recipeId()]"
-      >
+        buttonClass="no-bg-secondary-color"
+        [routerLink]="['/recipe', recipeId()]">
         <span class="card-title-recipe-name">{{ recipeName() }}</span>
       </shared-button>
       <span class="ratings-container">
@@ -169,26 +155,20 @@
         <label>({{ reviewCount() }})</label>
       </span>
       <span class="recipe-only-details">
-        <label class="small-helper-text"
-          ><i class="fa-solid fa-clock"></i> {{ timeToCook() }}</label
-        >
-        <label class="small-helper-text"
-          ><i class="fa-solid fa-users"></i> Serves
-          {{ noOfPeopleServes() }}</label
-        >
+        <label class="small-helper-text"><i class="fa-solid fa-clock"></i> {{ timeToCook() }}</label>
+        <label class="small-helper-text"><i class="fa-solid fa-users"></i> Serves
+          {{ noOfPeopleServes() }}</label>
       </span>
       @if (isVegetarian()) {
         <shared-tags
           tagName="Vegetarian"
           class="small-helper-text"
-          tagClass="veg-tag"
-        ></shared-tags>
+          tagClass="veg-tag"></shared-tags>
       } @else {
         <shared-tags
           tagName="Non-Vegetarian"
           class="small-helper-text"
-          tagClass="non-veg-tag"
-        ></shared-tags>
+          tagClass="non-veg-tag"></shared-tags>
       }
     </span>
   </div>
@@ -197,9 +177,8 @@
     <img [src]="'assets/' + imageUrl()" class="recipe-only-row-image" />
     <span class="recipe-only-details-container">
       <shared-button
-        buttonClass="no-bg-secondary-color "
-        [routerLink]="['/recipe', recipeId()]"
-      >
+        buttonClass="no-bg-secondary-color"
+        [routerLink]="['/recipe', recipeId()]">
         <span class="card-title-recipe-name">{{ recipeName() }}</span>
       </shared-button>
       <span class="ratings-container">
@@ -218,26 +197,20 @@
         <label>({{ reviewCount() }})</label>
       </span>
       <span class="recipe-only-details">
-        <label class="small-helper-text"
-          ><i class="fa-solid fa-clock"></i> {{ timeToCook() }}</label
-        >
-        <label class="small-helper-text"
-          ><i class="fa-solid fa-users"></i> Serves
-          {{ noOfPeopleServes() }}</label
-        >
+        <label class="small-helper-text"><i class="fa-solid fa-clock"></i> {{ timeToCook() }}</label>
+        <label class="small-helper-text"><i class="fa-solid fa-users"></i> Serves
+          {{ noOfPeopleServes() }}</label>
       </span>
       @if (isVegetarian()) {
         <shared-tags
           tagName="Vegetarian"
           class="small-helper-text"
-          tagClass="veg-tag"
-        ></shared-tags>
+          tagClass="veg-tag"></shared-tags>
       } @else {
         <shared-tags
           tagName="Non-Vegetarian"
           class="small-helper-text"
-          tagClass="non-veg-tag"
-        ></shared-tags>
+          tagClass="non-veg-tag"></shared-tags>
       }
     </span>
     <span class="bookmark-container">
@@ -250,8 +223,7 @@
               ? 'fa-solid fa-bookmark'
               : 'fa-regular fa-bookmark'
         "
-        (click)="toggleBookmark()"
-      ></shared-button>
+        (click)="toggleBookmark()"></shared-button>
     </span>
   </div>
 }

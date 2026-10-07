@@ -1,20 +1,26 @@
-<main class="login-container">
+<main
+  class="login-container">
   <div class="login-form">
-    <img src="assets/Logos/logo-small.png" class="logo-small" />
+    <img
+      src="assets/Logos/logo-small.png"
+      class="logo-small"
+    />
     <label class="card-title-recipe-name">Create Account</label>
-    <label class="small-helper-text"
-      >Join thousands of people eating healthier every day.</label
-    >
-    <form [formGroup]="signInForm" (ngSubmit)="signInSubmission()">
+    <label class="small-helper-text">Join thousands of people eating healthier every day.</label>
+    <form
+
+      [formGroup]="signInForm"
+      (ngSubmit)="signInSubmission()">
       <div class="form-container">
-        <div class="name-container">
+        <div
+          class="name-container">
           <span class="input-container">
             <label class="captions-labels">First Name</label>
             <span
-              class="native-input no-bg-font-border-secondary small-helper-text"
-            >
+              class="native-input no-bg-font-border-secondary small-helper-text">
               <i class="fa-solid fa-user"></i>
               <input
+
                 type="text"
                 placeholder="First Name"
                 formControlName="firstName"
@@ -24,10 +30,10 @@
           <span class="input-container">
             <label class="captions-labels">Last Name</label>
             <span
-              class="native-input no-bg-font-border-secondary small-helper-text"
-            >
+              class="native-input no-bg-font-border-secondary small-helper-text">
               <i class="fa-solid fa-user"></i>
               <input
+
                 type="text"
                 placeholder="Last Name"
                 formControlName="lastName"
@@ -38,10 +44,10 @@
         <span class="input-container">
           <label class="captions-labels">Email</label>
           <span
-            class="native-input no-bg-font-border-secondary small-helper-text"
-          >
+            class="native-input no-bg-font-border-secondary small-helper-text">
             <i class="fa-solid fa-envelope"></i>
             <input
+
               type="email"
               placeholder="Enter your Email"
               formControlName="emailAddress"
@@ -51,10 +57,10 @@
         <span class="input-container">
           <label class="captions-labels">Password</label>
           <span
-            class="native-input no-bg-font-border-secondary small-helper-text"
-          >
+            class="native-input no-bg-font-border-secondary small-helper-text">
             <i class="fa-solid fa-lock"></i>
             <input
+
               type="password"
               placeholder="Create password"
               formControlName="password"
@@ -64,31 +70,31 @@
         <span class="input-container">
           <label class="captions-labels">Confirm Password</label>
           <span
-            class="native-input no-bg-font-border-secondary small-helper-text"
-          >
+            class="native-input no-bg-font-border-secondary small-helper-text">
             <i class="fa-solid fa-lock"></i>
             <input
+
               type="password"
               placeholder="Confirm password"
               formControlName="confirmPassword"
             />
           </span>
         </span>
-        <div class="accept-policy-container">
+        <div
+          class="accept-policy-container">
           <input
             class="policy-checkbox"
             type="checkbox"
             formControlName="policyAccepted"
           />
-          <span class="small-helper-text"
-            >I agree to the
+          <span class="small-helper-text">I agree to the
             <label class="highlight-text">Terms of Service</label> and
-            <label class="highlight-text">Privacy Policy.</label></span
-          >
+            <label class="highlight-text">Privacy Policy.</label></span>
         </div>
       </div>
       @if (formHasErrors) {
-        <span class="error-message small-helper-text">
+        <span
+          class="error-message small-helper-text">
           <i class="fa-solid fa-circle-info"></i>{{ errorMessage }}
         </span>
       }
@@ -100,9 +106,7 @@
           iconClass="fa-solid fa-spinner fa-spin"
           buttonWidth="100%"
           class="signin-button"
-          [disabled]="true"
-          >Signing In...</shared-button
-        >
+          [disabled]="true">Signing In...</shared-button>
       } @else {
         <shared-button
           buttonType="submit"
@@ -110,42 +114,34 @@
           [addIcon]="true"
           iconClass="fa-solid fa-arrow-right"
           buttonWidth="100%"
-          class="signin-button"
-          >Sign In</shared-button
-        >
+          class="signin-button">Sign In</shared-button>
       }
     </form>
-    <span class="alternative-methods">
-      <hr />
+    <span
+      class="alternative-methods">
+      <hr  />
       <label class="small-helper-text">Or Continue With</label>
-      <hr />
+      <hr  />
     </span>
     <span>
       <shared-button
         buttonClass="white-background-secondary-color-border small"
         [leftIcon]="true"
         [addIcon]="true"
-        iconClass="fa-brands fa-google"
-        >Google</shared-button
-      >
+        iconClass="fa-brands fa-google">Google</shared-button>
       <shared-button
         buttonClass="white-background-secondary-color-border small"
         [leftIcon]="true"
         [addIcon]="true"
-        iconClass="fa-brands fa-apple"
-        >Apple</shared-button
-      >
+        iconClass="fa-brands fa-apple">Apple</shared-button>
     </span>
-    <label class="small-helper-text"
-      >Already have an account?
+    <label class="small-helper-text">Already have an account?
       <shared-button
         buttonClass="no-bg-prompt-color small-helper-text"
         [routerLink]="[
           '/auth/login',
           { queryParams: { returnUrl: returnUrl } },
-        ]"
-        >Sign In</shared-button
-      >
+        ]">Sign In</shared-button>
     </label>
   </div>
 </main>

@@ -194,3 +194,17 @@ form {
     padding: 1.5rem;
   }
 }
+
+.login-form {
+  left: 50%;
+  width: min(38rem, 92vw);
+  height: auto;
+  min-height: 42rem;
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  transform: translate(-50%, -50%);
+}
+
+.highlight-text {
+  color: var(--prompt-color);
+}

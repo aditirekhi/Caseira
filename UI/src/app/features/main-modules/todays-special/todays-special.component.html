@@ -1,14 +1,19 @@
 @if (!todaysSpecialRecipe) {
   <shared-skeleton skeletonType="todays-special"></shared-skeleton>
 } @else {
-  <main class="todays-special-section">
+  <main
+    class="todays-special-section">
     <div class="todays-special-details">
-      <label class="section-header feature-title"> TODAY'S FEATURED KIT </label>
-      <label class="recipe-name section-heading">{{
-        todaysSpecialRecipe.recipe_name
-      }}</label>
-      <div class="recipe-details-container">
-        <span class="recipe-ratings">
+      <label
+        class="section-header feature-title">
+        TODAY'S FEATURED KIT
+      </label>
+      <label
+        class="recipe-name section-heading">{{ todaysSpecialRecipe.recipe_name }}</label>
+      <div
+        class="recipe-details-container">
+        <span
+          class="recipe-ratings">
           @for (i of getRange(todaysSpecialRecipe.ratings); track $index) {
             <i class="fa-solid fa-star filled"></i>
           }
@@ -21,9 +26,7 @@
           <label class="number-of-reviews small-helper-text">{{
             todaysSpecialRecipe.ratings
           }}</label>
-          <label class="number-of-reviews small-helper-text"
-            >({{ todaysSpecialRecipe.review_count }})</label
-          >
+          <label class="number-of-reviews small-helper-text">({{ todaysSpecialRecipe.review_count }})</label>
         </span>
         <div class="recipe-specifications">
           <span class="recipe-time captions-labels">
@@ -36,12 +39,14 @@
           </span>
         </div>
       </div>
-      @if (constants.globalScreenWidth() > 900) {
-        <label class="recipe-description body-paragraph">
+      @if (constants.globalScreenWidth()> 900) {
+        <label
+          class="recipe-description body-paragraph">
           {{ todaysSpecialRecipe.recipe_description }}
         </label>
       }
-      <label class="pricing large-highlight-text">
+      <label
+        class="pricing large-highlight-text">
         &#8377; {{ todaysSpecialRecipe.kit_price }}
       </label>
       <span class="responsive-button-image-container">
@@ -50,36 +55,29 @@
             <shared-button
               buttonClass="prompt medium"
               [addedToCartButton]="true"
-              [recipeId]="todaysSpecialRecipe.recipe_id"
-              (recipeDeleted)="removeRecipeFromCart()"
-            ></shared-button>
+              [itemId]="todaysSpecialRecipe.recipe_id"
+              (recipeDeleted)="removeRecipeFromCart()"></shared-button>
           } @else if (addToCartInProgress) {
             <shared-button
               buttonClass="prompt-background-secondary-color-no-border medium"
               [addIcon]="true"
               iconClass="fa-solid fa-spinner fa-spin"
-              [recipeId]="todaysSpecialRecipe.recipe_id"
-              [disabled]="true"
-              >Adding to Cart...</shared-button
-            >
+              [itemId]="todaysSpecialRecipe.recipe_id"
+              [disabled]="true">Adding to Cart...</shared-button>
           } @else {
             <shared-button
               buttonClass="prompt-background-secondary-color-no-border medium"
               [addIcon]="true"
               iconClass="fa-solid fa-cart-plus"
-              (click)="addToCart(todaysSpecialRecipe.recipe_id)"
-              >{{
-                constants.globalScreenWidth() > 900
+              (click)="addToCart(todaysSpecialRecipe.recipe_id)">{{
+                constants.globalScreenWidth()> 900
                   ? "Add Ingredient Kit"
                   : "Add Kit"
-              }}</shared-button
-            >
+              }}</shared-button>
           }
           <shared-button
             buttonClass="no-bg-primary-color-prompt-border medium"
-            [routerLink]="['/recipe', todaysSpecialRecipe.recipe_id]"
-            >View Recipe</shared-button
-          >
+            [routerLink]="['/recipe', todaysSpecialRecipe.recipe_id]">View Recipe</shared-button>
         </span>
         @if (constants.globalScreenWidth() < 900) {
           <img
@@ -88,33 +86,31 @@
           />
         }
       </span>
-      @if (constants.globalScreenWidth() > 900) {
-        <span class="feature-panel small-helper-text">
+      @if (constants.globalScreenWidth()> 900) {
+        <span
+          class="feature-panel small-helper-text">
           <span class="feature-span">
             <img
               src="assets/TodaysSpecial/FreshAndHighQuality.png"
               class="feature-image"
             />
-            <label>Fresh Ingredients</label></span
-          >
+            <label>Fresh Ingredients</label></span>
           <span class="feature-span">
             <img
               src="assets/TodaysSpecial/ExactQualityForEachRecipe.png"
               class="feature-image"
             />
-            <label>Perfect Quantities</label></span
-          >
+            <label>Perfect Quantities</label></span>
           <span class="feature-span">
             <img
               src="assets/TodaysSpecial/DeliveredInTime.png"
               class="feature-image"
             />
-            <label>2-4 hrs Delivery</label></span
-          >
+            <label>2-4 hrs Delivery</label></span>
         </span>
       }
     </div>
-    @if (constants.globalScreenWidth() > 900) {
+    @if (constants.globalScreenWidth()> 900) {
       <img
         [src]="'assets/' + todaysSpecialRecipe.image_url"
         class="todays-special-image"
